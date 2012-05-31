@@ -77,6 +77,8 @@
 -(void)nextpeerDidTournamentStartWithDetails:(NPTournamentStartDataContainer *)tournamentContainer
 {
     //TODO 
+    
+    NSLog( @"Tourname Started" );
 }
 
 ////////////////////////////////////////////////////////////
@@ -89,6 +91,8 @@
 -(void)nextpeerDidTournamentEnd
 {
     //TODO 
+    
+    NSLog( @"Tourname Ended" );
 }
 
 
