@@ -35,7 +35,7 @@
 
 - (IBAction)onSinglePlayer:(id)sender
 {
-    //TODO
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"StartGame" object:nil];
 }
 
 

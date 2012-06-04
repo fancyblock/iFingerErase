@@ -10,6 +10,11 @@
 
 #import "ViewController.h"
 
+@interface AppDelegate(private)
+
+- (void)startGame;
+
+@end
 
 
 @implementation AppDelegate
@@ -35,7 +40,11 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
+    m_gameViewController = [[GameStage alloc] initWithNibName:@"GameStage" bundle:nil];
+    
     [Nextpeer initializeWithProductKey:NEXTPEER_KEY andDelegates:[NPDelegatesContainer containerWithNextpeerDelegate:self tournamentDelegate:self]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startGame) name:@"StartGame" object:nil];
     
     return YES;
 }
@@ -65,6 +74,19 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    [m_gameViewController release];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"StartGame" object:nil];
+}
+
+
+/**
+ * @desc    start game
+ */
+- (void)startGame
+{
+    [self.viewController presentViewController:m_gameViewController animated:NO completion:nil];
 }
      
 
@@ -76,10 +98,11 @@
 ////////////////////////////////////////////////////////////
 -(void)nextpeerDidTournamentStartWithDetails:(NPTournamentStartDataContainer *)tournamentContainer
 {
-    //TODO 
+    [self.viewController presentViewController:m_gameViewController animated:YES completion:nil];
     
     NSLog( @"Tourname Started" );
 }
+
 
 ////////////////////////////////////////////////////////////
 ///
@@ -90,7 +113,7 @@
 ////////////////////////////////////////////////////////////
 -(void)nextpeerDidTournamentEnd
 {
-    //TODO 
+    [m_gameViewController dismissViewControllerAnimated:YES completion:nil];
     
     NSLog( @"Tourname Ended" );
 }
@@ -108,6 +131,7 @@
 {
     //TODO 
 }
+
 
 ////////////////////////////////////////////////////////////
 ///

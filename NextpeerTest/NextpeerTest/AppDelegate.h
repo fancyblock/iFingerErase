@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "Nextpeer/Nextpeer.h"
+#import "GameStage.h"
 
 #define NEXTPEER_KEY    @"670eb38993b782f75bca7178ca19dc9927adbe79"
 
 @class ViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, NextpeerDelegate, NPTournamentDelegate>
+{
+    GameStage* m_gameViewController;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

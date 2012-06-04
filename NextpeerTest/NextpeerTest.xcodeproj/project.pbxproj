@@ -17,6 +17,8 @@
 		CF55A1931575D7240055F5CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1921575D7240055F5CA /* CFNetwork.framework */; };
 		CF55A1951575D72D0055F5CA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1941575D72D0055F5CA /* MessageUI.framework */; };
 		CF55A1971575D7360055F5CA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1961575D7360055F5CA /* QuartzCore.framework */; };
+		CF7BB349157C705900E4EBEE /* GameStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7BB347157C705900E4EBEE /* GameStage.m */; };
+		CF7BB34A157C705900E4EBEE /* GameStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB348157C705900E4EBEE /* GameStage.xib */; };
 		CF7BFF09157737A600B51DB9 /* ICON.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BFF08157737A600B51DB9 /* ICON.png */; };
 		CF7C52731575C608008F929A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF7C52721575C608008F929A /* UIKit.framework */; };
 		CF7C52751575C608008F929A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF7C52741575C608008F929A /* Foundation.framework */; };
@@ -39,6 +41,9 @@
 		CF55A1921575D7240055F5CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CF55A1941575D72D0055F5CA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CF55A1961575D7360055F5CA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CF7BB346157C705900E4EBEE /* GameStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStage.h; sourceTree = "<group>"; };
+		CF7BB347157C705900E4EBEE /* GameStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStage.m; sourceTree = "<group>"; };
+		CF7BB348157C705900E4EBEE /* GameStage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameStage.xib; sourceTree = "<group>"; };
 		CF7BFF08157737A600B51DB9 /* ICON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ICON.png; sourceTree = "<group>"; };
 		CF7C526E1575C608008F929A /* NextpeerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextpeerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF7C52721575C608008F929A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -119,6 +124,9 @@
 		CF7C52781575C608008F929A /* NextpeerTest */ = {
 			isa = PBXGroup;
 			children = (
+				CF7BB346157C705900E4EBEE /* GameStage.h */,
+				CF7BB347157C705900E4EBEE /* GameStage.m */,
+				CF7BB348157C705900E4EBEE /* GameStage.xib */,
 				CF7C52811575C608008F929A /* AppDelegate.h */,
 				CF7C52821575C608008F929A /* AppDelegate.m */,
 				CF7C52841575C608008F929A /* ViewController.h */,
@@ -194,6 +202,7 @@
 				CF7C52891575C608008F929A /* ViewController.xib in Resources */,
 				CF55A1871575D30E0055F5CA /* NPResources_iPhone_Portrait.bundle in Resources */,
 				CF7BFF09157737A600B51DB9 /* ICON.png in Resources */,
+				CF7BB34A157C705900E4EBEE /* GameStage.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +216,7 @@
 				CF7C527F1575C608008F929A /* main.m in Sources */,
 				CF7C52831575C608008F929A /* AppDelegate.m in Sources */,
 				CF7C52861575C608008F929A /* ViewController.m in Sources */,
+				CF7BB349157C705900E4EBEE /* GameStage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
