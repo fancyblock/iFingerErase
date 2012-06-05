@@ -28,6 +28,7 @@
 		CF7C52831575C608008F929A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7C52821575C608008F929A /* AppDelegate.m */; };
 		CF7C52861575C608008F929A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7C52851575C608008F929A /* ViewController.m */; };
 		CF7C52891575C608008F929A /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7C52871575C608008F929A /* ViewController.xib */; };
+		CF80DF1F157DBB8800E5F2C0 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF80DF1E157DBB8800E5F2C0 /* CanvasView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,8 @@
 		CF7C52841575C608008F929A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		CF7C52851575C608008F929A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CF7C52881575C608008F929A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		CF80DF1D157DBB8800E5F2C0 /* CanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanvasView.h; sourceTree = "<group>"; };
+		CF80DF1E157DBB8800E5F2C0 /* CanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanvasView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,8 @@
 		CF7C52781575C608008F929A /* NextpeerTest */ = {
 			isa = PBXGroup;
 			children = (
+				CF80DF1D157DBB8800E5F2C0 /* CanvasView.h */,
+				CF80DF1E157DBB8800E5F2C0 /* CanvasView.m */,
 				CF7BB346157C705900E4EBEE /* GameStage.h */,
 				CF7BB347157C705900E4EBEE /* GameStage.m */,
 				CF7BB348157C705900E4EBEE /* GameStage.xib */,
@@ -217,6 +222,7 @@
 				CF7C52831575C608008F929A /* AppDelegate.m in Sources */,
 				CF7C52861575C608008F929A /* ViewController.m in Sources */,
 				CF7BB349157C705900E4EBEE /* GameStage.m in Sources */,
+				CF80DF1F157DBB8800E5F2C0 /* CanvasView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -87,6 +87,7 @@
 - (void)startGame
 {
     [self.viewController presentViewController:m_gameViewController animated:NO completion:nil];
+    [m_gameViewController Start];
 }
      
 

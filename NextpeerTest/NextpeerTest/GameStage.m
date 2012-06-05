@@ -9,11 +9,19 @@
 #import "GameStage.h"
 #import "Nextpeer/Nextpeer.h"
 
-@interface GameStage ()
+@interface GameStage (private)
+
+- (void)gameFrame;
 
 @end
 
 @implementation GameStage
+
+
+@synthesize _time;
+@synthesize _glass;
+@synthesize _percent;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -51,7 +59,12 @@
  */
 - (void)Start
 {
-    //TODO 
+    [self._glass Initial];
+    
+    // start the game loop
+    self->m_tick = [CADisplayLink displayLinkWithTarget:self selector:@selector(gameFrame)];		
+    self->m_tick.frameInterval = 2;		
+    [m_tick addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 
@@ -62,7 +75,9 @@
  */
 - (void)End
 {
-    //TODO 
+    // stop the game loop
+    [m_tick removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [m_tick release];
 }
 
 
@@ -73,7 +88,20 @@
  */
 - (IBAction)Exit:(id)sender
 {
+    [self End];
     [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+
+//---------------------------------- private function ------------------------------------
+
+
+// game frame
+- (void)gameFrame
+{
+    //TODO 
+    
+    [self._glass setNeedsDisplay];
 }
 
 @end

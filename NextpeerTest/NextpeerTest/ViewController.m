@@ -3,7 +3,7 @@
 //  NextpeerTest
 //
 //  Created by He jia bin on 5/30/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 CoconutIslandStudio. All rights reserved.
 //
 
 #import "ViewController.h"
