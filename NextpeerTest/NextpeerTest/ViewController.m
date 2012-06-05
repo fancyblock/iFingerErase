@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "Nextpeer/Nextpeer.h"
+#import "FacebookManager.h"
 
 @interface ViewController ()
 
@@ -29,7 +30,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return NO;
+    return ( interfaceOrientation == UIInterfaceOrientationPortrait );
 }
 
 
@@ -47,7 +48,12 @@
 
 - (IBAction)onSettings:(id)sender
 {
-    //TODO
+    //TEMP
+    
+    if( [FacebookManager sharedInstance].IsAuthenticated == NO )
+    {
+        [[FacebookManager sharedInstance] Authenticate:nil withCallback:nil];
+    }
 }
 
 

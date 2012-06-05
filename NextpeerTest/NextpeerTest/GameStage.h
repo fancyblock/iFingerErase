@@ -10,10 +10,16 @@
 #import "CanvasView.h"
 #import <QuartzCore/CADisplayLink.h>
 
+#define RADIUS  5
+
 
 @interface GameStage : UIViewController
 {
     CADisplayLink* m_tick;
+    BOOL m_isInTouch;
+    
+    int m_lastX;
+    int m_lastY;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel* _time;

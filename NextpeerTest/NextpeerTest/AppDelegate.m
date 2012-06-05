@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "FacebookManager.h"
 #import "ViewController.h"
 
 @interface AppDelegate(private)
@@ -40,11 +40,18 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
+    // initial the Parse
+    [Parse setApplicationId:@"8gBQ4Cy6GsAoxQKWEsSK041BIpiV1q2RdshLfXN1"
+                  clientKey:@"n1uFcMDQxXBvV3lrXsWm6mxOpttoO66PDgTNsfXw"];
+    
     m_gameViewController = [[GameStage alloc] initWithNibName:@"GameStage" bundle:nil];
     
+    // initial the NextPeer
     [Nextpeer initializeWithProductKey:NEXTPEER_KEY andDelegates:[NPDelegatesContainer containerWithNextpeerDelegate:self tournamentDelegate:self]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startGame) name:@"StartGame" object:nil];
+    
+    [FacebookManager sharedInstance];
     
     return YES;
 }
@@ -144,6 +151,18 @@
 -(void)nextpeerDidReceiveTournamentResults:(NPTournamentEndDataContainer*)tournamentContainer
 {
     //TODO 
+}
+
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url  // Will be deprecated at some point, please replace with application:openURL:sourceApplication:annotation:
+{
+    return [[FacebookManager sharedInstance].Facebook handleOpenURL:url];
+}
+
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_2) // no equiv. notification. return NO if the application can't open for some reason
+{
+    return [[FacebookManager sharedInstance].Facebook handleOpenURL:url];
 }
 
 

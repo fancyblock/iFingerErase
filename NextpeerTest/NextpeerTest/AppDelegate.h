@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Nextpeer/Nextpeer.h"
 #import "GameStage.h"
+#import "Parse/Parse.h"
+
 
 #define NEXTPEER_KEY    @"670eb38993b782f75bca7178ca19dc9927adbe79"
 

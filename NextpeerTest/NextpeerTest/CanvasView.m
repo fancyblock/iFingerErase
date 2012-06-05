@@ -55,7 +55,7 @@
 - (void)DrawPixel:(int)color toX:(int)x toY:(int)y
 {
     unsigned int address = 0;
-	address = ( (m_height - y - 1) * m_width + y ) * 4;
+	address = ( (m_height - y - 1) * m_width + x ) * 4;
 	
 	Byte r = color>>16 & 0x0000ff;
     Byte g = color>>8 & 0x0000ff;
@@ -113,6 +113,10 @@
     m_height = height;
     
 }
+
+
+//------------------------------------- private function ---------------------------------------
+
 
 
 @end

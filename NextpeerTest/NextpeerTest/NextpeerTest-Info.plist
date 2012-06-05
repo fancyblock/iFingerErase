@@ -15,6 +15,7 @@
 			<key>CFBundleIconFiles</key>
 			<array>
 				<string>ICON.png</string>
+				<string>Default.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
@@ -36,11 +37,17 @@
 	<array>
 		<dict>
 			<key>URL schemes</key>
+			<string>fb475615782464928</string>
+		</dict>
+		<dict>
+			<key>URL schemes</key>
 			<string>np670eb38993b782f75bca7178ca19dc9927adbe79</string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>

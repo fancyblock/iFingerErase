@@ -12,6 +12,8 @@
 @interface GameStage (private)
 
 - (void)gameFrame;
+- (void)erasePoint:(int)x andY:(int)y;
+- (void)eraseLine:(int)sx andY:(int)sy toX:(int)dx toY:(int)dy;
 
 @end
 
@@ -48,7 +50,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return NO;
+    return ( interfaceOrientation == UIInterfaceOrientationPortrait );
 }
 
 
@@ -60,6 +62,8 @@
 - (void)Start
 {
     [self._glass Initial];
+    
+    m_isInTouch = NO;
     
     // start the game loop
     self->m_tick = [CADisplayLink displayLinkWithTarget:self selector:@selector(gameFrame)];		
@@ -76,8 +80,7 @@
 - (void)End
 {
     // stop the game loop
-    [m_tick removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [m_tick release];
+    [m_tick invalidate];
 }
 
 
@@ -102,6 +105,54 @@
     //TODO 
     
     [self._glass setNeedsDisplay];
+}
+
+// erase point
+- (void)erasePoint:(int)x andY:(int)y
+{
+    //TODO 
+}
+
+// erase segment
+- (void)eraseLine:(int)sx andY:(int)sy toX:(int)dx toY:(int)dy;
+{
+    //TODO 
+}
+
+
+//---------------------------------- callback function ------------------------------------
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch* touch = [touches anyObject];
+    CGPoint pt = [touch locationInView:self._glass];
+    
+    m_lastX = pt.x;
+    m_lastY = pt.y;
+    
+    m_isInTouch = YES;
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch* touch = [touches anyObject];
+    CGPoint pt = [touch locationInView:self._glass];
+    
+    [self eraseLine:pt.x andY:pt.y toX:m_lastX toY:m_lastY];
+    
+    m_lastX = pt.x;
+    m_lastY = pt.y;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    m_isInTouch = NO;
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    m_isInTouch = NO;
 }
 
 @end
