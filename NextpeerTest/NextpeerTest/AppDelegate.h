@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Nextpeer/Nextpeer.h"
 #import "GameStage.h"
+#import "EndStage.h"
 #import "Parse/Parse.h"
 
 
@@ -19,6 +20,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, NextpeerDelegate, NPTournamentDelegate>
 {
     GameStage* m_gameViewController;
+    EndStage* m_endViewController;
 }
 
 @property (strong, nonatomic) UIWindow *window;

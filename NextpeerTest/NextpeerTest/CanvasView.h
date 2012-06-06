@@ -24,6 +24,6 @@
 
 - (void)Initial;
 
-- (void)DrawPixel:(int)color toX:(int)x toY:(int)y;
+- (BOOL)DrawPixel:(int)color toX:(int)x toY:(int)y withAlpha:(Byte)alpha;
 
 @end

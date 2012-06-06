@@ -10,7 +10,7 @@
 #import "CanvasView.h"
 #import <QuartzCore/CADisplayLink.h>
 
-#define RADIUS  5
+#define RADIUS  1
 
 
 @interface GameStage : UIViewController
@@ -20,6 +20,13 @@
     
     int m_lastX;
     int m_lastY;
+    
+    int m_maxDotCnt;
+    int m_curDotCnt;
+    
+    Byte* m_dataInfo;
+    float m_elapsedTime;
+    BOOL m_isTiming;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel* _time;

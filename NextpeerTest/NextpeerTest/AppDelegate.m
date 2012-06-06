@@ -3,7 +3,7 @@
 //  NextpeerTest
 //
 //  Created by He jia bin on 5/30/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 CoconutIslandStudio. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -13,6 +13,7 @@
 @interface AppDelegate(private)
 
 - (void)startGame;
+- (void)endGame;
 
 @end
 
@@ -45,6 +46,7 @@
                   clientKey:@"n1uFcMDQxXBvV3lrXsWm6mxOpttoO66PDgTNsfXw"];
     
     m_gameViewController = [[GameStage alloc] initWithNibName:@"GameStage" bundle:nil];
+    m_endViewController = [[EndStage alloc] initWithNibName:@"EndStage" bundle:nil];
     
     // initial the NextPeer
     [Nextpeer initializeWithProductKey:NEXTPEER_KEY andDelegates:[NPDelegatesContainer containerWithNextpeerDelegate:self tournamentDelegate:self]];
@@ -95,6 +97,12 @@
 {
     [self.viewController presentViewController:m_gameViewController animated:NO completion:nil];
     [m_gameViewController Start];
+}
+
+
+- (void)endGame
+{
+    //TODO 
 }
      
 

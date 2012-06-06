@@ -28,6 +28,8 @@
 		CF7C52831575C608008F929A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7C52821575C608008F929A /* AppDelegate.m */; };
 		CF7C52861575C608008F929A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7C52851575C608008F929A /* ViewController.m */; };
 		CF7C52891575C608008F929A /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7C52871575C608008F929A /* ViewController.xib */; };
+		CF80C89C157F4B5800E502D7 /* EndStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF80C89A157F4B5700E502D7 /* EndStage.m */; };
+		CF80C89D157F4B5800E502D7 /* EndStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF80C89B157F4B5700E502D7 /* EndStage.xib */; };
 		CF80DF1F157DBB8800E5F2C0 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF80DF1E157DBB8800E5F2C0 /* CanvasView.m */; };
 		CF80DF29157E062500E5F2C0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF80DF28157E062500E5F2C0 /* AudioToolbox.framework */; };
 		CF80DF2B157E064F00E5F2C0 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CF80DF2A157E064F00E5F2C0 /* libz.1.1.3.dylib */; };
@@ -68,6 +70,9 @@
 		CF7C52841575C608008F929A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		CF7C52851575C608008F929A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CF7C52881575C608008F929A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		CF80C899157F4B5700E502D7 /* EndStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndStage.h; sourceTree = "<group>"; };
+		CF80C89A157F4B5700E502D7 /* EndStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndStage.m; sourceTree = "<group>"; };
+		CF80C89B157F4B5700E502D7 /* EndStage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EndStage.xib; sourceTree = "<group>"; };
 		CF80DF1D157DBB8800E5F2C0 /* CanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanvasView.h; sourceTree = "<group>"; };
 		CF80DF1E157DBB8800E5F2C0 /* CanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanvasView.m; sourceTree = "<group>"; };
 		CF80DF28157E062500E5F2C0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -172,6 +177,9 @@
 			isa = PBXGroup;
 			children = (
 				CF80DF40157E0B8800E5F2C0 /* Facebook */,
+				CF80C899157F4B5700E502D7 /* EndStage.h */,
+				CF80C89A157F4B5700E502D7 /* EndStage.m */,
+				CF80C89B157F4B5700E502D7 /* EndStage.xib */,
 				CF80DF1D157DBB8800E5F2C0 /* CanvasView.h */,
 				CF80DF1E157DBB8800E5F2C0 /* CanvasView.m */,
 				CF7BB346157C705900E4EBEE /* GameStage.h */,
@@ -289,6 +297,7 @@
 				CF7BB34A157C705900E4EBEE /* GameStage.xib in Resources */,
 				CF80DF3E157E094B00E5F2C0 /* FBDialog.bundle in Resources */,
 				CF80DF4B157E181300E5F2C0 /* Default.png in Resources */,
+				CF80C89D157F4B5800E502D7 /* EndStage.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +316,7 @@
 				CF80DF47157E0B9900E5F2C0 /* FacebookData.m in Sources */,
 				CF80DF48157E0B9900E5F2C0 /* FacebookManager.m in Sources */,
 				CF80DF49157E0B9900E5F2C0 /* FBLeaderboard.m in Sources */,
+				CF80C89C157F4B5800E502D7 /* EndStage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

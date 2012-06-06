@@ -52,7 +52,7 @@
  * @para    y
  * @return  none
  */
-- (void)DrawPixel:(int)color toX:(int)x toY:(int)y
+- (BOOL)DrawPixel:(int)color toX:(int)x toY:(int)y withAlpha:(Byte)alpha
 {
     unsigned int address = 0;
 	address = ( (m_height - y - 1) * m_width + x ) * 4;
@@ -61,10 +61,12 @@
     Byte g = color>>8 & 0x0000ff;
     Byte b = color & 0x0000ff;
 	
-	((Byte*)m_pBuffer)[address] = 0xff;
+	((Byte*)m_pBuffer)[address] = alpha;
 	((Byte*)m_pBuffer)[address+1] = r;
 	((Byte*)m_pBuffer)[address+2] = g;
 	((Byte*)m_pBuffer)[address+3] = b;
+    
+    return YES;
 }
 
 
