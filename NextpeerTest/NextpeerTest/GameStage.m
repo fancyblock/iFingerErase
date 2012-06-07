@@ -122,6 +122,10 @@
 {
     // set the percent label
     float percent = (float)m_curDotCnt * 100.0f / (float)m_maxDotCnt;
+    if( percent >= 99.99f && m_maxDotCnt != m_curDotCnt )
+    {
+        percent = 99.99f;
+    }
     self._percent.text = [NSString stringWithFormat:@"Percent: %.2f%%", percent];
     
     if( self._mode == SINGLE_MODE )

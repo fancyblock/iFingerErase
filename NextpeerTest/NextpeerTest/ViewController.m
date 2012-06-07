@@ -46,6 +46,12 @@
 }
 
 
+- (IBAction)ChallengeFriends:(id)sender
+{
+    //TODO 
+}
+
+
 - (IBAction)onSettings:(id)sender
 {
     //TEMP

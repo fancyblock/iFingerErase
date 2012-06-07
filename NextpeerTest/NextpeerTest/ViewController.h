@@ -18,6 +18,8 @@
 
 - (IBAction)onMutiPlayer:(id)sender;
 
+- (IBAction)ChallengeFriends:(id)sender;
+
 - (IBAction)onSettings:(id)sender;
 
 - (IBAction)onAbout:(id)sender;
