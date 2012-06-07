@@ -17,6 +17,7 @@
 		CF55A1931575D7240055F5CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1921575D7240055F5CA /* CFNetwork.framework */; };
 		CF55A1951575D72D0055F5CA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1941575D72D0055F5CA /* MessageUI.framework */; };
 		CF55A1971575D7360055F5CA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1961575D7360055F5CA /* QuartzCore.framework */; };
+		CF7BB025158082C4004276AF /* icon_free_57.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB024158082C4004276AF /* icon_free_57.png */; };
 		CF7BB349157C705900E4EBEE /* GameStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7BB347157C705900E4EBEE /* GameStage.m */; };
 		CF7BB34A157C705900E4EBEE /* GameStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB348157C705900E4EBEE /* GameStage.xib */; };
 		CF7BFF09157737A600B51DB9 /* ICON.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BFF08157737A600B51DB9 /* ICON.png */; };
@@ -53,6 +54,7 @@
 		CF55A1921575D7240055F5CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CF55A1941575D72D0055F5CA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CF55A1961575D7360055F5CA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CF7BB024158082C4004276AF /* icon_free_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_free_57.png; sourceTree = "<group>"; };
 		CF7BB346157C705900E4EBEE /* GameStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStage.h; sourceTree = "<group>"; };
 		CF7BB347157C705900E4EBEE /* GameStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStage.m; sourceTree = "<group>"; };
 		CF7BB348157C705900E4EBEE /* GameStage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameStage.xib; sourceTree = "<group>"; };
@@ -132,10 +134,11 @@
 		CF7C52631575C608008F929A = {
 			isa = PBXGroup;
 			children = (
+				CF7BB024158082C4004276AF /* icon_free_57.png */,
 				CF80DF4A157E181300E5F2C0 /* Default.png */,
-				CF80DF2E157E094B00E5F2C0 /* facebook-ios-sdk */,
 				CF7BFF08157737A600B51DB9 /* ICON.png */,
 				CF55A1861575D30E0055F5CA /* NPResources_iPhone_Portrait.bundle */,
+				CF80DF2E157E094B00E5F2C0 /* facebook-ios-sdk */,
 				CF7C52781575C608008F929A /* NextpeerTest */,
 				CF7C52711575C608008F929A /* Frameworks */,
 				CF7C526F1575C608008F929A /* Products */,
@@ -298,6 +301,7 @@
 				CF80DF3E157E094B00E5F2C0 /* FBDialog.bundle in Resources */,
 				CF80DF4B157E181300E5F2C0 /* Default.png in Resources */,
 				CF80C89D157F4B5800E502D7 /* EndStage.xib in Resources */,
+				CF7BB025158082C4004276AF /* icon_free_57.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

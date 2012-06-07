@@ -96,7 +96,7 @@
 - (void)startGame
 {
     [self.viewController presentViewController:m_gameViewController animated:NO completion:nil];
-    [m_gameViewController Start];
+    [m_gameViewController Start:SINGLE_MODE];
 }
 
 
@@ -114,7 +114,8 @@
 ////////////////////////////////////////////////////////////
 -(void)nextpeerDidTournamentStartWithDetails:(NPTournamentStartDataContainer *)tournamentContainer
 {
-    [self.viewController presentViewController:m_gameViewController animated:YES completion:nil];
+    [self.viewController presentViewController:m_gameViewController animated:NO completion:nil];
+    [m_gameViewController Start:MUTI_MODE];
     
     NSLog( @"Tourname Started" );
 }
@@ -129,6 +130,7 @@
 ////////////////////////////////////////////////////////////
 -(void)nextpeerDidTournamentEnd
 {
+    [m_gameViewController End];
     [m_gameViewController dismissViewControllerAnimated:YES completion:nil];
     
     NSLog( @"Tourname Ended" );

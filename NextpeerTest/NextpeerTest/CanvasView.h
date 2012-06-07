@@ -26,4 +26,6 @@
 
 - (BOOL)DrawPixel:(int)color toX:(int)x toY:(int)y withAlpha:(Byte)alpha;
 
+- (void)CleanCanvas;
+
 @end

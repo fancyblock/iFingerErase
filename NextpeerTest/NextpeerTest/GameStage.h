@@ -10,7 +10,11 @@
 #import "CanvasView.h"
 #import <QuartzCore/CADisplayLink.h>
 
-#define RADIUS  1
+#define RADIUS  7
+#define THICK   15
+
+#define SINGLE_MODE 1
+#define MUTI_MODE   2
 
 
 @interface GameStage : UIViewController
@@ -27,16 +31,19 @@
     Byte* m_dataInfo;
     float m_elapsedTime;
     BOOL m_isTiming;
+    
+    int m_curCleanCount;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel* _time;
 @property (nonatomic, retain) IBOutlet UILabel* _percent;
 @property (nonatomic, retain) IBOutlet CanvasView* _glass;
+@property (nonatomic, readwrite) int _mode;
 
 
 - (IBAction)Exit:(id)sender;
 
-- (void)Start;
+- (void)Start:(int)mode;
 
 - (void)End;
 

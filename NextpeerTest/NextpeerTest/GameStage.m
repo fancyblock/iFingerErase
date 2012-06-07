@@ -17,6 +17,7 @@
 - (void)startTiming;
 - (void)stopTiming;
 - (void)complete;
+- (void)eraseLineSlow:(int)sx andY:(int)sy toX:(int)dx toY:(int)dy;
 
 @end
 
@@ -26,7 +27,7 @@
 @synthesize _time;
 @synthesize _glass;
 @synthesize _percent;
-
+@synthesize _mode;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -59,11 +60,13 @@
 
 /**
  * @desc    start game
- * @para    none
+ * @para    mode
  * @return  none
  */
-- (void)Start
+- (void)Start:(int)mode
 {
+    self._mode = mode;
+    
     [self._glass Initial];
     
     m_isInTouch = NO;
@@ -71,12 +74,11 @@
     m_curDotCnt = 0;
     m_elapsedTime = 0.0f;
     m_isTiming = NO;
+    m_curCleanCount = 0;
     
     m_dataInfo = malloc( m_maxDotCnt );
-    for( int i = 0; i < m_maxDotCnt; i++ )
-    {
-        m_dataInfo[i] = 0x00;
-    }
+    [self._glass CleanCanvas];
+    memset(m_dataInfo, 0x00, m_maxDotCnt);
     
     // start the game loop
     self->m_tick = [CADisplayLink displayLinkWithTarget:self selector:@selector(gameFrame:)];		
@@ -118,24 +120,43 @@
 // game frame
 - (void)gameFrame:(CADisplayLink*)sender
 {
-    if( m_maxDotCnt == m_curDotCnt )
-    {
-        [self complete];
-    }
-    
     // set the percent label
     float percent = (float)m_curDotCnt * 100.0f / (float)m_maxDotCnt;
     self._percent.text = [NSString stringWithFormat:@"Percent: %.2f%%", percent];
     
-    // set the elapsed time
-    if( m_isTiming == YES )
+    if( self._mode == SINGLE_MODE )
     {
-        m_elapsedTime += (sender.timestamp/1000000.0f);
+        if( m_maxDotCnt == m_curDotCnt )
+        {
+            [self complete];
+        }
+    
+        // set the elapsed time
+        if( m_isTiming == YES )
+        {
+            m_elapsedTime += (sender.timestamp/1000000.0f);
+        }
+        int minutes = (int)(m_elapsedTime / 60.0f);
+        int seconds = (int)(m_elapsedTime - minutes * 60.0f);
+        int milliseconds = (int)((m_elapsedTime - (float)seconds - (float)minutes * 60.0f) * 100.0f);
+        self._time.text = [NSString stringWithFormat:@"Time: %.2d:%.2d:%.2d", minutes, seconds, milliseconds];
     }
-    int minutes = (int)(m_elapsedTime / 60.0f);
-    int seconds = (int)(m_elapsedTime - minutes * 60.0f);
-    int milliseconds = (int)((m_elapsedTime - (float)seconds - (float)minutes * 60.0f) * 100.0f);
-    self._time.text = [NSString stringWithFormat:@"Time: %.2d:%.2d:%.2d", minutes, seconds, milliseconds];
+    
+    if( self._mode == MUTI_MODE )
+    {
+        if( m_maxDotCnt == m_curDotCnt )
+        {
+            m_curCleanCount++;
+            
+            [self._glass CleanCanvas];
+            memset(m_dataInfo, 0x00, m_maxDotCnt);
+            m_curDotCnt = 0;
+        }
+        
+        self._time.text = [NSString stringWithFormat:@"Clean Count: %d", m_curCleanCount];
+        
+        [Nextpeer reportScoreForCurrentTournament:(m_curCleanCount*100+(int)percent)];
+    }
     
     [self._glass setNeedsDisplay];
 }
@@ -156,10 +177,39 @@
             [self startTiming];
         }
         
-        [self._glass DrawPixel:0xff0f0f toX:x toY:y withAlpha:0xff];
+        [self._glass DrawPixel:0xffffff toX:x toY:y withAlpha:0xff];
      
         m_dataInfo[address] = 0xff;
         m_curDotCnt++;
+    }
+}
+
+// erase segment ( lv algorithm )
+- (void)eraseLineSlow:(int)sx andY:(int)sy toX:(int)dx toY:(int)dy
+{
+    float length = sqrtf( ( sx - dx ) * ( sx - dx ) + ( sy - dy ) * ( sy - dy ) );
+    
+    float unit = 3.7f;
+    float vecX = (float)( dx - sx ) / length;
+    float vecY = (float)( dy - sy ) / length;
+    
+    float centerX, centerY;
+    
+    for( float i = 0; i < length; i += unit )
+    {
+        centerX = sx + vecX * i;
+        centerY = sy + vecY * i;
+        
+        float left = centerX - RADIUS;
+        float top = centerY - RADIUS;
+        
+        for( int j = 0; j < THICK; j++ )
+        {
+            for( int k = 0; k < THICK; k++ )
+            {
+                [self erasePoint:j + left andY:k + top];
+            }
+        }
     }
 }
 
@@ -233,6 +283,18 @@
         int incVal = 1;
         
         float k = 0;
+        float subk1 = 0;
+        float subk2 = 0;
+        float tempK = 0;
+        
+        int offsetX[THICK];
+        int offsetY[THICK];
+        int offsetLen = 0;
+        
+        float xPos;
+        float yPos;
+        int baseX;
+        int baseY;
         
         if( abs(deltaY) > abs(deltaX) )
         {
@@ -247,12 +309,51 @@
                 k = (float)deltaX/(float)deltaY;
             }
             
-            float xPos = (float)sx;
+            subk1 = k;     //[U]
+            subk2 = -k;      //[U]
+            
+            tempK = k < 0 ? k : -k;
+            left = (int)( tempK * (float)RADIUS + 0.5f );
+            right = (int)( -tempK * (float)RADIUS + 0.5f );
+            
+            j = 0;
+            yPos = 0;
+            for( i = - 1; i >= left; i-- )
+            {
+                yPos += subk1;
+                
+                offsetX[j] = i;
+                offsetY[j] = (int)(yPos + 0.5f);
+                
+                j++;
+            }
+            
+            yPos = 0;
+            for( i = 1; i <= right; i++ )
+            {
+                yPos += subk2;
+                
+                offsetX[j] = i;
+                offsetY[j] = (int)(yPos + 0.5f);
+                
+                j++;
+            }
+            
+            offsetLen = j;
+            
+            xPos = (float)sx;
             for( i = sy; i != dy; i += incVal )
             {
-                [self erasePoint:(int)(xPos + 0.5f) andY:i];
+                baseX = (int)(xPos + 0.5f);
+                baseY = i;
                 
-                //TODO 
+                [self erasePoint:baseX andY:baseY];
+                
+                if( i == sy || i == (dy-1) )
+                for( j = 0; j < offsetLen; j++ )
+                {
+                    [self erasePoint:baseX + offsetX[j] andY:baseY + offsetY[j]];
+                }
                 
                 xPos += k;
             }
@@ -270,7 +371,7 @@
                 k = (float)deltaY/(float)deltaX;
             }
             
-            float yPos = (float)sy;
+            yPos = (float)sy;
             for( i = sx; i != dx; i += incVal )
             {
                 [self erasePoint:i andY:(int)(yPos + 0.5f)];
@@ -323,7 +424,8 @@
     UITouch* touch = [touches anyObject];
     CGPoint pt = [touch locationInView:self._glass];
     
-    [self eraseLine:pt.x andY:pt.y toX:m_lastX toY:m_lastY];
+    //[self eraseLine:pt.x andY:pt.y toX:m_lastX toY:m_lastY];
+    [self eraseLineSlow:pt.x andY:pt.y toX:m_lastX toY:m_lastY];
     
     m_lastX = pt.x;
     m_lastY = pt.y;

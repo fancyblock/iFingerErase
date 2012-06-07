@@ -117,6 +117,20 @@
 }
 
 
+/**
+ * @desc    clean the galss
+ * @para    none
+ * @return  none
+ */
+- (void)CleanCanvas
+{
+    CGFloat color[] = { 0.6, 0.6, 0.6, 1.0 };
+    CGContextSetFillColor( m_buffer, color );
+    
+    CGContextFillRect( m_buffer, CGRectMake(0, 0, self.frame.size.width, self.frame.size.height));
+}
+
+
 //------------------------------------- private function ---------------------------------------
 
 
