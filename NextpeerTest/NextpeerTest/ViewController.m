@@ -10,23 +10,30 @@
 #import "Nextpeer/Nextpeer.h"
 #import "FacebookManager.h"
 
-@interface ViewController ()
+@interface ViewController (private)
+
+- (void)_onFBAutoDone;
 
 @end
 
 @implementation ViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    m_fbFriendList = [[FBPopupFriendList alloc] initWithNibName:@"FBPopupFriendList" bundle:nil];
 }
+
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -48,24 +55,52 @@
 
 - (IBAction)ChallengeFriends:(id)sender
 {
-    //TODO 
+    if( [FacebookManager sharedInstance].IsAuthenticated == YES )
+    {
+        [self.view addSubview:m_fbFriendList.view];
+        [m_fbFriendList StartLoad];
+        
+        m_fbFriendList.view.transform = CGAffineTransformMake(0.001f, 0, 0, 0.001f, 0, 0);
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView animateWithDuration:0.25f animations:^{m_fbFriendList.view.transform = CGAffineTransformMake(1.1f, 0, 0, 1.1f, 0, 0);} completion:^(BOOL finished)
+         {
+             [UIView beginAnimations:nil context:nil];
+             [UIView animateWithDuration:0.15f animations:^{ m_fbFriendList.view.transform = CGAffineTransformMake(0.9f, 0, 0, 0.9f, 0, 0); } completion:^(BOOL finished)
+              {
+                  [UIView beginAnimations:nil context:nil];
+                  m_fbFriendList.view.transform = CGAffineTransformMake(1.0f, 0, 0, 1.0f, 0, 0);
+                  [UIView setAnimationDuration:0.15f];
+                  [UIView commitAnimations];
+              }];
+             [UIView commitAnimations];
+         }];
+        [UIView commitAnimations];
+    }
+    else 
+    {
+        [[FacebookManager sharedInstance] Authenticate:self withCallback:@selector(_onFBAutoDone)];
+    }
 }
 
 
 - (IBAction)onSettings:(id)sender
 {
     //TEMP
-    
-    if( [FacebookManager sharedInstance].IsAuthenticated == NO )
-    {
-        [[FacebookManager sharedInstance] Authenticate:nil withCallback:nil];
-    }
 }
 
 
 - (IBAction)onAbout:(id)sender
 {
     //TODO
+}
+
+//--------------------------------- private function -------------------------------------
+
+
+- (void)_onFBAutoDone
+{
+    [self ChallengeFriends:nil];
 }
 
 

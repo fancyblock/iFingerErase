@@ -18,6 +18,9 @@
 		CF55A1951575D72D0055F5CA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1941575D72D0055F5CA /* MessageUI.framework */; };
 		CF55A1971575D7360055F5CA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1961575D7360055F5CA /* QuartzCore.framework */; };
 		CF7BB025158082C4004276AF /* icon_free_57.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB024158082C4004276AF /* icon_free_57.png */; };
+		CF7BB04F1580A94D004276AF /* FBPopupFriendList.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7BB04D1580A94D004276AF /* FBPopupFriendList.m */; };
+		CF7BB0501580A94D004276AF /* FBPopupFriendList.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB04E1580A94D004276AF /* FBPopupFriendList.xib */; };
+		CF7BB0731580B620004276AF /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB0721580B620004276AF /* close.png */; };
 		CF7BB349157C705900E4EBEE /* GameStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7BB347157C705900E4EBEE /* GameStage.m */; };
 		CF7BB34A157C705900E4EBEE /* GameStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB348157C705900E4EBEE /* GameStage.xib */; };
 		CF7BFF09157737A600B51DB9 /* ICON.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BFF08157737A600B51DB9 /* ICON.png */; };
@@ -55,18 +58,22 @@
 		CF55A1941575D72D0055F5CA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CF55A1961575D7360055F5CA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CF7BB024158082C4004276AF /* icon_free_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_free_57.png; sourceTree = "<group>"; };
+		CF7BB04C1580A94D004276AF /* FBPopupFriendList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBPopupFriendList.h; sourceTree = "<group>"; };
+		CF7BB04D1580A94D004276AF /* FBPopupFriendList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBPopupFriendList.m; sourceTree = "<group>"; };
+		CF7BB04E1580A94D004276AF /* FBPopupFriendList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FBPopupFriendList.xib; sourceTree = "<group>"; };
+		CF7BB0721580B620004276AF /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = "facebook-ios-sdk/FBDialog.bundle/images/close.png"; sourceTree = "<group>"; };
 		CF7BB346157C705900E4EBEE /* GameStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStage.h; sourceTree = "<group>"; };
 		CF7BB347157C705900E4EBEE /* GameStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStage.m; sourceTree = "<group>"; };
 		CF7BB348157C705900E4EBEE /* GameStage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameStage.xib; sourceTree = "<group>"; };
 		CF7BFF08157737A600B51DB9 /* ICON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ICON.png; sourceTree = "<group>"; };
-		CF7C526E1575C608008F929A /* NextpeerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextpeerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF7C526E1575C608008F929A /* iFingerErase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFingerErase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF7C52721575C608008F929A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CF7C52741575C608008F929A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CF7C52761575C608008F929A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		CF7C527A1575C608008F929A /* NextpeerTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NextpeerTest-Info.plist"; sourceTree = "<group>"; };
+		CF7C527A1575C608008F929A /* iFingerErase-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iFingerErase-Info.plist"; sourceTree = "<group>"; };
 		CF7C527C1575C608008F929A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CF7C527E1575C608008F929A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CF7C52801575C608008F929A /* NextpeerTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NextpeerTest-Prefix.pch"; sourceTree = "<group>"; };
+		CF7C52801575C608008F929A /* iFingerErase-Prefix.pch */ = {isa = PBXFileReference; path = "iFingerErase-Prefix.pch"; sourceTree = "<group>"; };
 		CF7C52811575C608008F929A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CF7C52821575C608008F929A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CF7C52841575C608008F929A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -134,6 +141,7 @@
 		CF7C52631575C608008F929A = {
 			isa = PBXGroup;
 			children = (
+				CF7BB0721580B620004276AF /* close.png */,
 				CF7BB024158082C4004276AF /* icon_free_57.png */,
 				CF80DF4A157E181300E5F2C0 /* Default.png */,
 				CF7BFF08157737A600B51DB9 /* ICON.png */,
@@ -148,7 +156,7 @@
 		CF7C526F1575C608008F929A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CF7C526E1575C608008F929A /* NextpeerTest.app */,
+				CF7C526E1575C608008F929A /* iFingerErase.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -201,10 +209,10 @@
 		CF7C52791575C608008F929A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				CF7C527A1575C608008F929A /* NextpeerTest-Info.plist */,
+				CF7C527A1575C608008F929A /* iFingerErase-Info.plist */,
 				CF7C527B1575C608008F929A /* InfoPlist.strings */,
 				CF7C527E1575C608008F929A /* main.m */,
-				CF7C52801575C608008F929A /* NextpeerTest-Prefix.pch */,
+				CF7C52801575C608008F929A /* iFingerErase-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -233,6 +241,9 @@
 		CF80DF40157E0B8800E5F2C0 /* Facebook */ = {
 			isa = PBXGroup;
 			children = (
+				CF7BB04C1580A94D004276AF /* FBPopupFriendList.h */,
+				CF7BB04D1580A94D004276AF /* FBPopupFriendList.m */,
+				CF7BB04E1580A94D004276AF /* FBPopupFriendList.xib */,
 				CF80DF41157E0B9900E5F2C0 /* FacebookData.m */,
 				CF80DF42157E0B9900E5F2C0 /* FacebookManager.h */,
 				CF80DF43157E0B9900E5F2C0 /* FacebookData.h */,
@@ -246,9 +257,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CF7C526D1575C608008F929A /* NextpeerTest */ = {
+		CF7C526D1575C608008F929A /* iFingerErase */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CF7C528C1575C608008F929A /* Build configuration list for PBXNativeTarget "NextpeerTest" */;
+			buildConfigurationList = CF7C528C1575C608008F929A /* Build configuration list for PBXNativeTarget "iFingerErase" */;
 			buildPhases = (
 				CF7C526A1575C608008F929A /* Sources */,
 				CF7C526B1575C608008F929A /* Frameworks */,
@@ -258,9 +269,9 @@
 			);
 			dependencies = (
 			);
-			name = NextpeerTest;
+			name = iFingerErase;
 			productName = NextpeerTest;
-			productReference = CF7C526E1575C608008F929A /* NextpeerTest.app */;
+			productReference = CF7C526E1575C608008F929A /* iFingerErase.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -271,7 +282,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = CF7C52681575C608008F929A /* Build configuration list for PBXProject "NextpeerTest" */;
+			buildConfigurationList = CF7C52681575C608008F929A /* Build configuration list for PBXProject "iFingerErase" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -283,7 +294,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CF7C526D1575C608008F929A /* NextpeerTest */,
+				CF7C526D1575C608008F929A /* iFingerErase */,
 			);
 		};
 /* End PBXProject section */
@@ -302,6 +313,8 @@
 				CF80DF4B157E181300E5F2C0 /* Default.png in Resources */,
 				CF80C89D157F4B5800E502D7 /* EndStage.xib in Resources */,
 				CF7BB025158082C4004276AF /* icon_free_57.png in Resources */,
+				CF7BB0501580A94D004276AF /* FBPopupFriendList.xib in Resources */,
+				CF7BB0731580B620004276AF /* close.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +334,7 @@
 				CF80DF48157E0B9900E5F2C0 /* FacebookManager.m in Sources */,
 				CF80DF49157E0B9900E5F2C0 /* FBLeaderboard.m in Sources */,
 				CF80C89C157F4B5800E502D7 /* EndStage.m in Sources */,
+				CF7BB04F1580A94D004276AF /* FBPopupFriendList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,8 +411,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NextpeerTest/NextpeerTest-Prefix.pch";
-				INFOPLIST_FILE = "NextpeerTest/NextpeerTest-Info.plist";
+				GCC_PREFIX_HEADER = "NextpeerTest/iFingerErase-Prefix.pch";
+				INFOPLIST_FILE = "NextpeerTest/iFingerErase-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/facebook-ios-sdk\"",
@@ -407,7 +421,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = iFingerErase;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -420,8 +434,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NextpeerTest/NextpeerTest-Prefix.pch";
-				INFOPLIST_FILE = "NextpeerTest/NextpeerTest-Info.plist";
+				GCC_PREFIX_HEADER = "NextpeerTest/iFingerErase-Prefix.pch";
+				INFOPLIST_FILE = "NextpeerTest/iFingerErase-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/facebook-ios-sdk\"",
@@ -430,7 +444,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = iFingerErase;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -438,7 +452,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CF7C52681575C608008F929A /* Build configuration list for PBXProject "NextpeerTest" */ = {
+		CF7C52681575C608008F929A /* Build configuration list for PBXProject "iFingerErase" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CF7C528A1575C608008F929A /* Debug */,
@@ -447,7 +461,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CF7C528C1575C608008F929A /* Build configuration list for PBXNativeTarget "NextpeerTest" */ = {
+		CF7C528C1575C608008F929A /* Build configuration list for PBXNativeTarget "iFingerErase" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CF7C528D1575C608008F929A /* Debug */,

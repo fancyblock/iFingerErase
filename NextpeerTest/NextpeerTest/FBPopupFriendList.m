@@ -6,26 +6,22 @@
 //  Copyright (c) 2012 Coconut Island Studio. All rights reserved.
 //
 
-#import "FBPopupLeaderboard.h"
-#import "FBLeadboardCellView.h"
-#import "GameSettingsDataSource.h"
+#import "FBPopupFriendList.h"
 
 
-@interface FBPopupLeaderboard (private)
+@interface FBPopupFriendList (private)
 
 - (NSString*)scoreToString:(long)score;
+- (void)_onProfileComplete;
 - (void)_onLoadComplete;
 
 @end
 
-@implementation FBPopupLeaderboard
+@implementation FBPopupFriendList
 
 
 @synthesize _leaderboardView;
 @synthesize _loadingAni;
-@synthesize _btnAll;
-@synthesize _btnWeek;
-@synthesize _labelMode;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,8 +48,6 @@
     // e.g. self.myOutlet = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:FB_IMAGE_LOAD_FINISHED object:nil];
-    
-    [m_fbLeaderboard release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -79,40 +73,6 @@
 
 
 /**
- * @desc    show week leaderboard
- * @para    sender
- * @return  none
- */
-- (IBAction)Week:(id)sender
-{
-    [self._loadingAni startAnimating];
-    
-    [self._btnWeek setEnabled:NO];
-    [self._btnAll setEnabled:YES];
-    m_curBoardType = WEEK_LEADERBOARD;
-    
-    [m_fbLeaderboard LoadWeekLeaderboard:self withCallback:@selector(_onLoadComplete)];
-}
-
-
-/**
- * @desc    show all leaderboard
- * @para    sender
- * @return  none
- */
-- (IBAction)All:(id)sender
-{
-    [self._loadingAni startAnimating];
-    
-    [self._btnWeek setEnabled:YES];
-    [self._btnAll setEnabled:NO];
-    m_curBoardType = ALL_LEADERBOARD;
-    
-    [m_fbLeaderboard LoadAllLeaderbaord:self withCallback:@selector(_onLoadComplete)];
-}
-
-
-/**
  * @desc    start load leaderboard
  * @para    none
  * @return  none
@@ -121,22 +81,12 @@
 {
     [self._loadingAni startAnimating];
     
-    if( m_fbLeaderboard == nil )
+    if( [FacebookManager sharedInstance].IsAuthenticated == NO )
     {
-        m_fbLeaderboard = [[FBLeaderboard alloc] init];
+        return;
     }
     
-    if( [GameSettingsDataSource sharedDataSource].gameMode == NORMAL )
-    {
-        self._labelMode.text = @"Normal Mode";
-    }
-    
-    if( [GameSettingsDataSource sharedDataSource].gameMode == CLASSIC )
-    {
-        self._labelMode.text = @"Classic Mode";
-    }
-    
-    [self Week:nil];
+    [[FacebookManager sharedInstance] GetProfile:self withCallback:@selector(_onProfileComplete)];
 }
 
 
@@ -156,22 +106,16 @@
 //------------------------------- private function ----------------------------------
 
 
-// convert score from long to NSStirng
-- (NSString*)scoreToString:(long)score
-{
-    // make time string
-	long minutes = score / (100 * 60);
-	long seconds = score / 100 - minutes * 60;
-	long centiseconds = score - seconds * 100 - minutes * (100 * 60);
-	
-	NSString* scoreText = [NSString stringWithFormat:@"%.2d:%.2d:%.2d", minutes, seconds, centiseconds];
-    
-    return scoreText;
-}
+//TODO 
 
 
 //------------------------------- callback function ---------------------------------
 
+// load profile complete
+- (void)_onProfileComplete
+{
+    [[FacebookManager sharedInstance] GetFriendList:self withCallback:@selector(_onLoadComplete)];
+}
 
 // callback when load leaderboard complete
 - (void)_onLoadComplete
@@ -194,9 +138,9 @@
 // return the row count
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if( m_fbLeaderboard._leaderbaord != nil )
+    if( [FacebookManager sharedInstance]._friendList != nil )
     {
-        return [m_fbLeaderboard._leaderbaord count];
+        return [[FacebookManager sharedInstance]._friendList count];
     }
     
     return 0;
@@ -207,38 +151,23 @@
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FBLeadboardCellView* cell = nil;
-    
-    NSArray* nibs = [[NSBundle mainBundle] loadNibNamed:@"FBLeadboardCellView" owner:self options:nil];
-    cell = (FBLeadboardCellView*)[nibs objectAtIndex:0];
+    UITableViewCell* cell = [[UITableViewCell alloc] init];
     
     NSInteger row = [indexPath row];
     
-    LeaderboardItem* item = [m_fbLeaderboard._leaderbaord objectAtIndex:row];
+    NSArray* friendlist = [FacebookManager sharedInstance]._friendList;
+    FBUserInfo* userInfo = [friendlist objectAtIndex:row];
     
-    cell._index.text = [NSString stringWithFormat:@"%d", row + 1];
-    cell._name.text = item._name;
-    cell._score.text = [self scoreToString:item._mark];
+    cell.textLabel.text = userInfo._name;
     
-    if( item._fbUser._pic == nil )
+    if( userInfo._pic == nil )
     {
-        [[FacebookManager sharedInstance] LoadPicture:item._fbUser];
+        [[FacebookManager sharedInstance] LoadPicture:userInfo];
     }
     else 
     {
-        [cell._prifileIcon setImage:item._fbUser._pic];
+        [cell.imageView setImage:userInfo._pic];
     }
-    
-    // set crown
-    if( row == 0 )
-    {
-        [cell._crown setHidden:NO];
-    }
-    else {
-        [cell._crown setHidden:YES];
-    }
-    
-    [cell._yellowBackground setBackgroundColor:[UIColor whiteColor]];
     
     return cell;
 }
