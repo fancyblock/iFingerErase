@@ -12,7 +12,7 @@
 #define WEEK_LEADERBOARD 1
 #define ALL_LEADERBOARD  2
 
-@interface FBPopupFriendList : UIViewController<UITableViewDataSource>
+@interface FBPopupFriendList : UIViewController<UITableViewDataSource, UITableViewDelegate>
 {
     id m_callbackSender;
     SEL m_callback;

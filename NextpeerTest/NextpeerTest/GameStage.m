@@ -110,7 +110,8 @@
 - (IBAction)Exit:(id)sender
 {
     [self End];
-    [self dismissViewControllerAnimated:NO completion:nil];
+    
+    //TODO 
 }
 
 
@@ -128,7 +129,8 @@
     }
     self._percent.text = [NSString stringWithFormat:@"Percent: %.2f%%", percent];
     
-    if( self._mode == SINGLE_MODE )
+    // single mode
+    if( self._mode == SINGLE_MODE || self._mode == CHALLENGE_MODE )
     {
         if( m_maxDotCnt == m_curDotCnt )
         {
@@ -146,6 +148,7 @@
         self._time.text = [NSString stringWithFormat:@"Time: %.2d:%.2d:%.2d", minutes, seconds, milliseconds];
     }
     
+    // muti player mode ( Nextpeer )
     if( self._mode == MUTI_MODE )
     {
         if( m_maxDotCnt == m_curDotCnt )
@@ -160,6 +163,14 @@
         self._time.text = [NSString stringWithFormat:@"Clean Count: %d", m_curCleanCount];
         
         [Nextpeer reportScoreForCurrentTournament:(m_curCleanCount*100+(int)percent)];
+    }
+    
+    if( self._mode == CHALLENGE_MODE )
+    {
+        if( m_maxDotCnt == m_curDotCnt )
+        {
+            //TODO 
+        }
     }
     
     [self._glass setNeedsDisplay];

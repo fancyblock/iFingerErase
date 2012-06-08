@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "CanvasView.h"
 #import <QuartzCore/CADisplayLink.h>
+#import "GlobalWork.h"
+
 
 #define RADIUS  7
 #define THICK   15
-
-#define SINGLE_MODE 1
-#define MUTI_MODE   2
 
 
 @interface GameStage : UIViewController

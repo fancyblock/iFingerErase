@@ -11,6 +11,8 @@
 #import "GameStage.h"
 #import "EndStage.h"
 #import "Parse/Parse.h"
+#import "ChallengeEndStage.h"
+#import "EndStage.h"
 
 
 #define NEXTPEER_KEY    @"670eb38993b782f75bca7178ca19dc9927adbe79"
@@ -21,6 +23,9 @@
 {
     GameStage* m_gameViewController;
     EndStage* m_endViewController;
+    ChallengeEndStage* m_challengeEndController;
+    
+    UIView* m_curUIView;
 }
 
 @property (strong, nonatomic) UIWindow *window;

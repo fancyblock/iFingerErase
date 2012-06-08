@@ -7,6 +7,7 @@
 //
 
 #import "FBPopupFriendList.h"
+#import "GlobalWork.h"
 
 
 @interface FBPopupFriendList (private)
@@ -170,6 +171,21 @@
     }
     
     return cell;
+}
+
+
+// Called after the user changes the selection.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger row = [indexPath row];
+    
+    NSArray* friendlist = [FacebookManager sharedInstance]._friendList;
+    FBUserInfo* userInfo = [friendlist objectAtIndex:row];
+    
+    [GlobalWork sharedInstance]._gameMode = CHALLENGE_MODE;
+    [GlobalWork sharedInstance]._challengedUser = userInfo;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"StartGame" object:nil];
+    
 }
 
 

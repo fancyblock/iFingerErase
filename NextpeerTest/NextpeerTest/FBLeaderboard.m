@@ -275,6 +275,10 @@
 - (void)_onProfileComplete
 {
     [[FacebookManager sharedInstance] GetFriendList:self withCallback:@selector(_onFriendListComplete)];
+    
+    NSString* channel = [NSString stringWithFormat:@"fb%@", [FacebookManager sharedInstance]._userInfo._uid];
+    
+    [PFPush subscribeToChannelInBackground:channel];
 }
 
 

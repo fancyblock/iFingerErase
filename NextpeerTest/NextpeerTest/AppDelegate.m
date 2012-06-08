@@ -9,11 +9,17 @@
 #import "AppDelegate.h"
 #import "FacebookManager.h"
 #import "ViewController.h"
+#import "GlobalWork.h"
 
 @interface AppDelegate(private)
 
 - (void)startGame;
 - (void)endGame;
+- (void)switchToView:(UIView*)destView withCallback:(SEL)callback;
+
+- (void)_onProfileComplete;
+- (void)_onStartGameDone;
+- (void)_onSwitchStage:(NSNotification*)notification;
 
 @end
 
@@ -41,21 +47,54 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
-    // initial the Parse
-    [Parse setApplicationId:@"8gBQ4Cy6GsAoxQKWEsSK041BIpiV1q2RdshLfXN1"
-                  clientKey:@"n1uFcMDQxXBvV3lrXsWm6mxOpttoO66PDgTNsfXw"];
+    m_curUIView = self.viewController.view;
     
+    // initial the game view controllers
     m_gameViewController = [[GameStage alloc] initWithNibName:@"GameStage" bundle:nil];
     m_endViewController = [[EndStage alloc] initWithNibName:@"EndStage" bundle:nil];
+    m_challengeEndController = [[ChallengeEndStage alloc] initWithNibName:@"ChallengeEndStage" bundle:nil];
+    
+    // initial the Parse
+    [Parse setApplicationId:@"zKzUtc34Q5C5oiir18xXaVmr0bZURwkpCtPvMVhX"
+                  clientKey:@"xE3b5ABct9BQpNitOnAxVuARVBao9jZYEuWLkCJW"];
+    
+    // regisit for push notification
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
     
     // initial the NextPeer
     [Nextpeer initializeWithProductKey:NEXTPEER_KEY andDelegates:[NPDelegatesContainer containerWithNextpeerDelegate:self tournamentDelegate:self]];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startGame) name:@"StartGame" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onSwitchStage:) name:@"SwitchStage" object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startGame) name:@"StartGame" object:nil];
     
     [FacebookManager sharedInstance];
     
     return YES;
+}
+
+// one of these will be called after calling -registerForRemoteNotifications
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0)
+{
+    // Tell Parse about the device token.
+    [PFPush storeDeviceToken:deviceToken];
+    [PFPush subscribeToChannelInBackground:@""];
+    
+    if( [FacebookManager sharedInstance].IsAuthenticated )
+    {
+        [[FacebookManager sharedInstance] GetProfile:self withCallback:@selector(_onProfileComplete)];
+    }
+}
+
+- (void)_onProfileComplete
+{
+    NSString* channel = [NSString stringWithFormat:@"fb%@", [FacebookManager sharedInstance]._userInfo._uid];
+    
+    [PFPush subscribeToChannelInBackground:channel];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0)
+{
+    //TODO
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -86,25 +125,69 @@
     
     [m_gameViewController release];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"StartGame" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SwitchStage" object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"StartGame" object:nil];
 }
 
 
 /**
- * @desc    start game
+ * @desc    start the game
  */
 - (void)startGame
 {
-    [self.viewController presentViewController:m_gameViewController animated:NO completion:nil];
-    [m_gameViewController Start:SINGLE_MODE];
+    [self switchToView:m_gameViewController.view withCallback:@selector(_onStartGameDone)];
 }
 
 
+/**
+ * @desc    end the game
+ */
 - (void)endGame
 {
     //TODO 
 }
-     
+
+
+// switch to the dest view
+- (void)switchToView:(UIView*)destView withCallback:(SEL)callback
+{
+    destView.alpha = 0.0f;
+    [[UIApplication sharedApplication].keyWindow addSubview:destView];
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView animateWithDuration:0.5f animations:^{m_curUIView.alpha = 0.0f;} completion:^(BOOL finished)
+     {
+         [UIView beginAnimations:nil context:nil];
+         [UIView animateWithDuration:0.5f animations:^{ destView.alpha = 1.0f; } completion:^(BOOL finished)
+          {
+              [m_curUIView removeFromSuperview];
+              m_curUIView = destView;
+              
+              if( callback != nil )
+              {
+                  [self performSelector:callback];
+              }
+          }];
+         [UIView commitAnimations];
+     }];
+    [UIView commitAnimations];
+}
+
+
+// on switch stage
+- (void)_onSwitchStage:(NSNotification*)notification
+{
+    int a = 5;
+    //TODO 
+}
+
+
+// callback on gameStage animation complete
+- (void)_onStartGameDone
+{
+    [m_gameViewController Start:[GlobalWork sharedInstance]._gameMode];
+}
+
 
 ////////////////////////////////////////////////////////////
 ///
@@ -114,8 +197,8 @@
 ////////////////////////////////////////////////////////////
 -(void)nextpeerDidTournamentStartWithDetails:(NPTournamentStartDataContainer *)tournamentContainer
 {
-    [self.viewController presentViewController:m_gameViewController animated:NO completion:nil];
-    [m_gameViewController Start:MUTI_MODE];
+    [GlobalWork sharedInstance]._gameMode = MUTI_MODE;
+    [self startGame];
     
     NSLog( @"Tourname Started" );
 }
@@ -131,7 +214,7 @@
 -(void)nextpeerDidTournamentEnd
 {
     [m_gameViewController End];
-    [m_gameViewController dismissViewControllerAnimated:YES completion:nil];
+    [self switchToView:self.viewController.view withCallback:nil];
     
     NSLog( @"Tourname Ended" );
 }

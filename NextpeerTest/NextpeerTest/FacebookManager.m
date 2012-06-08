@@ -111,7 +111,7 @@ static FacebookManager* m_singleton = nil;
                                 @"publish_stream",
                                 nil];
         
-        [m_facebook authorize:nil];
+        [m_facebook authorize:permissions];
         
         [permissions release];
     }
