@@ -10,7 +10,7 @@
 #import "FBConnect.h"
 #import "FacebookData.h"
 
-#define FACEBOOK_APP_KEY @"475615782464928"
+#define FACEBOOK_APP_KEY @"301584076602496"
 
 
 // Facebook Manager
