@@ -30,6 +30,7 @@
 
 @property (nonatomic, readwrite) int _gameMode;
 @property (nonatomic, retain) FBUserInfo* _challengedUser;
+@property (nonatomic, readwrite) float _elapseTime;
 
 
 @end

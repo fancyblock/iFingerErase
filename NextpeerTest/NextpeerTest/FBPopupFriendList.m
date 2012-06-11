@@ -186,6 +186,7 @@
     [GlobalWork sharedInstance]._challengedUser = userInfo;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME] userInfo:nil];
     
+    [self Close:nil];
 }
 
 

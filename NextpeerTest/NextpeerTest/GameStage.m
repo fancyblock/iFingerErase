@@ -103,6 +103,8 @@
     
     // stop the game loop
     [m_tick invalidate];
+    
+    [GlobalWork sharedInstance]._elapseTime = m_elapsedTime;
 }
 
 
@@ -152,6 +154,16 @@
         self._time.text = [NSString stringWithFormat:@"Time: %.2d:%.2d:%.2d", minutes, seconds, milliseconds];
     }
     
+    if( self._mode == SINGLE_MODE )
+    {
+        if( m_maxDotCnt == m_curDotCnt )
+        {
+            [self End];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_END] userInfo:nil];
+        }
+    }
+    
     // muti player mode ( Nextpeer )
     if( self._mode == MUTI_MODE )
     {
@@ -169,6 +181,7 @@
         [Nextpeer reportScoreForCurrentTournament:(m_curCleanCount*100+(int)percent)];
     }
     
+    // challenge mode
     if( self._mode == CHALLENGE_MODE )
     {
         if( m_maxDotCnt == m_curDotCnt )
@@ -421,8 +434,6 @@
 - (void)complete
 {
     [self stopTiming];
-    
-    //TODO 
 }
 
 

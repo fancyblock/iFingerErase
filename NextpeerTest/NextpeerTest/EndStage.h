@@ -9,5 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface EndStage : UIViewController
+{
+    //TODO 
+}
+
+@property (nonatomic, retain) IBOutlet UILabel* _score;
+
+
+- (IBAction)_onOk:(id)sender;
+
+- (void)Initial;
 
 @end

@@ -8,7 +8,9 @@
 
 #import "ChallengeEndStage.h"
 
-@interface ChallengeEndStage ()
+@interface ChallengeEndStage (private)
+
+- (void)challengeFriend:(FBUserInfo*)friend withTime:(float)time;
 
 @end
 
@@ -33,6 +35,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self Initial];
 }
 
 - (void)viewDidUnload
@@ -50,10 +54,48 @@
 
 - (IBAction)onChallenge:(id)sender
 {
-    //TODO 
+    [self challengeFriend:[GlobalWork sharedInstance]._challengedUser withTime:[GlobalWork sharedInstance]._elapseTime];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
 }
 
 - (IBAction)onDiscard:(id)sender
+{    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
+}
+
+
+/**
+ * @desc    initial the ui according to the info
+ * @para    none
+ * @return  none
+ */
+- (void)Initial
+{
+    int minutes = (int)([GlobalWork sharedInstance]._elapseTime / 60.0f);
+    int seconds = (int)([GlobalWork sharedInstance]._elapseTime - minutes * 60.0f);
+    int milliseconds = (int)(([GlobalWork sharedInstance]._elapseTime - (float)seconds - (float)minutes * 60.0f) * 100.0f);
+    NSString* txtTime = [NSString stringWithFormat:@"%.2d:%.2d:%.2d", minutes, seconds, milliseconds];
+    
+    self._txtScore.text = [NSString stringWithFormat:@"You spend %@", txtTime];
+    self._txtFriendName.text = [GlobalWork sharedInstance]._challengedUser._name;
+    
+    if( [GlobalWork sharedInstance]._challengedUser._pic == nil )
+    {
+        [[FacebookManager sharedInstance] LoadPicture:[GlobalWork sharedInstance]._challengedUser]; 
+    }
+    else 
+    {
+        [self._imgFriendIcon setImage:[GlobalWork sharedInstance]._challengedUser._pic];
+    }
+}
+
+
+//------------------------------------- private function ----------------------------------------
+
+
+// challenge friend
+- (void)challengeFriend:(FBUserInfo*)friend withTime:(float)time
 {
     //TODO 
 }

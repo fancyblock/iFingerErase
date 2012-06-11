@@ -185,11 +185,13 @@
     
     if( type == STAGE_END )
     {
+        [m_endViewController Initial];
         [self switchToView:m_endViewController.view withCallback:nil];
     }
     
     if( type == STAGE_CHALLENGE_END )
     {
+        [m_challengeEndController Initial];
         [self switchToView:m_challengeEndController.view withCallback:nil];
     }
     

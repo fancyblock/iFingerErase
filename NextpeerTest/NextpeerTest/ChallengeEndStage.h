@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GlobalWork.h"
 
 @interface ChallengeEndStage : UIViewController
 {
@@ -21,6 +22,8 @@
 - (IBAction)onChallenge:(id)sender;
 
 - (IBAction)onDiscard:(id)sender;
+
+- (void)Initial;
 
 
 @end
