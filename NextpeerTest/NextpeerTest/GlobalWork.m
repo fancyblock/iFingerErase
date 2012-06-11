@@ -3,7 +3,7 @@
 //  iFingerErase
 //
 //  Created by He jia bin on 6/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 CoconutIslandStudio. All rights reserved.
 //
 
 #import "GlobalWork.h"

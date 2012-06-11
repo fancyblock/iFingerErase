@@ -3,10 +3,11 @@
 //  iFingerErase
 //
 //  Created by He jia bin on 6/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 CoconutIslandStudio. All rights reserved.
 //
 
 #import "ChallengeEndStage.h"
+#import "ChallengeCenter.h"
 
 @interface ChallengeEndStage (private)
 
@@ -97,7 +98,10 @@
 // challenge friend
 - (void)challengeFriend:(FBUserInfo*)friend withTime:(float)time
 {
-    //TODO 
+    [[ChallengeCenter sharedInstance] CreateChallenge:[FacebookManager sharedInstance]._userInfo._uid 
+                                             toFriend:[GlobalWork sharedInstance]._challengedUser._uid
+                                                 with:[GlobalWork sharedInstance]._elapseTime];
 }
+
 
 @end

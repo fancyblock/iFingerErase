@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF4D29CB1585C2A40035D95E /* ChallengeCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4D29CA1585C2A40035D95E /* ChallengeCenter.m */; };
 		CF55A1841575D2AD0055F5CA /* Nextpeer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1831575D2AD0055F5CA /* Nextpeer.framework */; };
 		CF55A1871575D30E0055F5CA /* NPResources_iPhone_Portrait.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF55A1861575D30E0055F5CA /* NPResources_iPhone_Portrait.bundle */; };
 		CF55A1891575D6B40055F5CA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1881575D6B40055F5CA /* Security.framework */; };
@@ -50,6 +51,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF4D29C91585C2A40035D95E /* ChallengeCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeCenter.h; sourceTree = "<group>"; };
+		CF4D29CA1585C2A40035D95E /* ChallengeCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeCenter.m; sourceTree = "<group>"; };
 		CF55A1831575D2AD0055F5CA /* Nextpeer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nextpeer.framework; sourceTree = "<group>"; };
 		CF55A1861575D30E0055F5CA /* NPResources_iPhone_Portrait.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NPResources_iPhone_Portrait.bundle; sourceTree = "<group>"; };
 		CF55A1881575D6B40055F5CA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -214,6 +217,8 @@
 				CF7C52841575C608008F929A /* ViewController.h */,
 				CF7C52851575C608008F929A /* ViewController.m */,
 				CF7C52871575C608008F929A /* ViewController.xib */,
+				CF4D29C91585C2A40035D95E /* ChallengeCenter.h */,
+				CF4D29CA1585C2A40035D95E /* ChallengeCenter.m */,
 				CF7C52791575C608008F929A /* Supporting Files */,
 			);
 			path = NextpeerTest;
@@ -351,6 +356,7 @@
 				CF7BB04F1580A94D004276AF /* FBPopupFriendList.m in Sources */,
 				CF78A1E31581F84C00F7AD77 /* GlobalWork.m in Sources */,
 				CF78A1E81582008400F7AD77 /* ChallengeEndStage.m in Sources */,
+				CF4D29CB1585C2A40035D95E /* ChallengeCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
