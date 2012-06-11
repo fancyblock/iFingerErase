@@ -65,7 +65,6 @@
     [Nextpeer initializeWithProductKey:NEXTPEER_KEY andDelegates:[NPDelegatesContainer containerWithNextpeerDelegate:self tournamentDelegate:self]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onSwitchStage:) name:@"SwitchStage" object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startGame) name:@"StartGame" object:nil];
     
     [FacebookManager sharedInstance];
     
@@ -126,7 +125,6 @@
     [m_gameViewController release];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SwitchStage" object:nil];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"StartGame" object:nil];
 }
 
 
@@ -155,7 +153,7 @@
     [[UIApplication sharedApplication].keyWindow addSubview:destView];
     
     [UIView beginAnimations:nil context:nil];
-    [UIView animateWithDuration:0.5f animations:^{m_curUIView.alpha = 0.0f;} completion:^(BOOL finished)
+    [UIView animateWithDuration:0.6f animations:^{m_curUIView.alpha = 0.0f;} completion:^(BOOL finished)
      {
          [UIView beginAnimations:nil context:nil];
          [UIView animateWithDuration:0.5f animations:^{ destView.alpha = 1.0f; } completion:^(BOOL finished)
@@ -177,8 +175,28 @@
 // on switch stage
 - (void)_onSwitchStage:(NSNotification*)notification
 {
-    int a = 5;
-    //TODO 
+    NSNumber* numberObj = [notification object];
+    int type = [numberObj intValue];
+    
+    if( type == STAGE_GAME )
+    {
+        [self startGame];
+    }
+    
+    if( type == STAGE_END )
+    {
+        [self switchToView:m_endViewController.view withCallback:nil];
+    }
+    
+    if( type == STAGE_CHALLENGE_END )
+    {
+        [self switchToView:m_challengeEndController.view withCallback:nil];
+    }
+    
+    if( type == STAGE_MAINMENU )
+    {
+        [self switchToView:self.viewController.view withCallback:nil];
+    }
 }
 
 

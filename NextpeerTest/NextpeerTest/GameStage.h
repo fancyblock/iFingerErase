@@ -30,6 +30,7 @@
     Byte* m_dataInfo;
     float m_elapsedTime;
     BOOL m_isTiming;
+    BOOL m_running;
     
     int m_curCleanCount;
 }

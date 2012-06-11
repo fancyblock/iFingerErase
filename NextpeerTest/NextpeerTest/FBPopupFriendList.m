@@ -184,7 +184,7 @@
     
     [GlobalWork sharedInstance]._gameMode = CHALLENGE_MODE;
     [GlobalWork sharedInstance]._challengedUser = userInfo;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"StartGame" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME] userInfo:nil];
     
 }
 

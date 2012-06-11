@@ -46,11 +46,7 @@
 - (IBAction)onSinglePlayer:(id)sender
 {
     [GlobalWork sharedInstance]._gameMode = SINGLE_MODE;
-    
-    NSDictionary* para = [NSDictionary dictionaryWithObject:STAGE_GAME forKey:@"type"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:nil userInfo:para];
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:nil userInfo:para];
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"StartGame" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME] userInfo:nil];
 }
 
 

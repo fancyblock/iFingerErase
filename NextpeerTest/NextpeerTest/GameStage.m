@@ -84,6 +84,8 @@
     self->m_tick = [CADisplayLink displayLinkWithTarget:self selector:@selector(gameFrame:)];		
     self->m_tick.frameInterval = 1;
     [m_tick addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    m_running = YES;
 }
 
 
@@ -94,6 +96,8 @@
  */
 - (void)End
 {
+    m_running = NO;
+    
     [self stopTiming];
     free( m_dataInfo );
     
@@ -111,7 +115,7 @@
 {
     [self End];
     
-    //TODO 
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
 }
 
 
@@ -169,7 +173,9 @@
     {
         if( m_maxDotCnt == m_curDotCnt )
         {
-            //TODO 
+            [self End];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE_END] userInfo:nil];
         }
     }
     
@@ -425,6 +431,11 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if( m_running == NO )
+    {
+        return;
+    }
+    
     UITouch* touch = [touches anyObject];
     CGPoint pt = [touch locationInView:self._glass];
     
@@ -436,6 +447,11 @@
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if( m_running == NO )
+    {
+        return;
+    }
+    
     UITouch* touch = [touches anyObject];
     CGPoint pt = [touch locationInView:self._glass];
     
