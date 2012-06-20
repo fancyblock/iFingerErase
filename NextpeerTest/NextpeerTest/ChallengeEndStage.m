@@ -22,6 +22,7 @@
 @synthesize _txtScore;
 @synthesize _imgFriendIcon;
 @synthesize _txtFriendName;
+@synthesize _loadingMask;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -88,6 +89,8 @@
     {
         [self._imgFriendIcon setImage:[GlobalWork sharedInstance]._challengedUser._pic];
     }
+    
+    [self._loadingMask setHidden:YES];
 }
 
 
@@ -103,14 +106,14 @@
                                    withCallbackSender:self 
                                          withCallback:@selector(_onPublishDone)];
     
-    //TODO 
+    [self._loadingMask setHidden:NO];
 }
 
 
 // callback on publish done
 - (void)_onPublishDone
 {
-    //TODO 
+    [self._loadingMask setHidden:YES];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
 }

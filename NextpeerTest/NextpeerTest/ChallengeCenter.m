@@ -47,7 +47,7 @@ static ChallengeCenter* m_inscance;
  * @para    score
  * @return  none
  */
-- (void)CreateChallenge:(NSString*)challenger toFriend:(NSString*)enemy with:(float)score
+- (void)CreateChallenge:(NSString*)challenger toFriend:(NSString*)enemy with:(float)score withCallbackSender:(id)sender withCallback:(SEL)callback
 {
     PFObject* challengeInfo = [PFObject objectWithClassName:CHALLENGE_INFO];
     
@@ -57,7 +57,7 @@ static ChallengeCenter* m_inscance;
     [challengeInfo setObject:[NSNumber numberWithBool:NO] forKey:ID_FINISH];
     [challengeInfo saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
      {
-         [self sendChallengeNotification:challengeInfo to:enemy];
+         [self sendChallengeNotification:challengeInfo to:enemy withCallbackSender:sender withCallback:callback];
      }];
 }
 

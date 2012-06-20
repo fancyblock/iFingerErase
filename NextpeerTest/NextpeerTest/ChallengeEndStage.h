@@ -17,6 +17,7 @@
 @property (nonatomic, retain) IBOutlet UILabel* _txtScore;
 @property (nonatomic, retain) IBOutlet UIImageView* _imgFriendIcon;
 @property (nonatomic, retain) IBOutlet UILabel* _txtFriendName;
+@property (nonatomic, retain) IBOutlet UIView* _loadingMask;
 
 
 - (IBAction)onChallenge:(id)sender;
