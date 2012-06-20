@@ -16,6 +16,8 @@
 #define ID_SCORE_E      @"score_e"
 #define ID_FINISH       @"isCompleted"
 
+#define KEY_CHALLENGE   @"challenge_id"
+
 
 // challenge info
 struct challengeInfo 
@@ -40,7 +42,7 @@ struct challengeInfo
 + (ChallengeCenter*)sharedInstance;
 
 
-- (void)CreateChallenge:(NSString*)challenger toFriend:(NSString*)enemy with:(float)score;
+- (void)CreateChallenge:(NSString*)challenger toFriend:(NSString*)enemy with:(float)score withCallbackSender:(id)sender withCallback:(SEL)callback;
 
 - (void)ResponseChallenge:(NSString*)challengeId with:(float)score;
 

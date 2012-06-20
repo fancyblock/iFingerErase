@@ -23,6 +23,9 @@
 
 @optional
 
+// All of the delegate methods below are optional.
+// Implement them only when you need to more finely control Nextpeer's behavior.
+
 ////////////////////////////////////////////////////////////
 ///
 /// @note   Use this function to tell the SDK whether you support the given tournament. This method
@@ -42,18 +45,6 @@
 ///
 ////////////////////////////////////////////////////////////
 -(BOOL)nextpeerNotSupportedShouldShowCustomError;
-
-////////////////////////////////////////////////////////////
-///
-/// @note  This method will be called when Nextpeer has received a buffer from another player.
-///		   You can use these buffers to create custom notifications and events while engaging the other players
-///        that are currently playing. The container that is passed contains the sending user's name and image as well
-///        as the message being sent.
-///
-////////////////////////////////////////////////////////////
-/// @deprecated please implement with NPTournamentDelegate instead. Will be removed in 0.0.8.
-// If you will implement this method we will not call NPTournamentDelegate nextpeerDidReceiveTournamentCustomMessage method.
--(void)nextpeerDidReceiveCustomMessage:(NPTournamentCustomMessageContainer*)message DEPRECATED_ATTRIBUTE;
 
 ////////////////////////////////////////////////////////////
 ///
@@ -100,7 +91,5 @@
 ///
 ////////////////////////////////////////////////////////////
 - (void)nextpeerDashboardDidReturnToGame;
-
-
 
 @end

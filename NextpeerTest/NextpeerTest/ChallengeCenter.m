@@ -8,6 +8,15 @@
 
 #import "ChallengeCenter.h"
 #import "Parse/Parse.h"
+#import "FacebookManager.h"
+
+
+@interface ChallengeCenter (private)
+
+- (void)sendChallengeNotification:(PFObject*)data to:(NSString*)fbId;
+
+@end
+
 
 @implementation ChallengeCenter
 
@@ -48,7 +57,7 @@ static ChallengeCenter* m_inscance;
     [challengeInfo setObject:[NSNumber numberWithBool:NO] forKey:ID_FINISH];
     [challengeInfo saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
      {
-         //TODO 
+         [self sendChallengeNotification:challengeInfo to:enemy];
      }];
 }
 
@@ -62,6 +71,40 @@ static ChallengeCenter* m_inscance;
 - (void)ResponseChallenge:(NSString*)challengeId with:(float)score
 {
     //TODO 
+}
+
+
+//------------------------------------ private function ------------------------------------------ 
+
+
+// send push notification to inform the challenge
+- (void)sendChallengeNotification:(PFObject*)data to:(NSString*)fbId withCallbackSender:(id)sender withCallback:(SEL)callback
+{
+    // push notification
+    NSDictionary *pushInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"You've got a new challenge", @"alert",
+                          [NSNumber numberWithInt:1], @"badge",
+                          data.objectId, KEY_CHALLENGE,
+                          nil];
+    
+    PFPush *push = [[[PFPush alloc] init] autorelease];
+    
+    [push setChannels:[NSArray arrayWithObjects:[NSString stringWithFormat:@"fb%@", fbId], nil]];
+    [push setPushToAndroid:false];
+    [push expireAfterTimeInterval:86400];
+    [push setData:pushInfo];
+    [push sendPushInBackground];
+    
+    // post to the wall
+    [[FacebookManager sharedInstance] PublishToFriendWall:@"You've got a challenge!"
+                                                 withDesc:[NSString stringWithFormat:@"%@ challenge you at iFingerErase.", [FacebookManager sharedInstance]._userInfo._name]
+                                                 withName:[FacebookManager sharedInstance]._userInfo._name
+                                              withPicture:@"http://www.coconutislandstudio.com/asset/iDragPaper/iDragPaper_FREE_Normal.png" 
+                                                 withLink:@"http://fancyblock.sinaapp.com" 
+                                                 toFriend:fbId
+                                       withCallbackSender:sender 
+                                             withCallback:callback];
+    
 }
 
 

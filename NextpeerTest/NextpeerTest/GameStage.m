@@ -82,7 +82,7 @@
     
     // start the game loop
     self->m_tick = [CADisplayLink displayLinkWithTarget:self selector:@selector(gameFrame:)];		
-    self->m_tick.frameInterval = 1;
+    self->m_tick.frameInterval = 0;
     [m_tick addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     
     m_running = YES;

@@ -46,4 +46,6 @@
 
 - (void)PublishToWall:(NSString*)title withDesc:(NSString*)desc withName:(NSString*)name withPicture:(NSString*)pic withLink:(NSString*)link;
 
+- (void)PublishToFriendWall:(NSString*)title withDesc:(NSString*)desc withName:(NSString*)name withPicture:(NSString*)pic withLink:(NSString*)link toFriend:(NSString*)fbId withCallbackSender:(id)sender withCallback:(SEL)callback;
+
 @end

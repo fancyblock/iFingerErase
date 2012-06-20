@@ -101,11 +101,7 @@ static FacebookManager* m_singleton = nil;
     if( self.IsAuthenticated == NO )
     {
         // save the callback for invoke 
-        CallbackInfo* callbackInfo = [[CallbackInfo alloc] init];
-        callbackInfo._callbackSender = caller;
-        callbackInfo._callback = callback;
-        
-        [m_callbacks setValue:callbackInfo forKey:@"auth"];
+        [self addCallback:caller withCallback:callback forKey:@"auth"];
         
         NSArray *permissions = [[NSArray alloc] initWithObjects:
                                 @"publish_stream",
@@ -228,6 +224,39 @@ static FacebookManager* m_singleton = nil;
 }
 
 
+/**
+ * @desc    post something to the friends' wall
+ * @para    title
+ * @para    desc
+ * @para    name
+ * @para    pic
+ * @para    link
+ * @para    fbId
+ * @return  none
+ */
+- (void)PublishToFriendWall:(NSString*)title withDesc:(NSString*)desc withName:(NSString*)name withPicture:(NSString*)pic withLink:(NSString*)link toFriend:(NSString*)fbId withCallbackSender:(id)sender withCallback:(SEL)callback;
+{
+    //message, picture, link, name, caption, description, source, place, tags
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   FACEBOOK_APP_KEY, @"app_id",
+                                   link, @"link",
+                                   pic, @"picture",
+                                   name, @"name",
+                                   title, @"caption",
+                                   desc, @"description",
+                                   fbId, @"to",
+                                   nil];
+    
+    if( sender != nil && callback != nil )
+    {
+        [self addCallback:sender withCallback:callback forKey:@"publishWall"];        
+    }
+    
+    [m_facebook dialog:@"feed" andParams:params andDelegate:self];
+    
+}
+
+
 //------------------------------ private function --------------------------------- 
 
 
@@ -255,7 +284,7 @@ static FacebookManager* m_singleton = nil;
  */
 - (void)removeCallback:(NSString*)key
 {
-    CallbackInfo* oldCallbackInfo = [m_callbacks valueForKey:key];
+    CallbackInfo* oldCallbackInfo = [m_callbacks objectForKey:key];
     
     if( oldCallbackInfo != nil )
     {
@@ -396,7 +425,7 @@ static FacebookManager* m_singleton = nil;
     }
     
     // invoke the callback
-    CallbackInfo* callbackInfo = [m_callbacks valueForKey:requestType];
+    CallbackInfo* callbackInfo = [m_callbacks objectForKey:requestType];
     
     if( callbackInfo != nil )
     {
@@ -421,6 +450,22 @@ static FacebookManager* m_singleton = nil;
 - (void)request:(FBRequest *)request didLoadRawResponse:(NSData *)data
 {
     //TODO 
+}
+
+
+/**
+ * Called when the dialog succeeds and is about to be dismissed.
+ */
+- (void)dialogDidComplete:(FBDialog *)dialog
+{
+    CallbackInfo* callbackInfo = [m_callbacks objectForKey:@"publishWall"];
+    
+    if( callbackInfo != nil )
+    {
+        [callbackInfo._callbackSender performSelector:callbackInfo._callback];
+        
+        [self removeCallback:@"publishWall"];
+    }
 }
 
 

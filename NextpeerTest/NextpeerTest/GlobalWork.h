@@ -18,6 +18,7 @@
 #define STAGE_GAME          2
 #define STAGE_END           3
 #define STAGE_CHALLENGE_END 4
+#define STAGE_CHALLENGE     5
 
 
 @interface GlobalWork : NSObject

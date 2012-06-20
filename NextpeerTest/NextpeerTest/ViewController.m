@@ -60,6 +60,8 @@
 {
     if( [FacebookManager sharedInstance].IsAuthenticated == YES )
     {
+        //TODO 
+        
         [self.view addSubview:m_fbFriendList.view];
         [m_fbFriendList StartLoad];
         

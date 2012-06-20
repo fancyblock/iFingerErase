@@ -49,10 +49,14 @@
     
     m_curUIView = self.viewController.view;
     
+    // clean the badge
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
     // initial the game view controllers
     m_gameViewController = [[GameStage alloc] initWithNibName:@"GameStage" bundle:nil];
     m_endViewController = [[EndStage alloc] initWithNibName:@"EndStage" bundle:nil];
     m_challengeEndController = [[ChallengeEndStage alloc] initWithNibName:@"ChallengeEndStage" bundle:nil];
+    m_challengeController = [[ChallengeStage alloc] initWithNibName:@"ChallengeStage" bundle:nil];
     
     // initial the Parse
     [Parse setApplicationId:@"zKzUtc34Q5C5oiir18xXaVmr0bZURwkpCtPvMVhX"
@@ -93,7 +97,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0)
 {
-    //TODO
+    [PFPush handlePush:userInfo];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -178,6 +182,11 @@
     NSNumber* numberObj = [notification object];
     int type = [numberObj intValue];
     
+    if( type == STAGE_MAINMENU )
+    {
+        [self switchToView:self.viewController.view withCallback:nil];
+    }
+    
     if( type == STAGE_GAME )
     {
         [self startGame];
@@ -195,9 +204,9 @@
         [self switchToView:m_challengeEndController.view withCallback:nil];
     }
     
-    if( type == STAGE_MAINMENU )
+    if( type == STAGE_CHALLENGE )
     {
-        [self switchToView:self.viewController.view withCallback:nil];
+        [self switchToView:m_challengeController.view withCallback:nil];
     }
 }
 

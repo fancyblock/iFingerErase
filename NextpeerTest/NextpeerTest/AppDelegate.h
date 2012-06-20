@@ -13,6 +13,7 @@
 #import "Parse/Parse.h"
 #import "ChallengeEndStage.h"
 #import "EndStage.h"
+#import "ChallengeStage.h"
 
 
 #define NEXTPEER_KEY    @"670eb38993b782f75bca7178ca19dc9927adbe79"
@@ -24,6 +25,7 @@
     GameStage* m_gameViewController;
     EndStage* m_endViewController;
     ChallengeEndStage* m_challengeEndController;
+    ChallengeStage* m_challengeController;
     
     UIView* m_curUIView;
 }

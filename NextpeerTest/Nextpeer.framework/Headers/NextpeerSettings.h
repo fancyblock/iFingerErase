@@ -83,4 +83,3 @@ extern NSString* NextpeerSettingPresentationWindow;
 ///
 ////////////////////////////////////////////////////////////
 extern NSString* NextpeerSettingGameSupportsRetina;
-

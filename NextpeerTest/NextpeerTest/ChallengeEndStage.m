@@ -12,6 +12,7 @@
 @interface ChallengeEndStage (private)
 
 - (void)challengeFriend:(FBUserInfo*)friend withTime:(float)time;
+- (void)_onPublishDone;
 
 @end
 
@@ -56,8 +57,6 @@
 - (IBAction)onChallenge:(id)sender
 {
     [self challengeFriend:[GlobalWork sharedInstance]._challengedUser withTime:[GlobalWork sharedInstance]._elapseTime];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
 }
 
 - (IBAction)onDiscard:(id)sender
@@ -100,7 +99,20 @@
 {
     [[ChallengeCenter sharedInstance] CreateChallenge:[FacebookManager sharedInstance]._userInfo._uid 
                                              toFriend:[GlobalWork sharedInstance]._challengedUser._uid
-                                                 with:[GlobalWork sharedInstance]._elapseTime];
+                                                 with:[GlobalWork sharedInstance]._elapseTime 
+                                   withCallbackSender:self 
+                                         withCallback:@selector(_onPublishDone)];
+    
+    //TODO 
+}
+
+
+// callback on publish done
+- (void)_onPublishDone
+{
+    //TODO 
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
 }
 
 
