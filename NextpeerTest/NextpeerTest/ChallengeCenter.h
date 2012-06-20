@@ -46,5 +46,7 @@ struct challengeInfo
 
 - (void)ResponseChallenge:(NSString*)challengeId with:(float)score;
 
+- (void)FetchAllChallenges:(NSString*)fbId;
+
 
 @end

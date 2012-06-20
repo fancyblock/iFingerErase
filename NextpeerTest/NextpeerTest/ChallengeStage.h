@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FBPopupFriendList.h"
 
-@interface ChallengeStage : UIViewController
+@interface ChallengeStage : UIViewController<UITableViewDelegate, UITableViewDataSource>
+{
+    FBPopupFriendList* m_fbFriendList;
+}
+
+@property (nonatomic, retain) IBOutlet UITableView* _tableView;
+
+
+- (IBAction)onBack:(id)sender;
+
+- (IBAction)onCreateChallenge:(id)sender;
 
 @end

@@ -25,8 +25,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    m_fbFriendList = [[FBPopupFriendList alloc] initWithNibName:@"FBPopupFriendList" bundle:nil];
 }
 
 
@@ -46,7 +44,7 @@
 - (IBAction)onSinglePlayer:(id)sender
 {
     [GlobalWork sharedInstance]._gameMode = SINGLE_MODE;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME] userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME]];
 }
 
 
@@ -60,27 +58,7 @@
 {
     if( [FacebookManager sharedInstance].IsAuthenticated == YES )
     {
-        //TODO 
-        
-        [self.view addSubview:m_fbFriendList.view];
-        [m_fbFriendList StartLoad];
-        
-        m_fbFriendList.view.transform = CGAffineTransformMake(0.001f, 0, 0, 0.001f, 0, 0);
-        
-        [UIView beginAnimations:nil context:nil];
-        [UIView animateWithDuration:0.25f animations:^{m_fbFriendList.view.transform = CGAffineTransformMake(1.1f, 0, 0, 1.1f, 0, 0);} completion:^(BOOL finished)
-         {
-             [UIView beginAnimations:nil context:nil];
-             [UIView animateWithDuration:0.15f animations:^{ m_fbFriendList.view.transform = CGAffineTransformMake(0.9f, 0, 0, 0.9f, 0, 0); } completion:^(BOOL finished)
-              {
-                  [UIView beginAnimations:nil context:nil];
-                  m_fbFriendList.view.transform = CGAffineTransformMake(1.0f, 0, 0, 1.0f, 0, 0);
-                  [UIView setAnimationDuration:0.15f];
-                  [UIView commitAnimations];
-              }];
-             [UIView commitAnimations];
-         }];
-        [UIView commitAnimations];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE]];
     }
     else 
     {

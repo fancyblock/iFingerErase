@@ -12,7 +12,6 @@
 
 @interface ViewController : UIViewController
 {
-    FBPopupFriendList* m_fbFriendList;
 }
 
 

@@ -74,6 +74,17 @@ static ChallengeCenter* m_inscance;
 }
 
 
+/**
+ * @desc    get all the challenges from this fb user
+ * @para    fbId    facebook uid
+ * @return  none
+ */
+- (void)FetchAllChallenges:(NSString*)fbId
+{
+    //TODO 
+}
+
+
 //------------------------------------ private function ------------------------------------------ 
 
 
