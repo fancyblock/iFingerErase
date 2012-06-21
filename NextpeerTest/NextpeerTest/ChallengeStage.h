@@ -21,4 +21,6 @@
 
 - (IBAction)onCreateChallenge:(id)sender;
 
+- (void)Initial;
+
 @end

@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Parse/Parse.h"
+
 
 #define CHALLENGE_INFO  @"challengeInfo"
 
@@ -19,24 +21,29 @@
 #define KEY_CHALLENGE   @"challenge_id"
 
 
-// challenge info
-struct challengeInfo 
+@interface challengeInfo:NSObject
 {
-    NSString* _challenger;
-    NSString* _enemy;
-    float _score_c;
-    float _score_e;
-};
+}
+
+@property (nonatomic, retain) NSString* _challenger;
+@property (nonatomic, retain) NSString* _enemy;
+@property (nonatomic, readwrite) float _score_c;
+@property (nonatomic, readwrite) float _score_e;
+@property (nonatomic, readwrite) BOOL _isDone;
+
+@property (nonatomic, retain) NSString* _challengeId;
+
+@end
 
 
 
 @interface ChallengeCenter : NSObject
 {
-    //TODO 
+    NSMutableArray* m_challengeList;
 }
 
 
-//TODO 
+@property (nonatomic, readonly) NSMutableArray* _challengeList;
 
 
 + (ChallengeCenter*)sharedInstance;
@@ -46,7 +53,7 @@ struct challengeInfo
 
 - (void)ResponseChallenge:(NSString*)challengeId with:(float)score;
 
-- (void)FetchAllChallenges:(NSString*)fbId;
+- (void)FetchAllChallenges:(NSString*)fbId withCallbackSender:(id)sender withCallback:(SEL)callback;
 
 
 @end

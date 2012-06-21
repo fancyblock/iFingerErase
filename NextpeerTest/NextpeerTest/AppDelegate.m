@@ -41,6 +41,7 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
     // Override point for customization after application launch.
     self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
@@ -165,6 +166,8 @@
               [m_curUIView removeFromSuperview];
               m_curUIView = destView;
               
+              //TODO 
+              
               if( callback != nil )
               {
                   [self performSelector:callback];
@@ -206,6 +209,7 @@
     
     if( type == STAGE_CHALLENGE )
     {
+        [m_challengeController Initial];
         [self switchToView:m_challengeController.view withCallback:nil];
     }
 }

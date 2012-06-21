@@ -55,6 +55,8 @@
 		CF80DF48157E0B9900E5F2C0 /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF80DF45157E0B9900E5F2C0 /* FacebookManager.m */; };
 		CF80DF49157E0B9900E5F2C0 /* FBLeaderboard.m in Sources */ = {isa = PBXBuildFile; fileRef = CF80DF46157E0B9900E5F2C0 /* FBLeaderboard.m */; };
 		CF80DF4B157E181300E5F2C0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF80DF4A157E181300E5F2C0 /* Default.png */; };
+		CF81886315932BAB005F840A /* ChallengeCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF81886215932BAB005F840A /* ChallengeCellView.m */; };
+		CF81886515932BC3005F840A /* ChallengeCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF81886415932BC3005F840A /* ChallengeCellView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -135,6 +137,9 @@
 		CF80DF45157E0B9900E5F2C0 /* FacebookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookManager.m; sourceTree = "<group>"; };
 		CF80DF46157E0B9900E5F2C0 /* FBLeaderboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLeaderboard.m; sourceTree = "<group>"; };
 		CF80DF4A157E181300E5F2C0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CF81886115932BAA005F840A /* ChallengeCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeCellView.h; sourceTree = "<group>"; };
+		CF81886215932BAB005F840A /* ChallengeCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeCellView.m; sourceTree = "<group>"; };
+		CF81886415932BC3005F840A /* ChallengeCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeCellView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +245,9 @@
 				CF7C52871575C608008F929A /* ViewController.xib */,
 				CF4D29C91585C2A40035D95E /* ChallengeCenter.h */,
 				CF4D29CA1585C2A40035D95E /* ChallengeCenter.m */,
+				CF81886115932BAA005F840A /* ChallengeCellView.h */,
+				CF81886215932BAB005F840A /* ChallengeCellView.m */,
+				CF81886415932BC3005F840A /* ChallengeCellView.xib */,
 				CF7C52791575C608008F929A /* Supporting Files */,
 			);
 			path = NextpeerTest;
@@ -379,6 +387,7 @@
 				CF7BCF6C15918A130090BE5E /* NPResources_iPad.bundle in Resources */,
 				CF7BCF6D15918A130090BE5E /* NPResources_iPhone_Landscape.bundle in Resources */,
 				CF7BCF6E15918A130090BE5E /* NPResources_iPhone_Portrait.bundle in Resources */,
+				CF81886515932BC3005F840A /* ChallengeCellView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +412,7 @@
 				CF78A1E81582008400F7AD77 /* ChallengeEndStage.m in Sources */,
 				CF4D29CB1585C2A40035D95E /* ChallengeCenter.m in Sources */,
 				CF7E51C215870FD9005FC5B3 /* ChallengeStage.m in Sources */,
+				CF81886315932BAB005F840A /* ChallengeCellView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

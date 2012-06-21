@@ -8,9 +8,15 @@
 
 #import "ChallengeStage.h"
 #import "GlobalWork.h"
+#import "ChallengeCenter.h"
+#import "FacebookManager.h"
+#import "ChallengeCellView.h"
 
 
-@interface ChallengeStage ()
+@interface ChallengeStage (private)
+
+- (void)_onProfileComplete;
+- (void)_onChallengeInfoComplete;
 
 @end
 
@@ -34,6 +40,7 @@
     // Do any additional setup after loading the view from its nib.
     
     m_fbFriendList = [[FBPopupFriendList alloc] initWithNibName:@"FBPopupFriendList" bundle:nil];
+    
 }
 
 - (void)viewDidUnload
@@ -46,6 +53,18 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+/**
+ * @desc    initial
+ * @para    none
+ * @return  none
+ */
+- (void)Initial
+{
+    // get all the challenge info
+    [[FacebookManager sharedInstance] GetProfile:self withCallback:@selector(_onProfileComplete)];
 }
 
 
@@ -94,18 +113,46 @@
 // return the 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //TODO 
+    if( [ChallengeCenter sharedInstance]._challengeList == nil )
+    {
+        return 0;
+    }
     
-    return 0;
+    return [[ChallengeCenter sharedInstance]._challengeList count];
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    int index = [indexPath row];
+    
+    ChallengeCellView* cellView = nil;
+    
+    
+    
     //TODO 
     
     return nil;
+}
+
+
+//------------------------------------ callback function -----------------------------------------
+
+
+// callback when callback complete
+- (void)_onProfileComplete
+{
+    [[ChallengeCenter sharedInstance] FetchAllChallenges:[FacebookManager sharedInstance]._userInfo._uid withCallbackSender:self withCallback:@selector(_onChallengeInfoComplete)];
+}
+
+
+// callback when challenge info complete
+- (void)_onChallengeInfoComplete
+{
+    //TODO 
+    
+    [self._tableView reloadData];
 }
 
 

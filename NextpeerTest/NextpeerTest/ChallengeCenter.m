@@ -7,8 +7,19 @@
 //
 
 #import "ChallengeCenter.h"
-#import "Parse/Parse.h"
 #import "FacebookManager.h"
+
+
+@implementation challengeInfo
+
+@synthesize _score_e;
+@synthesize _score_c;
+@synthesize _isDone;
+@synthesize _enemy;
+@synthesize _challenger;
+@synthesize _challengeId;
+
+@end
 
 
 @interface ChallengeCenter (private)
@@ -22,6 +33,16 @@
 
 static ChallengeCenter* m_inscance;
 
+
+/**
+ * @desc    return the challengelist
+ * @para    none
+ * @return  challengelist
+ */
+- (NSMutableArray*)_challengeList
+{
+    return m_challengeList;
+}
 
 
 /**
@@ -37,6 +58,21 @@ static ChallengeCenter* m_inscance;
     }
     
     return m_inscance;
+}
+
+
+/**
+ * @desc    initial
+ * @para    none
+ * @return  self
+ */
+- (id)init
+{
+    [super init];
+    
+    m_challengeList = [[NSMutableArray alloc] init];
+    
+    return self;
 }
 
 
@@ -79,9 +115,44 @@ static ChallengeCenter* m_inscance;
  * @para    fbId    facebook uid
  * @return  none
  */
-- (void)FetchAllChallenges:(NSString*)fbId
+- (void)FetchAllChallenges:(NSString*)fbId withCallbackSender:(id)sender withCallback:(SEL)callback
 {
-    //TODO 
+    PFQuery* query1 = [PFQuery queryWithClassName:@"challengeInfo"];
+    PFQuery* query2 = [PFQuery queryWithClassName:@"challengeInfo"];
+    
+    [query1 whereKey:@"challenger" equalTo:fbId];
+    [query2 whereKey:@"enemy" equalTo:fbId];
+    
+    PFQuery* query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:query1, query2, nil]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray* objects, NSError* error)
+     {
+         if( error == nil )
+         {
+             [m_challengeList removeAllObjects];
+             
+             PFObject *challenge = nil;
+             
+             int count = [objects count];
+             for( int i = 0; i < count; i++ )
+             {
+                 challenge = [objects objectAtIndex:i];
+                 
+                 challengeInfo* info = [[challengeInfo alloc] init];
+                 
+                 info._challenger = [[challenge objectForKey:ID_CHALLENGER] retain];
+                 info._enemy = [[challenge objectForKey:ID_ENEMY] retain];
+                 info._isDone = [[challenge objectForKey:ID_FINISH] boolValue];
+                 info._score_c = [[challenge objectForKey:ID_SCORE_C] floatValue];
+                 info._score_e = [[challenge objectForKey:ID_SCORE_E] floatValue];
+                 
+                 info._challengeId = [challenge.objectId retain];
+                 
+                 [m_challengeList addObject:info];
+                 
+             }
+         }
+     }];
 }
 
 
@@ -104,8 +175,13 @@ static ChallengeCenter* m_inscance;
     [push setPushToAndroid:false];
     [push expireAfterTimeInterval:86400];
     [push setData:pushInfo];
-    [push sendPushInBackground];
+    [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
+     {
+         [sender performSelector:callback];
+     }];
+    //[push sendPushInBackground];
     
+    /*
     // post to the wall
     [[FacebookManager sharedInstance] PublishToFriendWall:@"You've got a challenge!"
                                                  withDesc:[NSString stringWithFormat:@"%@ challenge you at iFingerErase.", [FacebookManager sharedInstance]._userInfo._name]
@@ -115,8 +191,12 @@ static ChallengeCenter* m_inscance;
                                                  toFriend:fbId
                                        withCallbackSender:sender 
                                              withCallback:callback];
+     */
     
 }
+
+
+//----------------------------------- callback function -------------------------------------------
 
 
 @end
