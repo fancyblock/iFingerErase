@@ -14,6 +14,7 @@
 {
 }
 
+- (void)Initial;
 
 - (IBAction)onSinglePlayer:(id)sender;
 

@@ -106,7 +106,37 @@ static ChallengeCenter* m_inscance;
  */
 - (void)ResponseChallenge:(NSString*)challengeId with:(float)score
 {
-    //TODO 
+    //update from the local
+    challengeInfo* info = nil;
+    int count = [m_challengeList count];
+    for( int i = 0; i < count; i++ )
+    {
+        info = [m_challengeList objectAtIndex:i];
+        
+        if( [info._challengeId isEqualToString:challengeId] )
+        {
+            info._score_e = score;
+            info._isDone = YES;
+            
+            break;
+        }
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:CHALLENGE_CLOSED object:nil];
+    
+    PFQuery* query = [PFQuery queryWithClassName:@"challengeInfo"];
+    [query whereKey:@"objectId" equalTo:challengeId];
+    
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject* object, NSError* error)
+     {
+         if( error == nil && object != nil )
+         {
+             [object setObject:[NSNumber numberWithFloat:score] forKey:ID_SCORE_E];
+             [object setObject:[NSNumber numberWithBool:YES] forKey:ID_FINISH];
+             
+             [object saveInBackground];
+         }
+     }];
 }
 
 
@@ -151,8 +181,52 @@ static ChallengeCenter* m_inscance;
                  [m_challengeList addObject:info];
                  
              }
+             
+             // invoke callback
+             if( sender != nil && callback != nil )
+             {
+                 [sender performSelector:callback];
+             }
          }
      }];
+}
+
+
+
+/**
+ * @desc    close challenge
+ * @para    challengeId
+ * @return  none
+ */
+- (void)CloseChallenge:(NSString*)challengeId
+{
+    //delete from the local
+    challengeInfo* info = nil;
+    int count = [m_challengeList count];
+    for( int i = 0; i < count; i++ )
+    {
+        info = [m_challengeList objectAtIndex:i];
+        
+        if( [info._challengeId isEqualToString:challengeId] )
+        {
+            [m_challengeList removeObject:info];
+            break;
+        }
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:CHALLENGE_CLOSED object:nil];
+    
+    PFQuery* query = [PFQuery queryWithClassName:@"challengeInfo"];
+    [query whereKey:@"objectId" equalTo:challengeId];
+    
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject* object, NSError* error)
+    {
+        if( error == nil && object != nil )
+        {
+            [object deleteInBackground];
+        }
+    }];
+    
 }
 
 

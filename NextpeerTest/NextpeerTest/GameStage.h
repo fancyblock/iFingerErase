@@ -40,6 +40,7 @@
 @property (nonatomic, retain) IBOutlet CanvasView* _glass;
 @property (nonatomic, readwrite) int _mode;
 
+- (void)Initial;
 
 - (IBAction)Exit:(id)sender;
 

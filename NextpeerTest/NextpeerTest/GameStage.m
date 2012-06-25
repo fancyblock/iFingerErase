@@ -58,6 +58,12 @@
 }
 
 
+- (void)Initial
+{
+    //TODO 
+}
+
+
 /**
  * @desc    start game
  * @para    mode
@@ -136,7 +142,7 @@
     self._percent.text = [NSString stringWithFormat:@"Percent: %.2f%%", percent];
     
     // single mode
-    if( self._mode == SINGLE_MODE || self._mode == CHALLENGE_MODE )
+    if( self._mode == SINGLE_MODE || self._mode == CHALLENGE_MODE || self._mode == ACCEPT_CHALLENGE_MODE )
     {
         if( m_maxDotCnt == m_curDotCnt )
         {
@@ -189,6 +195,19 @@
             [self End];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE_END] userInfo:nil];
+        }
+    }
+    
+    // accept challenge mode
+    if( self._mode == ACCEPT_CHALLENGE_MODE )
+    {
+        if( m_maxDotCnt == m_curDotCnt )
+        {
+            [self End];
+            
+            [GlobalWork sharedInstance]._challengeInfo._score_e = m_elapsedTime;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE_OVER] userInfo:nil];
         }
     }
     

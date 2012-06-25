@@ -41,6 +41,12 @@
 }
 
 
+- (void)Initial
+{
+    //TODO 
+}
+
+
 - (IBAction)onSinglePlayer:(id)sender
 {
     [GlobalWork sharedInstance]._gameMode = SINGLE_MODE;

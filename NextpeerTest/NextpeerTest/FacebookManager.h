@@ -48,4 +48,6 @@
 
 - (void)PublishToFriendWall:(NSString*)title withDesc:(NSString*)desc withName:(NSString*)name withPicture:(NSString*)pic withLink:(NSString*)link toFriend:(NSString*)fbId withCallbackSender:(id)sender withCallback:(SEL)callback;
 
+- (FBUserInfo*)GetFBUserInfo:(NSString*)uid;
+
 @end

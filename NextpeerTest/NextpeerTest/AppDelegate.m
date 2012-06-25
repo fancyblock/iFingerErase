@@ -15,7 +15,7 @@
 
 - (void)startGame;
 - (void)endGame;
-- (void)switchToView:(UIView*)destView withCallback:(SEL)callback;
+- (void)switchToView:(UIViewController*)destView withCallback:(SEL)callback;
 
 - (void)_onProfileComplete;
 - (void)_onStartGameDone;
@@ -58,6 +58,7 @@
     m_endViewController = [[EndStage alloc] initWithNibName:@"EndStage" bundle:nil];
     m_challengeEndController = [[ChallengeEndStage alloc] initWithNibName:@"ChallengeEndStage" bundle:nil];
     m_challengeController = [[ChallengeStage alloc] initWithNibName:@"ChallengeStage" bundle:nil];
+    m_challengeOverController = [[ChallengeOverStage alloc] initWithNibName:@"ChallengeOverStage" bundle:nil];
     
     // initial the Parse
     [Parse setApplicationId:@"zKzUtc34Q5C5oiir18xXaVmr0bZURwkpCtPvMVhX"
@@ -138,7 +139,7 @@
  */
 - (void)startGame
 {
-    [self switchToView:m_gameViewController.view withCallback:@selector(_onStartGameDone)];
+    [self switchToView:m_gameViewController withCallback:@selector(_onStartGameDone)];
 }
 
 
@@ -152,19 +153,21 @@
 
 
 // switch to the dest view
-- (void)switchToView:(UIView*)destView withCallback:(SEL)callback
+- (void)switchToView:(UIViewController*)destView withCallback:(SEL)callback
 {
-    destView.alpha = 0.0f;
-    [[UIApplication sharedApplication].keyWindow addSubview:destView];
+    destView.view.alpha = 0.0f;
+    [[UIApplication sharedApplication].keyWindow addSubview:destView.view];
+    
+    [destView Initial];
     
     [UIView beginAnimations:nil context:nil];
     [UIView animateWithDuration:0.6f animations:^{m_curUIView.alpha = 0.0f;} completion:^(BOOL finished)
      {
          [UIView beginAnimations:nil context:nil];
-         [UIView animateWithDuration:0.5f animations:^{ destView.alpha = 1.0f; } completion:^(BOOL finished)
+         [UIView animateWithDuration:0.5f animations:^{ destView.view.alpha = 1.0f; } completion:^(BOOL finished)
           {
               [m_curUIView removeFromSuperview];
-              m_curUIView = destView;
+              m_curUIView = destView.view;
               
               //TODO 
               
@@ -187,7 +190,7 @@
     
     if( type == STAGE_MAINMENU )
     {
-        [self switchToView:self.viewController.view withCallback:nil];
+        [self switchToView:self.viewController withCallback:nil];
     }
     
     if( type == STAGE_GAME )
@@ -197,20 +200,22 @@
     
     if( type == STAGE_END )
     {
-        [m_endViewController Initial];
-        [self switchToView:m_endViewController.view withCallback:nil];
+        [self switchToView:m_endViewController withCallback:nil];
     }
     
     if( type == STAGE_CHALLENGE_END )
     {
-        [m_challengeEndController Initial];
-        [self switchToView:m_challengeEndController.view withCallback:nil];
+        [self switchToView:m_challengeEndController withCallback:nil];
     }
     
     if( type == STAGE_CHALLENGE )
     {
-        [m_challengeController Initial];
-        [self switchToView:m_challengeController.view withCallback:nil];
+        [self switchToView:m_challengeController withCallback:nil];
+    }
+    
+    if( type == STAGE_CHALLENGE_OVER )
+    {
+        [self switchToView:m_challengeOverController withCallback:nil];
     }
 }
 
@@ -247,7 +252,7 @@
 -(void)nextpeerDidTournamentEnd
 {
     [m_gameViewController End];
-    [self switchToView:self.viewController.view withCallback:nil];
+    [self switchToView:self.viewController withCallback:nil];
     
     NSLog( @"Tourname Ended" );
 }

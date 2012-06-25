@@ -294,6 +294,37 @@ static FacebookManager* m_singleton = nil;
 }
 
 
+/**
+ * @desc    return the userinfo by fb uid
+ * @para    uid     facebook uid
+ * @return  the userInfo
+ */
+- (FBUserInfo*)GetFBUserInfo:(NSString*)uid
+{
+    if( self._userInfo != nil && [self._userInfo._uid isEqualToString:uid] )
+    {
+        return self._userInfo;
+    }
+    
+    if( self._friendList != nil )
+    {
+        int count = [self._friendList count];
+        
+        for( int i = 0; i < count; i++ )
+        {
+            FBUserInfo* userInfo = [self._friendList objectAtIndex:i];
+            
+            if( [userInfo._uid isEqualToString:uid] )
+            {
+                return userInfo;
+            }
+        }
+    }
+    
+    return nil;
+}
+
+
 //----------------------------- callback function --------------------------------- 
 
 

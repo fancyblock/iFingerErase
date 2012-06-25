@@ -8,17 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "FacebookManager.h"
+#import "ChallengeCenter.h"
 
 
-#define SINGLE_MODE     1
-#define MUTI_MODE       2
-#define CHALLENGE_MODE  3
+#define SINGLE_MODE             1
+#define MUTI_MODE               2
+#define CHALLENGE_MODE          3
+#define ACCEPT_CHALLENGE_MODE   4
 
-#define STAGE_MAINMENU      1
-#define STAGE_GAME          2
-#define STAGE_END           3
-#define STAGE_CHALLENGE_END 4
-#define STAGE_CHALLENGE     5
+#define STAGE_MAINMENU          1
+#define STAGE_GAME              2
+#define STAGE_END               3
+#define STAGE_CHALLENGE_END     4
+#define STAGE_CHALLENGE         5
+#define STAGE_CHALLENGE_OVER    6
 
 
 @interface GlobalWork : NSObject
@@ -31,6 +34,7 @@
 
 @property (nonatomic, readwrite) int _gameMode;
 @property (nonatomic, retain) FBUserInfo* _challengedUser;
+@property (nonatomic, retain) challengeInfo* _challengeInfo;
 @property (nonatomic, readwrite) float _elapseTime;
 
 

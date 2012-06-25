@@ -14,6 +14,7 @@
 #import "ChallengeEndStage.h"
 #import "EndStage.h"
 #import "ChallengeStage.h"
+#import "ChallengeOverStage.h"
 
 
 #define NEXTPEER_KEY    @"670eb38993b782f75bca7178ca19dc9927adbe79"
@@ -26,6 +27,7 @@
     EndStage* m_endViewController;
     ChallengeEndStage* m_challengeEndController;
     ChallengeStage* m_challengeController;
+    ChallengeOverStage* m_challengeOverController;
     
     UIView* m_curUIView;
 }

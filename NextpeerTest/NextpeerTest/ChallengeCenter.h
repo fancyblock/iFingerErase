@@ -20,6 +20,8 @@
 
 #define KEY_CHALLENGE   @"challenge_id"
 
+#define CHALLENGE_CLOSED     @"challenge_closed"
+
 
 @interface challengeInfo:NSObject
 {
@@ -54,6 +56,8 @@
 - (void)ResponseChallenge:(NSString*)challengeId with:(float)score;
 
 - (void)FetchAllChallenges:(NSString*)fbId withCallbackSender:(id)sender withCallback:(SEL)callback;
+
+- (void)CloseChallenge:(NSString*)challengeId;
 
 
 @end

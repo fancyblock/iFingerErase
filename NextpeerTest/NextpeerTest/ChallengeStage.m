@@ -17,12 +17,15 @@
 
 - (void)_onProfileComplete;
 - (void)_onChallengeInfoComplete;
+- (void)_onFriendsComplete;
+- (void)_onReloadData;
 
 @end
 
 @implementation ChallengeStage
 
 @synthesize _tableView;
+@synthesize _loadingIcon;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -41,6 +44,9 @@
     
     m_fbFriendList = [[FBPopupFriendList alloc] initWithNibName:@"FBPopupFriendList" bundle:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onReloadData) name:FB_IMAGE_LOAD_FINISHED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onReloadData) name:CHALLENGE_CLOSED object:nil];
+    
 }
 
 - (void)viewDidUnload
@@ -48,6 +54,9 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:FB_IMAGE_LOAD_FINISHED object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:CHALLENGE_CLOSED object:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -63,6 +72,8 @@
  */
 - (void)Initial
 {
+    [self._loadingIcon startAnimating];
+    
     // get all the challenge info
     [[FacebookManager sharedInstance] GetProfile:self withCallback:@selector(_onProfileComplete)];
 }
@@ -127,21 +138,105 @@
 {
     int index = [indexPath row];
     
-    ChallengeCellView* cellView = nil;
+    NSArray* nibs = [[NSBundle mainBundle] loadNibNamed:@"ChallengeCellView" owner:self options:nil];
+    ChallengeCellView* cellView = [nibs objectAtIndex:0];
     
+    NSArray* challengeList = [ChallengeCenter sharedInstance]._challengeList;
+    challengeInfo* info = [challengeList objectAtIndex:index];
     
+    cellView._challengeInfo = info;
     
-    //TODO 
+    // display the icon
+    FBUserInfo* challenger = [[FacebookManager sharedInstance] GetFBUserInfo:info._challenger];
+    FBUserInfo* enemy = [[FacebookManager sharedInstance] GetFBUserInfo:info._enemy];
     
-    return nil;
+    if( challenger._pic == nil )
+    {
+        [[FacebookManager sharedInstance] LoadPicture:challenger];
+    }
+    else 
+    {
+        [cellView._imgChallenger setImage:challenger._pic];
+    }
+    
+    if( enemy._pic == nil )
+    {
+        [[FacebookManager sharedInstance] LoadPicture:enemy];
+    }
+    else 
+    {
+        [cellView._imgEnemy setImage:enemy._pic];
+    }
+    
+    if( info._isDone )
+    {
+        [cellView._btnAction setHidden:YES];
+        [cellView._btnCloseCase setHidden:YES];
+        
+        // judge the result
+        if( [info._challenger isEqualToString:[FacebookManager sharedInstance]._userInfo._uid] )
+        {
+            if( info._score_c < info._score_e )
+            {
+                cellView._txtStatus.text = @"You Win";
+            }
+            else 
+            {
+                cellView._txtStatus.text = @"You Lose";
+            }
+        }
+        else
+        {
+            if( info._score_c < info._score_e )
+            {
+                cellView._txtStatus.text = @"You Lose";
+            }
+            else 
+            {
+                cellView._txtStatus.text = @"You Win";
+            }
+        }
+    }
+    else 
+    {
+        [cellView._txtStatus setHidden:YES];
+        
+        // your challenge
+        if( [info._challenger isEqualToString:[FacebookManager sharedInstance]._userInfo._uid] )
+        {
+            [cellView._btnAction setHidden:YES];
+        }
+        // challenge form your friend
+        else 
+        {
+            [cellView._btnCloseCase setHidden:YES];
+        }
+    }
+    
+    return cellView;
 }
 
 
 //------------------------------------ callback function -----------------------------------------
 
 
+// callback when the icon load complete
+- (void)_onReloadData
+{
+    [self._loadingIcon stopAnimating];
+    [self._tableView reloadData];
+}
+
+
 // callback when callback complete
 - (void)_onProfileComplete
+{
+    [[FacebookManager sharedInstance] GetFriendList:self withCallback:@selector(_onFriendsComplete)];
+}
+
+
+// callback when friend complete
+- (void)_onFriendsComplete
 {
     [[ChallengeCenter sharedInstance] FetchAllChallenges:[FacebookManager sharedInstance]._userInfo._uid withCallbackSender:self withCallback:@selector(_onChallengeInfoComplete)];
 }
@@ -152,6 +247,7 @@
 {
     //TODO 
     
+    [self._loadingIcon stopAnimating];
     [self._tableView reloadData];
 }
 

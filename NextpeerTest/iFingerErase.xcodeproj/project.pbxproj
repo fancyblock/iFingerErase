@@ -19,6 +19,8 @@
 		CF78A1E31581F84C00F7AD77 /* GlobalWork.m in Sources */ = {isa = PBXBuildFile; fileRef = CF78A1E21581F84C00F7AD77 /* GlobalWork.m */; };
 		CF78A1E81582008400F7AD77 /* ChallengeEndStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF78A1E61582008400F7AD77 /* ChallengeEndStage.m */; };
 		CF78A1E91582008400F7AD77 /* ChallengeEndStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF78A1E71582008400F7AD77 /* ChallengeEndStage.xib */; };
+		CF7AB55E1598659000BEFEF8 /* ChallengeOverStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7AB55C1598659000BEFEF8 /* ChallengeOverStage.m */; };
+		CF7AB55F1598659000BEFEF8 /* ChallengeOverStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7AB55D1598659000BEFEF8 /* ChallengeOverStage.xib */; };
 		CF7BB025158082C4004276AF /* icon_free_57.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB024158082C4004276AF /* icon_free_57.png */; };
 		CF7BB04F1580A94D004276AF /* FBPopupFriendList.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7BB04D1580A94D004276AF /* FBPopupFriendList.m */; };
 		CF7BB0501580A94D004276AF /* FBPopupFriendList.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB04E1580A94D004276AF /* FBPopupFriendList.xib */; };
@@ -75,6 +77,9 @@
 		CF78A1E51582008400F7AD77 /* ChallengeEndStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeEndStage.h; sourceTree = "<group>"; };
 		CF78A1E61582008400F7AD77 /* ChallengeEndStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeEndStage.m; sourceTree = "<group>"; };
 		CF78A1E71582008400F7AD77 /* ChallengeEndStage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeEndStage.xib; sourceTree = "<group>"; };
+		CF7AB55B1598659000BEFEF8 /* ChallengeOverStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeOverStage.h; sourceTree = "<group>"; };
+		CF7AB55C1598659000BEFEF8 /* ChallengeOverStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeOverStage.m; sourceTree = "<group>"; };
+		CF7AB55D1598659000BEFEF8 /* ChallengeOverStage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeOverStage.xib; sourceTree = "<group>"; };
 		CF7BB024158082C4004276AF /* icon_free_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_free_57.png; sourceTree = "<group>"; };
 		CF7BB04C1580A94D004276AF /* FBPopupFriendList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBPopupFriendList.h; sourceTree = "<group>"; };
 		CF7BB04D1580A94D004276AF /* FBPopupFriendList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBPopupFriendList.m; sourceTree = "<group>"; };
@@ -279,6 +284,9 @@
 				CF80C899157F4B5700E502D7 /* EndStage.h */,
 				CF80C89A157F4B5700E502D7 /* EndStage.m */,
 				CF80C89B157F4B5700E502D7 /* EndStage.xib */,
+				CF7AB55B1598659000BEFEF8 /* ChallengeOverStage.h */,
+				CF7AB55C1598659000BEFEF8 /* ChallengeOverStage.m */,
+				CF7AB55D1598659000BEFEF8 /* ChallengeOverStage.xib */,
 			);
 			name = Stages;
 			sourceTree = "<group>";
@@ -388,6 +396,7 @@
 				CF7BCF6D15918A130090BE5E /* NPResources_iPhone_Landscape.bundle in Resources */,
 				CF7BCF6E15918A130090BE5E /* NPResources_iPhone_Portrait.bundle in Resources */,
 				CF81886515932BC3005F840A /* ChallengeCellView.xib in Resources */,
+				CF7AB55F1598659000BEFEF8 /* ChallengeOverStage.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +422,7 @@
 				CF4D29CB1585C2A40035D95E /* ChallengeCenter.m in Sources */,
 				CF7E51C215870FD9005FC5B3 /* ChallengeStage.m in Sources */,
 				CF81886315932BAB005F840A /* ChallengeCellView.m in Sources */,
+				CF7AB55E1598659000BEFEF8 /* ChallengeOverStage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

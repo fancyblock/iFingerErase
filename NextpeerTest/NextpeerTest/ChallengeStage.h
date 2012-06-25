@@ -15,6 +15,7 @@
 }
 
 @property (nonatomic, retain) IBOutlet UITableView* _tableView;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* _loadingIcon;
 
 
 - (IBAction)onBack:(id)sender;
