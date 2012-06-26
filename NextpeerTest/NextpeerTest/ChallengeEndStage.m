@@ -11,8 +11,7 @@
 
 @interface ChallengeEndStage (private)
 
-- (void)challengeFriend:(FBUserInfo*)friend withTime:(float)time;
-- (void)_onPublishDone;
+- (void)challengeFriend;
 
 @end
 
@@ -20,8 +19,7 @@
 
 
 @synthesize _txtScore;
-@synthesize _imgFriendIcon;
-@synthesize _txtFriendName;
+@synthesize _challengeFriendList;
 @synthesize _loadingMask;
 
 
@@ -57,7 +55,9 @@
 
 - (IBAction)onChallenge:(id)sender
 {
-    [self challengeFriend:[GlobalWork sharedInstance]._challengedUser withTime:[GlobalWork sharedInstance]._elapseTime];
+    [self._loadingMask setHidden:NO];
+    
+    [self challengeFriend];
 }
 
 - (IBAction)onDiscard:(id)sender
@@ -79,16 +79,6 @@
     NSString* txtTime = [NSString stringWithFormat:@"%.2d:%.2d:%.2d", minutes, seconds, milliseconds];
     
     self._txtScore.text = [NSString stringWithFormat:@"You spend %@", txtTime];
-    self._txtFriendName.text = [GlobalWork sharedInstance]._challengedUser._name;
-    
-    if( [GlobalWork sharedInstance]._challengedUser._pic == nil )
-    {
-        [[FacebookManager sharedInstance] LoadPicture:[GlobalWork sharedInstance]._challengedUser]; 
-    }
-    else 
-    {
-        [self._imgFriendIcon setImage:[GlobalWork sharedInstance]._challengedUser._pic];
-    }
     
     [self._loadingMask setHidden:YES];
 }
@@ -98,24 +88,59 @@
 
 
 // challenge friend
-- (void)challengeFriend:(FBUserInfo*)friend withTime:(float)time
+- (void)challengeFriend
 {
-    [[ChallengeCenter sharedInstance] CreateChallenge:[FacebookManager sharedInstance]._userInfo._uid 
-                                             toFriend:[GlobalWork sharedInstance]._challengedUser._uid
-                                                 with:[GlobalWork sharedInstance]._elapseTime 
-                                   withCallbackSender:self 
-                                         withCallback:@selector(_onPublishDone)];
+    NSMutableArray* friendList = [GlobalWork sharedInstance]._challengedUsers;
     
-    [self._loadingMask setHidden:NO];
+    if( [friendList count] > 0 )
+    {
+        FBUserInfo* friend = [friendList objectAtIndex:0];
+        
+        [[ChallengeCenter sharedInstance] CreateChallenge:[FacebookManager sharedInstance]._userInfo._uid 
+                                                 toFriend:friend._uid
+                                                     with:[GlobalWork sharedInstance]._elapseTime
+                                       withCallbackSender:self 
+                                             withCallback:@selector(challengeFriend)];
+        
+        [friendList removeObject:friend];
+    }
+    else
+    {
+        [self._loadingMask setHidden:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
+    }
 }
 
 
-// callback on publish done
-- (void)_onPublishDone
+// 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    [self._loadingMask setHidden:YES];
+    return [[GlobalWork sharedInstance]._challengedUsers count];
+}
+
+// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
+// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell* cell = [[UITableViewCell alloc] init];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
+    int index = [indexPath row];
+    
+    FBUserInfo* user = [[GlobalWork sharedInstance]._challengedUsers objectAtIndex:index];
+    
+    cell.textLabel.text = user._name;
+    
+    if( user._pic != nil )
+    {
+        [cell.imageView setImage:user._pic];
+    }
+    else 
+    {
+        [[FacebookManager sharedInstance] LoadPicture:user]; 
+    }
+
+    return cell;
 }
 
 

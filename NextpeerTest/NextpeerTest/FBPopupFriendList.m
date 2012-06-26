@@ -40,6 +40,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onIconLoadComplete) name:FB_IMAGE_LOAD_FINISHED object:nil];
+    m_challengeList = [[NSMutableArray alloc] init];
 }
 
 - (void)viewDidUnload
@@ -49,6 +50,7 @@
     // e.g. self.myOutlet = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:FB_IMAGE_LOAD_FINISHED object:nil];
+    [m_challengeList release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -81,6 +83,7 @@
 - (void)StartLoad
 {
     [self._loadingAni startAnimating];
+    [m_challengeList removeAllObjects];
     
     if( [FacebookManager sharedInstance].IsAuthenticated == NO )
     {
@@ -101,6 +104,40 @@
 {
     m_callbackSender = sender;
     m_callback = callback;
+}
+
+
+/**
+ * @desc    start challenge
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onStartChallenge:(id)sender
+{
+    NSArray* selectedFriends = [self._leaderboardView indexPathsForSelectedRows];
+    
+    if( [GlobalWork sharedInstance]._challengedUsers == nil )
+    {
+        [GlobalWork sharedInstance]._challengedUsers = [[NSMutableArray alloc] init];
+    }
+    else 
+    {
+        [[GlobalWork sharedInstance]._challengedUsers removeAllObjects];
+    }
+    
+    NSArray* friendlist = [FacebookManager sharedInstance]._friendList;
+    for( int i = 0; i < [selectedFriends count]; i++ )
+    {
+        FBUserInfo* userInfo = [friendlist objectAtIndex:[[selectedFriends objectAtIndex:i] row]];
+        
+        [[GlobalWork sharedInstance]._challengedUsers addObject:userInfo];
+    }
+    
+    [GlobalWork sharedInstance]._gameMode = CHALLENGE_MODE;
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME] userInfo:nil];    
+    
+    [self Close:nil];
 }
 
 
@@ -177,16 +214,7 @@
 // Called after the user changes the selection.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger row = [indexPath row];
-    
-    NSArray* friendlist = [FacebookManager sharedInstance]._friendList;
-    FBUserInfo* userInfo = [friendlist objectAtIndex:row];
-    
-    [GlobalWork sharedInstance]._gameMode = CHALLENGE_MODE;
-    [GlobalWork sharedInstance]._challengedUser = userInfo;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME] userInfo:nil];
-    
-    [self Close:nil];
+    //TODO 
 }
 
 

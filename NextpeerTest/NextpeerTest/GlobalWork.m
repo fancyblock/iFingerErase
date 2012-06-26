@@ -14,7 +14,7 @@ static GlobalWork* m_singleton = nil;
 
 
 @synthesize _gameMode;
-@synthesize _challengedUser;
+@synthesize _challengedUsers;
 @synthesize _elapseTime;
 @synthesize _challengeInfo;
 

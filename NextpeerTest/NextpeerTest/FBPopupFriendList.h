@@ -16,6 +16,8 @@
 {
     id m_callbackSender;
     SEL m_callback;
+    
+    NSMutableArray* m_challengeList;
 }
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView* _loadingAni;
@@ -27,5 +29,7 @@
 - (void)StartLoad;
 
 - (void)SetCloseCallback:(id)sender withSelector:(SEL)callback;
+
+- (IBAction)onStartChallenge:(id)sender;
 
 @end
