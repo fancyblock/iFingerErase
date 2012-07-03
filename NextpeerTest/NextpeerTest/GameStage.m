@@ -8,6 +8,8 @@
 
 #import "GameStage.h"
 #import "Nextpeer/Nextpeer.h"
+#import "Utility.h"
+
 
 @interface GameStage (private)
 
@@ -154,10 +156,8 @@
         {
             m_elapsedTime += (sender.timestamp/1000000.0f);
         }
-        int minutes = (int)(m_elapsedTime / 60.0f);
-        int seconds = (int)(m_elapsedTime - minutes * 60.0f);
-        int milliseconds = (int)((m_elapsedTime - (float)seconds - (float)minutes * 60.0f) * 100.0f);
-        self._time.text = [NSString stringWithFormat:@"Time: %.2d:%.2d:%.2d", minutes, seconds, milliseconds];
+
+        self._time.text = TimeToString( m_elapsedTime );
     }
     
     if( self._mode == SINGLE_MODE )

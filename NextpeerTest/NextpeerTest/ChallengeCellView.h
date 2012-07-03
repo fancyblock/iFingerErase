@@ -15,18 +15,7 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView* _imgChallenger;
-@property (nonatomic, retain) IBOutlet UIImageView* _imgEnemy;
 @property (nonatomic, retain) IBOutlet UILabel* _txtInfo;
-@property (nonatomic, retain) IBOutlet UIButton* _btnAction;
-@property (nonatomic, retain) IBOutlet UIButton* _btnMore;
-@property (nonatomic, retain) IBOutlet UIButton* _btnCloseCase;
-@property (nonatomic, retain) IBOutlet UILabel* _txtStatus;
 
-@property (nonatomic, retain) challengeInfo* _challengeInfo;
-
-
-- (IBAction)_onAccept:(id)sender;
-- (IBAction)_onDetail:(id)sender;
-- (IBAction)_onClose:(id)sender;
 
 @end

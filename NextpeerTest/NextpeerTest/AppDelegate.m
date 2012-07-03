@@ -57,7 +57,7 @@
     m_gameViewController = [[GameStage alloc] initWithNibName:@"GameStage" bundle:nil];
     m_endViewController = [[EndStage alloc] initWithNibName:@"EndStage" bundle:nil];
     m_challengeEndController = [[ChallengeEndStage alloc] initWithNibName:@"ChallengeEndStage" bundle:nil];
-    m_challengeController = [[ChallengeStage alloc] initWithNibName:@"ChallengeStage" bundle:nil];
+    m_challengeController = [[ChallengeNavStage alloc] initial];
     m_challengeOverController = [[ChallengeOverStage alloc] initWithNibName:@"ChallengeOverStage" bundle:nil];
     
     // initial the Parse
@@ -158,11 +158,10 @@
     destView.view.alpha = 0.0f;
     [[UIApplication sharedApplication].keyWindow addSubview:destView.view];
     
-    [destView Initial];
-    
     [UIView beginAnimations:nil context:nil];
     [UIView animateWithDuration:0.6f animations:^{m_curUIView.alpha = 0.0f;} completion:^(BOOL finished)
      {
+         [destView Initial];
          [UIView beginAnimations:nil context:nil];
          [UIView animateWithDuration:0.5f animations:^{ destView.view.alpha = 1.0f; } completion:^(BOOL finished)
           {

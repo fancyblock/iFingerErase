@@ -11,6 +11,8 @@
 
 #define FB_IMAGE_LOAD_FINISHED @"fb_image_load_finished"
 
+typedef void (^LoadPicBlock)(BOOL succeeded);
+
 
 // user info struct
 @interface FBUserInfo : NSObject <FBRequestDelegate>
@@ -18,6 +20,7 @@
 @property (nonatomic, retain) NSString* _uid;
 @property (nonatomic, retain) NSString* _name;
 @property (nonatomic, retain) UIImage* _pic;
+@property (nonatomic, readwrite) LoadPicBlock _callback;
 
 @end
 

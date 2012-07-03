@@ -11,21 +11,30 @@
 #import "ChallengeCenter.h"
 #import "FacebookManager.h"
 #import "ChallengeCellView.h"
+#import "FacebookManager.h"
 
 
 @interface ChallengeStage (private)
 
 - (void)_onProfileComplete;
-- (void)_onChallengeInfoComplete;
+- (void)_onPlayerInfoComplete;
 - (void)_onFriendsComplete;
 - (void)_onReloadData;
+- (void)_onAuthDone;
+
+- (void)loadChallengeInfo;
 
 @end
 
 @implementation ChallengeStage
 
+@synthesize _navBar;
 @synthesize _tableView;
 @synthesize _loadingIcon;
+@synthesize _connectFBView;
+@synthesize _btnChallenges;
+@synthesize _sectionViewInvite;
+@synthesize _sectionViewPlayer;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -42,9 +51,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    m_fbFriendList = [[FBPopupFriendList alloc] initWithNibName:@"FBPopupFriendList" bundle:nil];
+    m_friendList = [[NSMutableArray alloc] init];
+    m_playerList = [[NSMutableArray alloc] init];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onReloadData) name:FB_IMAGE_LOAD_FINISHED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onReloadData) name:CHALLENGE_CLOSED object:nil];
     
 }
@@ -55,7 +64,9 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:FB_IMAGE_LOAD_FINISHED object:nil];
+    [m_friendList release];
+    [m_playerList release];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:CHALLENGE_CLOSED object:nil];
 }
 
@@ -72,10 +83,15 @@
  */
 - (void)Initial
 {
-    [self._loadingIcon startAnimating];
-    
-    // get all the challenge info
-    [[FacebookManager sharedInstance] GetProfile:self withCallback:@selector(_onProfileComplete)];
+    if( [FacebookManager sharedInstance].IsAuthenticated )
+    {
+        [self loadChallengeInfo];
+    }
+    else 
+    {
+        self._btnChallenges.enabled = NO;
+        [self._connectFBView setHidden:NO];
+    }
 }
 
 
@@ -91,31 +107,91 @@
 
 
 /**
- * @desc    create a challenge
+ * @desc    show all challenges
  * @para    sender
  * @return  none
  */
-- (IBAction)onCreateChallenge:(id)sender
+- (IBAction)onShowChallenges:(id)sender
 {
-    [self.view addSubview:m_fbFriendList.view];
-    [m_fbFriendList StartLoad];
+    if( [FacebookManager sharedInstance]._userInfo == nil || 
+        [FacebookManager sharedInstance]._friendList == nil )
+    {
+        return;
+    }
     
-    m_fbFriendList.view.transform = CGAffineTransformMake(0.001f, 0, 0, 0.001f, 0, 0);
+    [self.navigationController PushChallengeInfoView];
+}
+
+
+/**
+ * @desc    auth to the facebook 
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onConnectFB:(id)sender
+{
+    [[FacebookManager sharedInstance] Authenticate:self withCallback:@selector(_onAuthDone)];
+}
+
+
+/**
+ * @desc    challenge friends
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onPlay:(id)sender
+{
+    NSLog( @"Challenge Friends" );
     
-    [UIView beginAnimations:nil context:nil];
-    [UIView animateWithDuration:0.25f animations:^{m_fbFriendList.view.transform = CGAffineTransformMake(1.1f, 0, 0, 1.1f, 0, 0);} completion:^(BOOL finished)
-     {
-         [UIView beginAnimations:nil context:nil];
-         [UIView animateWithDuration:0.15f animations:^{ m_fbFriendList.view.transform = CGAffineTransformMake(0.9f, 0, 0, 0.9f, 0, 0); } completion:^(BOOL finished)
-          {
-              [UIView beginAnimations:nil context:nil];
-              m_fbFriendList.view.transform = CGAffineTransformMake(1.0f, 0, 0, 1.0f, 0, 0);
-              [UIView setAnimationDuration:0.15f];
-              [UIView commitAnimations];
-          }];
-         [UIView commitAnimations];
-     }];
-    [UIView commitAnimations];
+    NSArray* selectedFriends = [self._tableView indexPathsForSelectedRows];
+    
+    if( [GlobalWork sharedInstance]._challengedUsers == nil )
+    {
+        [GlobalWork sharedInstance]._challengedUsers = [[NSMutableArray alloc] init];
+    }
+    else 
+    {
+        [[GlobalWork sharedInstance]._challengedUsers removeAllObjects];
+    }
+    
+    for( int i = 0; i < [selectedFriends count]; i++ )
+    {
+        NSIndexPath* path = [selectedFriends objectAtIndex:i];
+        
+        if( [path section] == CHALLENGE_INDEX )
+        {
+            FBUserInfo* userInfo = [m_playerList objectAtIndex:[path row]];
+            
+            [[GlobalWork sharedInstance]._challengedUsers addObject:userInfo];
+        }
+    }
+    
+    // at least choose one
+    if( [[GlobalWork sharedInstance]._challengedUsers count] <= 0 )
+    {
+        return;
+    }
+    
+    [GlobalWork sharedInstance]._gameMode = CHALLENGE_MODE;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME] userInfo:nil];    
+}
+
+
+//------------------------------------ private functions ----------------------------------------
+
+
+// load challenge info
+- (void)loadChallengeInfo
+{
+    self._btnChallenges.enabled = YES;
+    [self._connectFBView setHidden:YES];
+    
+    [self._loadingIcon startAnimating];
+    // get all the challenge info
+    [m_playerList removeAllObjects];
+    [m_friendList removeAllObjects];
+    [[FacebookManager sharedInstance] GetProfile:self withCallback:@selector(_onProfileComplete)];
 }
 
 
@@ -124,101 +200,130 @@
 // return the 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if( [ChallengeCenter sharedInstance]._challengeList == nil )
+    int playerCnt = [m_playerList count];
+    int friendCnt = [m_friendList count];
+    
+    if( section == 0 )
     {
-        return 0;
+        return ( playerCnt == 0 ? 1 : playerCnt );
     }
     
-    return [[ChallengeCenter sharedInstance]._challengeList count];
+    return ( friendCnt == 0 ? 1 : friendCnt );
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    int section = [indexPath section];
     int index = [indexPath row];
     
     NSArray* nibs = [[NSBundle mainBundle] loadNibNamed:@"ChallengeCellView" owner:self options:nil];
     ChallengeCellView* cellView = [nibs objectAtIndex:0];
     
-    NSArray* challengeList = [ChallengeCenter sharedInstance]._challengeList;
-    challengeInfo* info = [challengeList objectAtIndex:index];
+    FBUserInfo* user = nil;
     
-    cellView._challengeInfo = info;
-    
-    // display the icon
-    FBUserInfo* challenger = [[FacebookManager sharedInstance] GetFBUserInfo:info._challenger];
-    FBUserInfo* enemy = [[FacebookManager sharedInstance] GetFBUserInfo:info._enemy];
-    
-    if( challenger._pic == nil )
+    if( section == CHALLENGE_INDEX )
     {
-        [[FacebookManager sharedInstance] LoadPicture:challenger];
-    }
-    else 
-    {
-        [cellView._imgChallenger setImage:challenger._pic];
-    }
-    
-    if( enemy._pic == nil )
-    {
-        [[FacebookManager sharedInstance] LoadPicture:enemy];
-    }
-    else 
-    {
-        [cellView._imgEnemy setImage:enemy._pic];
-    }
-    
-    if( info._isDone )
-    {
-        [cellView._btnAction setHidden:YES];
-        [cellView._btnCloseCase setHidden:YES];
-        
-        // judge the result
-        if( [info._challenger isEqualToString:[FacebookManager sharedInstance]._userInfo._uid] )
+        if( [m_playerList count] == 0 )
         {
-            if( info._score_c < info._score_e )
-            {
-                cellView._txtStatus.text = @"You Win";
-            }
-            else 
-            {
-                cellView._txtStatus.text = @"You Lose";
-            }
+            cellView._txtInfo.text = @"No friend played iFingerErase";
         }
-        else
-        {
-            if( info._score_c < info._score_e )
-            {
-                cellView._txtStatus.text = @"You Lose";
-            }
-            else 
-            {
-                cellView._txtStatus.text = @"You Win";
-            }
-        }
-    }
-    else 
-    {
-        [cellView._txtStatus setHidden:YES];
-        
-        // your challenge
-        if( [info._challenger isEqualToString:[FacebookManager sharedInstance]._userInfo._uid] )
-        {
-            [cellView._btnAction setHidden:YES];
-        }
-        // challenge form your friend
         else 
         {
-            [cellView._btnCloseCase setHidden:YES];
+            user = [m_playerList objectAtIndex:index];
+        }
+    }
+    else if( section == INVITE_INDEX )
+    {
+        if( [m_friendList count] == 0 )
+        {
+            cellView._txtInfo.text = @"No more friends";
+        }
+        else 
+        {
+            user = [m_friendList objectAtIndex:index];
+        }
+    }
+    
+    if( user != nil )
+    {
+        cellView._txtInfo.text = user._name;
+        
+        if( user._pic == nil )
+        {
+            [[FacebookManager sharedInstance] LoadPicture:user withBlock:^(BOOL succeeded)
+             {
+                 NSArray* path = [NSArray arrayWithObject:indexPath];
+                 
+                 [self._tableView reloadRowsAtIndexPaths:path withRowAnimation:UITableViewRowAnimationFade];
+             }];
+        }
+        else 
+        {
+            [cellView._imgChallenger setImage:user._pic];
         }
     }
     
     return cellView;
 }
 
+// two sections, players & noplayers
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+// return the section header
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView* headerView = nil;
+    
+    if( section == CHALLENGE_INDEX )
+    {
+        headerView = self._sectionViewPlayer;
+    }
+    else if( section == INVITE_INDEX )
+    {
+        headerView = self._sectionViewInvite;
+    }
+    
+    return headerView;
+}
+
+// Called after the user changes the selection.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    int section = [indexPath section];
+    
+    if( section == INVITE_INDEX )
+    {
+        int index = [indexPath row];
+        
+        FBUserInfo* user = [m_friendList objectAtIndex:index];
+        
+         // post to the wall
+        [[FacebookManager sharedInstance] PublishToFriendWall:@"You've got a challenge!"
+                                                     withDesc:[NSString stringWithFormat:@"%@ challenge you at iFingerErase.", [FacebookManager sharedInstance]._userInfo._name]
+                                                     withName:[FacebookManager sharedInstance]._userInfo._name
+                                                  withPicture:@"http://www.coconutislandstudio.com/asset/iDragPaper/iDragPaper_FREE_Normal.png" 
+                                                     withLink:@"http://fancyblock.sinaapp.com" 
+                                                     toFriend:user._uid
+                                           withCallbackSender:nil 
+                                                 withCallback:nil];
+        
+        [self._tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
 
 //------------------------------------ callback function -----------------------------------------
 
+// auth done
+- (void)_onAuthDone
+{
+    [self loadChallengeInfo];
+}
 
 // callback when the icon load complete
 - (void)_onReloadData
@@ -231,6 +336,7 @@
 // callback when callback complete
 - (void)_onProfileComplete
 {
+    [[ChallengeCenter sharedInstance] SignUp:[FacebookManager sharedInstance]._userInfo._uid];
     [[FacebookManager sharedInstance] GetFriendList:self withCallback:@selector(_onFriendsComplete)];
 }
 
@@ -238,14 +344,30 @@
 // callback when friend complete
 - (void)_onFriendsComplete
 {
-    [[ChallengeCenter sharedInstance] FetchAllChallenges:[FacebookManager sharedInstance]._userInfo._uid withCallbackSender:self withCallback:@selector(_onChallengeInfoComplete)];
+    [[ChallengeCenter sharedInstance] FetchAllPlayers:self withCallback:@selector(_onPlayerInfoComplete)];
 }
 
 
 // callback when challenge info complete
-- (void)_onChallengeInfoComplete
+- (void)_onPlayerInfoComplete
 {
-    //TODO 
+    NSArray* friendlist = [FacebookManager sharedInstance]._friendList;
+    int count = [friendlist count];
+    NSArray* allPlayer = [ChallengeCenter sharedInstance]._playerList;
+    
+    for( int i = 0; i < count; i++ )
+    {
+        FBUserInfo* user = [friendlist objectAtIndex:i];
+        
+        if( [allPlayer containsObject:user._uid] )
+        {
+            [m_playerList addObject:user];
+        }
+        else 
+        {
+            [m_friendList addObject:user];
+        }
+    }
     
     [self._loadingIcon stopAnimating];
     [self._tableView reloadData];

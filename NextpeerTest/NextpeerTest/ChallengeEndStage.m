@@ -8,6 +8,7 @@
 
 #import "ChallengeEndStage.h"
 #import "ChallengeCenter.h"
+#import "Utility.h"
 
 @interface ChallengeEndStage (private)
 
@@ -73,10 +74,7 @@
  */
 - (void)Initial
 {
-    int minutes = (int)([GlobalWork sharedInstance]._elapseTime / 60.0f);
-    int seconds = (int)([GlobalWork sharedInstance]._elapseTime - minutes * 60.0f);
-    int milliseconds = (int)(([GlobalWork sharedInstance]._elapseTime - (float)seconds - (float)minutes * 60.0f) * 100.0f);
-    NSString* txtTime = [NSString stringWithFormat:@"%.2d:%.2d:%.2d", minutes, seconds, milliseconds];
+    NSString* txtTime = TimeToString( [GlobalWork sharedInstance]._elapseTime );
     
     self._txtScore.text = [NSString stringWithFormat:@"You spend %@", txtTime];
     

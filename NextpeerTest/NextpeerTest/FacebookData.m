@@ -14,6 +14,7 @@
 @synthesize _uid;
 @synthesize _name;
 @synthesize _pic;
+@synthesize _callback;
 
 
 /**
@@ -26,6 +27,14 @@
     _pic = [[UIImage alloc] initWithData:data];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:FB_IMAGE_LOAD_FINISHED object:self];
+    
+    if( self._callback != nil )
+    {
+        self._callback( YES );
+        
+        [self._callback release];
+        self._callback = nil;
+    }
 }
 
 

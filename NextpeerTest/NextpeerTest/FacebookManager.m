@@ -171,6 +171,22 @@ static FacebookManager* m_singleton = nil;
 
 
 /**
+ * @desc    load the user picture
+ * @para    userInfo
+ * @para    block
+ * @return  none
+ */
+- (void)LoadPicture:(FBUserInfo *)userInfo withBlock:(LoadPicBlock)block
+{
+    NSString* graphPath = [NSString stringWithFormat:@"%@/picture", userInfo._uid];
+    
+    userInfo._callback = [block copy];
+    
+    [m_facebook requestWithGraphPath:graphPath andDelegate:userInfo];
+}
+
+
+/**
  * @desc    load friend list
  * @para    caller
  * @para    callback

@@ -13,6 +13,7 @@
 #define FACEBOOK_APP_KEY @"301584076602496"
 
 
+
 // Facebook Manager
 @interface FacebookManager : NSObject <FBSessionDelegate, FBRequestDelegate, FBDialogDelegate>
 {
@@ -41,6 +42,8 @@
 - (BOOL)GetProfile:(id)caller withCallback:(SEL)callback;
 
 - (void)LoadPicture:(FBUserInfo*)userInfo;
+
+- (void)LoadPicture:(FBUserInfo *)userInfo withBlock:(LoadPicBlock)block;
 
 - (BOOL)GetFriendList:(id)caller withCallback:(SEL)callback;
 

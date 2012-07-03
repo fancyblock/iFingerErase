@@ -14,8 +14,6 @@
 
 @interface ViewController (private)
 
-- (void)_onFBAutoDone;
-
 @end
 
 @implementation ViewController
@@ -62,14 +60,7 @@
 
 - (IBAction)ChallengeFriends:(id)sender
 {
-    if( [FacebookManager sharedInstance].IsAuthenticated == YES )
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE]];
-    }
-    else 
-    {
-        [[FacebookManager sharedInstance] Authenticate:self withCallback:@selector(_onFBAutoDone)];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE]];
 }
 
 
@@ -85,12 +76,6 @@
 }
 
 //--------------------------------- private function -------------------------------------
-
-
-- (void)_onFBAutoDone
-{
-    [self ChallengeFriends:nil];
-}
 
 
 @end

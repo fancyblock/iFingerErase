@@ -1,23 +1,18 @@
 //
-//  EndStage.m
-//  NextpeerTest
+//  ChallengeHistory.m
+//  iFingerErase
 //
-//  Created by He jia bin on 6/6/12.
-//  Copyright (c) 2012 CoconutIslandStudio. All rights reserved.
+//  Created by He jia bin on 7/3/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "EndStage.h"
-#import "GlobalWork.h"
-#import "Utility.h"
+#import "ChallengeHistory.h"
 
-@interface EndStage ()
+@interface ChallengeHistory ()
 
 @end
 
-@implementation EndStage
-
-@synthesize _score;
-
+@implementation ChallengeHistory
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,8 +27,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    [self Initial];
 }
 
 - (void)viewDidUnload
@@ -50,24 +43,13 @@
 
 
 /**
- * @desc    
+ * @desc    back to the prior
  * @para    sender
  * @return  none
  */
-- (IBAction)_onOk:(id)sender
+- (IBAction)onBack:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
-}
-
-
-/**
- * @desc    
- * @para    none
- * @return  none
- */
-- (void)Initial
-{
-    self._score.text = [NSString stringWithFormat:@"You spend %@", TimeToString( [GlobalWork sharedInstance]._elapseTime )];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -13,7 +13,7 @@
 #import "Parse/Parse.h"
 #import "ChallengeEndStage.h"
 #import "EndStage.h"
-#import "ChallengeStage.h"
+#import "ChallengeNavStage.h"
 #import "ChallengeOverStage.h"
 
 
@@ -26,7 +26,7 @@
     GameStage* m_gameViewController;
     EndStage* m_endViewController;
     ChallengeEndStage* m_challengeEndController;
-    ChallengeStage* m_challengeController;
+    ChallengeNavStage* m_challengeController;
     ChallengeOverStage* m_challengeOverController;
     
     UIView* m_curUIView;

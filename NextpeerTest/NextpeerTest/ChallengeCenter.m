@@ -46,6 +46,17 @@ static ChallengeCenter* m_inscance;
 
 
 /**
+ * @desc    return the player list
+ * @para    none
+ * @return  player list
+ */
+- (NSMutableArray*)_playerList
+{
+    return m_playerList;
+}
+
+
+/**
  * @desc    return the challenge center
  * @para    none
  * @return  singleton
@@ -71,8 +82,86 @@ static ChallengeCenter* m_inscance;
     [super init];
     
     m_challengeList = [[NSMutableArray alloc] init];
+    m_playerList = [[NSMutableArray alloc] init];
     
     return self;
+}
+
+
+/**
+ * @desc    sign up a new account
+ * @para    user name
+ * @return  none
+ */
+- (void)SignUp:(NSString*)userName
+{
+    PFQuery* query = [PFQuery queryWithClassName:@"UserInfo"];
+    
+    [query whereKey:@"username" equalTo:userName];
+    [query findObjectsInBackgroundWithBlock:^(NSArray* objects, NSError* error)
+    {
+        if( error == nil )
+        {
+            if( [objects count] == 0 )
+            {
+                // sign up
+                PFObject* newUser = [PFObject objectWithClassName:@"UserInfo"];
+                [newUser setObject:userName forKey:@"username"];
+                [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
+                 {
+                     if( succeeded == YES )
+                     {
+                         NSLog( @"Sign up a new user on iFingerErase succeeded !" );
+                     }
+                 }];
+            }
+        }
+    }];
+}
+
+
+/**
+ * @desc    fetch all players
+ * @para    sender
+ * @para    callback
+ * @return  none
+ */
+- (void)FetchAllPlayers:(id)sender withCallback:(SEL)callback
+{
+    PFQuery* query = [PFQuery queryWithClassName:@"UserInfo"];
+    
+    int count = [[FacebookManager sharedInstance]._friendList count];
+    FBUserInfo* userInfo;
+    NSMutableArray* uids = [[NSMutableArray alloc] init];
+    for( int i = 0; i < count; i++ )
+    {
+        userInfo = [[FacebookManager sharedInstance]._friendList objectAtIndex:i];
+        
+        [uids addObject:userInfo._uid];
+    }
+    
+    [query whereKey:@"username" containedIn:uids];
+    [uids release];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray* objects, NSError* error)
+     {
+         if( error == nil )
+         {
+             [m_playerList removeAllObjects];
+             
+             int num = [objects count];
+             for( int i = 0; i < num; i++ )
+             {
+                 PFObject* player = [objects objectAtIndex:i];
+                 [m_playerList addObject:[player objectForKey:@"username"]];
+             }
+             
+             if( sender != nil && callback != nil )
+             {
+                 [sender performSelector:callback];
+             }
+         }
+     }];
 }
 
 
@@ -90,6 +179,7 @@ static ChallengeCenter* m_inscance;
     [challengeInfo setObject:challenger forKey:ID_CHALLENGER];
     [challengeInfo setObject:enemy forKey:ID_ENEMY];
     [challengeInfo setObject:[NSNumber numberWithFloat:score] forKey:ID_SCORE_C];
+    [challengeInfo setObject:[NSNumber numberWithFloat:-1.0f] forKey:ID_SCORE_E];
     [challengeInfo setObject:[NSNumber numberWithBool:NO] forKey:ID_FINISH];
     [challengeInfo saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
      {
@@ -253,19 +343,6 @@ static ChallengeCenter* m_inscance;
      {
          [sender performSelector:callback];
      }];
-    //[push sendPushInBackground];
-    
-    /*
-    // post to the wall
-    [[FacebookManager sharedInstance] PublishToFriendWall:@"You've got a challenge!"
-                                                 withDesc:[NSString stringWithFormat:@"%@ challenge you at iFingerErase.", [FacebookManager sharedInstance]._userInfo._name]
-                                                 withName:[FacebookManager sharedInstance]._userInfo._name
-                                              withPicture:@"http://www.coconutislandstudio.com/asset/iDragPaper/iDragPaper_FREE_Normal.png" 
-                                                 withLink:@"http://fancyblock.sinaapp.com" 
-                                                 toFriend:fbId
-                                       withCallbackSender:sender 
-                                             withCallback:callback];
-     */
     
 }
 

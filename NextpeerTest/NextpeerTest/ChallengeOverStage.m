@@ -10,6 +10,7 @@
 #import "ChallengeCenter.h"
 #import "GlobalWork.h"
 #import "FacebookManager.h"
+#import "Utility.h"
 
 
 @interface ChallengeOverStage (private)
@@ -109,11 +110,7 @@
 // convert from time to string
 - (NSString*)timeToString:(float)time
 {
-    int minutes = (int)(time / 60.0f);
-    int seconds = (int)(time - minutes * 60.0f);
-    int milliseconds = (int)((time - (float)seconds - (float)minutes * 60.0f) * 100.0f);
-    
-    NSString* txtTime = [NSString stringWithFormat:@"%.2d:%.2d:%.2d", minutes, seconds, milliseconds];
+    NSString* txtTime = TimeToString( time );
     
     return txtTime;
 }

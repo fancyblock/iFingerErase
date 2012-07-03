@@ -42,18 +42,24 @@
 @interface ChallengeCenter : NSObject
 {
     NSMutableArray* m_challengeList;
+    NSMutableArray* m_playerList;
 }
 
 
 @property (nonatomic, readonly) NSMutableArray* _challengeList;
+@property (nonatomic, readonly) NSMutableArray* _playerList;
 
 
 + (ChallengeCenter*)sharedInstance;
 
 
+- (void)SignUp:(NSString*)userName;
+
 - (void)CreateChallenge:(NSString*)challenger toFriend:(NSString*)enemy with:(float)score withCallbackSender:(id)sender withCallback:(SEL)callback;
 
 - (void)ResponseChallenge:(NSString*)challengeId with:(float)score;
+
+- (void)FetchAllPlayers:(id)sender withCallback:(SEL)callback;
 
 - (void)FetchAllChallenges:(NSString*)fbId withCallbackSender:(id)sender withCallback:(SEL)callback;
 

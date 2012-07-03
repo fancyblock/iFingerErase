@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF1DE46315A17A4900D82808 /* btn_fbconnect_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = CF1DE46115A17A4900D82808 /* btn_fbconnect_normal.png */; };
+		CF1DE46415A17A4900D82808 /* btn_fbconnect_pushed.png in Resources */ = {isa = PBXBuildFile; fileRef = CF1DE46215A17A4900D82808 /* btn_fbconnect_pushed.png */; };
 		CF4D29CB1585C2A40035D95E /* ChallengeCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4D29CA1585C2A40035D95E /* ChallengeCenter.m */; };
 		CF55A1891575D6B40055F5CA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1881575D6B40055F5CA /* Security.framework */; };
 		CF55A18B1575D6EB0055F5CA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A18A1575D6EB0055F5CA /* libz.dylib */; };
@@ -16,6 +18,18 @@
 		CF55A1931575D7240055F5CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1921575D7240055F5CA /* CFNetwork.framework */; };
 		CF55A1951575D72D0055F5CA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1941575D72D0055F5CA /* MessageUI.framework */; };
 		CF55A1971575D7360055F5CA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1961575D7360055F5CA /* QuartzCore.framework */; };
+		CF73533415A15CA200884234 /* ChallengeNavStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF73533315A15CA200884234 /* ChallengeNavStage.m */; };
+		CF743C6A15A2BFA900306D99 /* ChallengeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C6815A2BFA900306D99 /* ChallengeInfo.m */; };
+		CF743C6B15A2BFA900306D99 /* ChallengeInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF743C6915A2BFA900306D99 /* ChallengeInfo.xib */; };
+		CF743C6E15A2CD2700306D99 /* ChallengingInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF743C6D15A2CD2700306D99 /* ChallengingInfoView.xib */; };
+		CF743C7115A2CD8600306D99 /* ChallengingInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C7015A2CD8600306D99 /* ChallengingInfoView.m */; };
+		CF743C7315A2E57900306D99 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF743C7215A2E57900306D99 /* close@2x.png */; };
+		CF743C7515A2E8CD00306D99 /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = CF743C7415A2E8CD00306D99 /* eye.png */; };
+		CF743C7815A2F2BF00306D99 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C7715A2F2BF00306D99 /* Utility.m */; };
+		CF743C8115A2F76200306D99 /* ChallengeDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C7F15A2F76200306D99 /* ChallengeDetailInfo.m */; };
+		CF743C8215A2F76200306D99 /* ChallengeDetailInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF743C8015A2F76200306D99 /* ChallengeDetailInfo.xib */; };
+		CF743C8615A30E3F00306D99 /* ChallengeHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C8415A30E3E00306D99 /* ChallengeHistory.m */; };
+		CF743C8715A30E3F00306D99 /* ChallengeHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF743C8515A30E3E00306D99 /* ChallengeHistory.xib */; };
 		CF78A1E31581F84C00F7AD77 /* GlobalWork.m in Sources */ = {isa = PBXBuildFile; fileRef = CF78A1E21581F84C00F7AD77 /* GlobalWork.m */; };
 		CF78A1E81582008400F7AD77 /* ChallengeEndStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF78A1E61582008400F7AD77 /* ChallengeEndStage.m */; };
 		CF78A1E91582008400F7AD77 /* ChallengeEndStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF78A1E71582008400F7AD77 /* ChallengeEndStage.xib */; };
@@ -62,6 +76,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF1DE46115A17A4900D82808 /* btn_fbconnect_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_fbconnect_normal.png; sourceTree = "<group>"; };
+		CF1DE46215A17A4900D82808 /* btn_fbconnect_pushed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_fbconnect_pushed.png; sourceTree = "<group>"; };
 		CF4D29C91585C2A40035D95E /* ChallengeCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeCenter.h; sourceTree = "<group>"; };
 		CF4D29CA1585C2A40035D95E /* ChallengeCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeCenter.m; sourceTree = "<group>"; };
 		CF55A1881575D6B40055F5CA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -72,6 +88,24 @@
 		CF55A1921575D7240055F5CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CF55A1941575D72D0055F5CA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CF55A1961575D7360055F5CA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CF73533215A15CA200884234 /* ChallengeNavStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeNavStage.h; sourceTree = "<group>"; };
+		CF73533315A15CA200884234 /* ChallengeNavStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeNavStage.m; sourceTree = "<group>"; };
+		CF743C6715A2BFA900306D99 /* ChallengeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeInfo.h; sourceTree = "<group>"; };
+		CF743C6815A2BFA900306D99 /* ChallengeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeInfo.m; sourceTree = "<group>"; };
+		CF743C6915A2BFA900306D99 /* ChallengeInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeInfo.xib; sourceTree = "<group>"; };
+		CF743C6D15A2CD2700306D99 /* ChallengingInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengingInfoView.xib; sourceTree = "<group>"; };
+		CF743C6F15A2CD8600306D99 /* ChallengingInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengingInfoView.h; sourceTree = "<group>"; };
+		CF743C7015A2CD8600306D99 /* ChallengingInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengingInfoView.m; sourceTree = "<group>"; };
+		CF743C7215A2E57900306D99 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close@2x.png"; path = "facebook-ios-sdk/FBDialog.bundle/images/close@2x.png"; sourceTree = "<group>"; };
+		CF743C7415A2E8CD00306D99 /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
+		CF743C7615A2F2BF00306D99 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		CF743C7715A2F2BF00306D99 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		CF743C7E15A2F76200306D99 /* ChallengeDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeDetailInfo.h; sourceTree = "<group>"; };
+		CF743C7F15A2F76200306D99 /* ChallengeDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeDetailInfo.m; sourceTree = "<group>"; };
+		CF743C8015A2F76200306D99 /* ChallengeDetailInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailInfo.xib; sourceTree = "<group>"; };
+		CF743C8315A30E3E00306D99 /* ChallengeHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeHistory.h; sourceTree = "<group>"; };
+		CF743C8415A30E3E00306D99 /* ChallengeHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeHistory.m; sourceTree = "<group>"; };
+		CF743C8515A30E3E00306D99 /* ChallengeHistory.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeHistory.xib; sourceTree = "<group>"; };
 		CF78A1E11581F84C00F7AD77 /* GlobalWork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalWork.h; sourceTree = "<group>"; };
 		CF78A1E21581F84C00F7AD77 /* GlobalWork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalWork.m; sourceTree = "<group>"; };
 		CF78A1E51582008400F7AD77 /* ChallengeEndStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeEndStage.h; sourceTree = "<group>"; };
@@ -175,18 +209,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF7615BA159D7C6000B1CF4D /* ChallengeUIViews */ = {
+			isa = PBXGroup;
+			children = (
+				CF743C6715A2BFA900306D99 /* ChallengeInfo.h */,
+				CF743C6815A2BFA900306D99 /* ChallengeInfo.m */,
+				CF743C6915A2BFA900306D99 /* ChallengeInfo.xib */,
+				CF743C6D15A2CD2700306D99 /* ChallengingInfoView.xib */,
+				CF743C6F15A2CD8600306D99 /* ChallengingInfoView.h */,
+				CF743C7015A2CD8600306D99 /* ChallengingInfoView.m */,
+				CF743C7E15A2F76200306D99 /* ChallengeDetailInfo.h */,
+				CF743C7F15A2F76200306D99 /* ChallengeDetailInfo.m */,
+				CF743C8015A2F76200306D99 /* ChallengeDetailInfo.xib */,
+				CF743C8315A30E3E00306D99 /* ChallengeHistory.h */,
+				CF743C8415A30E3E00306D99 /* ChallengeHistory.m */,
+				CF743C8515A30E3E00306D99 /* ChallengeHistory.xib */,
+			);
+			name = ChallengeUIViews;
+			sourceTree = "<group>";
+		};
 		CF7BCF64159189FE0090BE5E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				CF743C7415A2E8CD00306D99 /* eye.png */,
 				CF7BCF6515918A130090BE5E /* NPResources_iPad_iPhone_Landscape.bundle */,
 				CF7BCF6615918A130090BE5E /* NPResources_iPad_iPhone_Portrait.bundle */,
 				CF7BCF6715918A130090BE5E /* NPResources_iPad.bundle */,
 				CF7BCF6815918A130090BE5E /* NPResources_iPhone_Landscape.bundle */,
 				CF7BCF6915918A130090BE5E /* NPResources_iPhone_Portrait.bundle */,
 				CF7BB0721580B620004276AF /* close.png */,
+				CF743C7215A2E57900306D99 /* close@2x.png */,
 				CF7BB024158082C4004276AF /* icon_free_57.png */,
 				CF80DF4A157E181300E5F2C0 /* Default.png */,
 				CF7BFF08157737A600B51DB9 /* ICON.png */,
+				CF1DE46115A17A4900D82808 /* btn_fbconnect_normal.png */,
+				CF1DE46215A17A4900D82808 /* btn_fbconnect_pushed.png */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -237,12 +294,15 @@
 		CF7C52781575C608008F929A /* NextpeerTest */ = {
 			isa = PBXGroup;
 			children = (
+				CF7615BA159D7C6000B1CF4D /* ChallengeUIViews */,
 				CF7E51C515870FF9005FC5B3 /* Stages */,
 				CF80DF40157E0B8800E5F2C0 /* Facebook */,
 				CF80DF1D157DBB8800E5F2C0 /* CanvasView.h */,
 				CF80DF1E157DBB8800E5F2C0 /* CanvasView.m */,
 				CF78A1E11581F84C00F7AD77 /* GlobalWork.h */,
 				CF78A1E21581F84C00F7AD77 /* GlobalWork.m */,
+				CF743C7615A2F2BF00306D99 /* Utility.h */,
+				CF743C7715A2F2BF00306D99 /* Utility.m */,
 				CF7C52811575C608008F929A /* AppDelegate.h */,
 				CF7C52821575C608008F929A /* AppDelegate.m */,
 				CF7C52841575C608008F929A /* ViewController.h */,
@@ -272,6 +332,8 @@
 		CF7E51C515870FF9005FC5B3 /* Stages */ = {
 			isa = PBXGroup;
 			children = (
+				CF73533215A15CA200884234 /* ChallengeNavStage.h */,
+				CF73533315A15CA200884234 /* ChallengeNavStage.m */,
 				CF7E51BF15870FD9005FC5B3 /* ChallengeStage.h */,
 				CF7E51C015870FD9005FC5B3 /* ChallengeStage.m */,
 				CF7E51C115870FD9005FC5B3 /* ChallengeStage.xib */,
@@ -397,6 +459,14 @@
 				CF7BCF6E15918A130090BE5E /* NPResources_iPhone_Portrait.bundle in Resources */,
 				CF81886515932BC3005F840A /* ChallengeCellView.xib in Resources */,
 				CF7AB55F1598659000BEFEF8 /* ChallengeOverStage.xib in Resources */,
+				CF1DE46315A17A4900D82808 /* btn_fbconnect_normal.png in Resources */,
+				CF1DE46415A17A4900D82808 /* btn_fbconnect_pushed.png in Resources */,
+				CF743C6B15A2BFA900306D99 /* ChallengeInfo.xib in Resources */,
+				CF743C6E15A2CD2700306D99 /* ChallengingInfoView.xib in Resources */,
+				CF743C7315A2E57900306D99 /* close@2x.png in Resources */,
+				CF743C7515A2E8CD00306D99 /* eye.png in Resources */,
+				CF743C8215A2F76200306D99 /* ChallengeDetailInfo.xib in Resources */,
+				CF743C8715A30E3F00306D99 /* ChallengeHistory.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +493,12 @@
 				CF7E51C215870FD9005FC5B3 /* ChallengeStage.m in Sources */,
 				CF81886315932BAB005F840A /* ChallengeCellView.m in Sources */,
 				CF7AB55E1598659000BEFEF8 /* ChallengeOverStage.m in Sources */,
+				CF73533415A15CA200884234 /* ChallengeNavStage.m in Sources */,
+				CF743C6A15A2BFA900306D99 /* ChallengeInfo.m in Sources */,
+				CF743C7115A2CD8600306D99 /* ChallengingInfoView.m in Sources */,
+				CF743C7815A2F2BF00306D99 /* Utility.m in Sources */,
+				CF743C8115A2F76200306D99 /* ChallengeDetailInfo.m in Sources */,
+				CF743C8615A30E3F00306D99 /* ChallengeHistory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
