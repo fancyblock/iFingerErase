@@ -76,7 +76,7 @@
 {
     NSString* txtTime = TimeToString( [GlobalWork sharedInstance]._elapseTime );
     
-    self._txtScore.text = [NSString stringWithFormat:@"You spend %@", txtTime];
+    self._txtScore.text = [NSString stringWithFormat:@"%@", txtTime];
     
     [self._loadingMask setHidden:YES];
 }
