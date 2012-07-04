@@ -128,6 +128,7 @@
     FBUserInfo* user = [[GlobalWork sharedInstance]._challengedUsers objectAtIndex:index];
     
     cell.textLabel.text = user._name;
+    [cell.textLabel setTextColor:[UIColor whiteColor]];
     
     if( user._pic != nil )
     {
@@ -135,7 +136,10 @@
     }
     else 
     {
-        [[FacebookManager sharedInstance] LoadPicture:user]; 
+        [[FacebookManager sharedInstance] LoadPicture:user withBlock:^(BOOL succeeded)
+        {
+            [self._challengeFriendList reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }];
     }
 
     return cell;
