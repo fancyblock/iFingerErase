@@ -30,6 +30,10 @@
 		CF743C8215A2F76200306D99 /* ChallengeDetailInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF743C8015A2F76200306D99 /* ChallengeDetailInfo.xib */; };
 		CF743C8615A30E3F00306D99 /* ChallengeHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C8415A30E3E00306D99 /* ChallengeHistory.m */; };
 		CF743C8715A30E3F00306D99 /* ChallengeHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF743C8515A30E3E00306D99 /* ChallengeHistory.xib */; };
+		CF788C9515A3F49F006F4CBC /* HistoryDetailInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF788C9415A3F49F006F4CBC /* HistoryDetailInfo.xib */; };
+		CF788C9915A3F4FD006F4CBC /* HistoryDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF788C9815A3F4FD006F4CBC /* HistoryDetailInfo.m */; };
+		CF788C9D15A42D7B006F4CBC /* HistoryDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF788C9B15A42D7A006F4CBC /* HistoryDetailView.m */; };
+		CF788C9E15A42D7B006F4CBC /* HistoryDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF788C9C15A42D7B006F4CBC /* HistoryDetailView.xib */; };
 		CF78A1E31581F84C00F7AD77 /* GlobalWork.m in Sources */ = {isa = PBXBuildFile; fileRef = CF78A1E21581F84C00F7AD77 /* GlobalWork.m */; };
 		CF78A1E81582008400F7AD77 /* ChallengeEndStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF78A1E61582008400F7AD77 /* ChallengeEndStage.m */; };
 		CF78A1E91582008400F7AD77 /* ChallengeEndStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF78A1E71582008400F7AD77 /* ChallengeEndStage.xib */; };
@@ -106,6 +110,12 @@
 		CF743C8315A30E3E00306D99 /* ChallengeHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeHistory.h; sourceTree = "<group>"; };
 		CF743C8415A30E3E00306D99 /* ChallengeHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeHistory.m; sourceTree = "<group>"; };
 		CF743C8515A30E3E00306D99 /* ChallengeHistory.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeHistory.xib; sourceTree = "<group>"; };
+		CF788C9415A3F49F006F4CBC /* HistoryDetailInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryDetailInfo.xib; sourceTree = "<group>"; };
+		CF788C9715A3F4FD006F4CBC /* HistoryDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailInfo.h; sourceTree = "<group>"; };
+		CF788C9815A3F4FD006F4CBC /* HistoryDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailInfo.m; sourceTree = "<group>"; };
+		CF788C9A15A42D7A006F4CBC /* HistoryDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailView.h; sourceTree = "<group>"; };
+		CF788C9B15A42D7A006F4CBC /* HistoryDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailView.m; sourceTree = "<group>"; };
+		CF788C9C15A42D7B006F4CBC /* HistoryDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryDetailView.xib; sourceTree = "<group>"; };
 		CF78A1E11581F84C00F7AD77 /* GlobalWork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalWork.h; sourceTree = "<group>"; };
 		CF78A1E21581F84C00F7AD77 /* GlobalWork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalWork.m; sourceTree = "<group>"; };
 		CF78A1E51582008400F7AD77 /* ChallengeEndStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeEndStage.h; sourceTree = "<group>"; };
@@ -224,6 +234,12 @@
 				CF743C8315A30E3E00306D99 /* ChallengeHistory.h */,
 				CF743C8415A30E3E00306D99 /* ChallengeHistory.m */,
 				CF743C8515A30E3E00306D99 /* ChallengeHistory.xib */,
+				CF788C9415A3F49F006F4CBC /* HistoryDetailInfo.xib */,
+				CF788C9715A3F4FD006F4CBC /* HistoryDetailInfo.h */,
+				CF788C9815A3F4FD006F4CBC /* HistoryDetailInfo.m */,
+				CF788C9A15A42D7A006F4CBC /* HistoryDetailView.h */,
+				CF788C9B15A42D7A006F4CBC /* HistoryDetailView.m */,
+				CF788C9C15A42D7B006F4CBC /* HistoryDetailView.xib */,
 			);
 			name = ChallengeUIViews;
 			sourceTree = "<group>";
@@ -467,6 +483,8 @@
 				CF743C7515A2E8CD00306D99 /* eye.png in Resources */,
 				CF743C8215A2F76200306D99 /* ChallengeDetailInfo.xib in Resources */,
 				CF743C8715A30E3F00306D99 /* ChallengeHistory.xib in Resources */,
+				CF788C9515A3F49F006F4CBC /* HistoryDetailInfo.xib in Resources */,
+				CF788C9E15A42D7B006F4CBC /* HistoryDetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +517,8 @@
 				CF743C7815A2F2BF00306D99 /* Utility.m in Sources */,
 				CF743C8115A2F76200306D99 /* ChallengeDetailInfo.m in Sources */,
 				CF743C8615A30E3F00306D99 /* ChallengeHistory.m in Sources */,
+				CF788C9915A3F4FD006F4CBC /* HistoryDetailInfo.m in Sources */,
+				CF788C9D15A42D7B006F4CBC /* HistoryDetailView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

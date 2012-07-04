@@ -59,7 +59,7 @@
  */
 - (IBAction)onWatch:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupDetail" object:self._challengeInfo userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupChallengeDetail" object:self._challengeInfo userInfo:nil];
 }
 
 

@@ -7,11 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HistoryDetailInfo.h"
+#import "HistoryDetailView.h"
 
-@interface ChallengeHistory : UIViewController
+
+@interface ChallengeHistory : UIViewController<UITableViewDataSource>
 {
-    //TODO
+    NSMutableArray* m_historyList;
+    
+    HistoryDetailView* m_detailViewController;
 }
+
+@property (nonatomic, retain) IBOutlet UITableView* _tableView;
 
 
 - (IBAction)onBack:(id)sender;

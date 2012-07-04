@@ -114,7 +114,7 @@
         [self._imgChallenger setImage:challenger._pic];
     }
     
-    if( enemy._pic = nil )
+    if( enemy._pic == nil )
     {
         [[FacebookManager sharedInstance] LoadPicture:enemy withBlock:^(BOOL succeed)
         {
@@ -132,7 +132,28 @@
     }
     else 
     {
-        //TODO
+        if( [[FacebookManager sharedInstance]._userInfo._uid isEqualToString:challenger._uid] )
+        {
+            if( self._info._score_c < self._info._score_e )
+            {
+                [self._btnResult setTitle:@"You Win" forState:UIControlStateDisabled];
+            }
+            else 
+            {
+                [self._btnResult setTitle:@"You Lose" forState:UIControlStateDisabled];
+            }
+        }
+        else 
+        {
+            if( self._info._score_c > self._info._score_e )
+            {
+                [self._btnResult setTitle:@"You Win" forState:UIControlStateDisabled];
+            }
+            else 
+            {
+                [self._btnResult setTitle:@"You Lose" forState:UIControlStateDisabled];
+            }
+        }
     }
     
 }

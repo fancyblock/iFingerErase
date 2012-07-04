@@ -83,7 +83,7 @@
     [[ChallengeCenter sharedInstance] FetchAllChallenges:uid withCallbackSender:self withCallback:@selector(_onChallengeInfoComplete)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onChallengeClosed) name:CHALLENGE_CLOSED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onShowDetail:) name:@"PopupDetail" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onShowDetail:) name:@"PopupChallengeDetail" object:nil];
 }
 
 
@@ -91,7 +91,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:CHALLENGE_CLOSED object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PopupDetail" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PopupChallengeDetail" object:nil];
 }
 
 
@@ -113,6 +113,11 @@
  */
 - (IBAction)onHistory:(id)sender
 {
+    if( [ChallengeCenter sharedInstance]._challengeList == nil )
+    {
+        return;
+    }
+    
     [self.navigationController PushHistoryView];
 }
 
@@ -228,7 +233,7 @@
             {
                 [[FacebookManager sharedInstance] LoadPicture:userInfo withBlock:^(BOOL succeeded)
                  {
-                     [self._tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                     [self._tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                  }];
             }
             else 
