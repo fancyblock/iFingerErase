@@ -58,7 +58,8 @@
     m_endViewController = [[EndStage alloc] initWithNibName:@"EndStage" bundle:nil];
     m_challengeEndController = [[ChallengeEndStage alloc] initWithNibName:@"ChallengeEndStage" bundle:nil];
     m_challengeController = [[ChallengeNavStage alloc] initial];
-    m_challengeOverController = [[ChallengeOverStage alloc] initWithNibName:@"ChallengeOverStage" bundle:nil];
+    m_challengeWin = [[ChallengeWin alloc] initWithNibName:@"ChallengeWin" bundle:nil];
+    m_challengeLose = [[ChallengeLose alloc] initWithNibName:@"ChallengeLose" bundle:nil];
     
     // initial the Parse
     [Parse setApplicationId:@"zKzUtc34Q5C5oiir18xXaVmr0bZURwkpCtPvMVhX"
@@ -212,10 +213,16 @@
         [self switchToView:m_challengeController withCallback:nil];
     }
     
-    if( type == STAGE_CHALLENGE_OVER )
+    if( type == STAGE_CHALLENGE_WIN )
     {
-        [self switchToView:m_challengeOverController withCallback:nil];
+        [self switchToView:m_challengeWin withCallback:nil];
     }
+    
+    if( type == STAGE_CHALLENGE_LOSE )
+    {
+        [self switchToView:m_challengeLose withCallback:nil];
+    }
+    
 }
 
 

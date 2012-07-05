@@ -207,7 +207,15 @@
             
             [GlobalWork sharedInstance]._challengeInfo._score_e = m_elapsedTime;
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE_OVER] userInfo:nil];
+            if( [GlobalWork sharedInstance]._challengeInfo._score_c > m_elapsedTime )
+            {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE_WIN] userInfo:nil];
+            }
+            else 
+            {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE_LOSE] userInfo:nil];
+            }
+            
         }
     }
     
