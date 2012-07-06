@@ -11,8 +11,6 @@
 #import "ChallengeInfo.h"
 
 
-#define CHALLENGE_INDEX 0
-#define INVITE_INDEX    1
 
 @interface ChallengeStage : UIViewController<UITableViewDelegate, UITableViewDataSource, UINavigationBarDelegate>
 {
@@ -24,17 +22,11 @@
 @property (nonatomic, retain) IBOutlet UITableView* _tableView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView* _loadingIcon;
 @property (nonatomic, retain) IBOutlet UIView* _connectFBView;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem* _btnChallenges;
-
-@property (nonatomic, retain) IBOutlet UIView* _sectionViewPlayer;
-@property (nonatomic, retain) IBOutlet UIView* _sectionViewInvite;
 
 
 - (IBAction)onBack:(id)sender;
-- (IBAction)onShowChallenges:(id)sender;
 
 - (IBAction)onConnectFB:(id)sender;
-- (IBAction)onPlay:(id)sender;
 
 
 - (void)Initial;

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ChallengeCenter.h"
+#import "FacebookManager.h"
+
 
 @interface ChallengeCellView : UITableViewCell
 {
@@ -16,6 +18,12 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView* _imgChallenger;
 @property (nonatomic, retain) IBOutlet UILabel* _txtInfo;
+
+
+- (IBAction)onHistory:(id)sender;
+- (IBAction)onPlay:(id)sender;
+- (IBAction)onAccept:(id)sender;
+- (IBAction)onReject:(id)sender;
 
 
 @end

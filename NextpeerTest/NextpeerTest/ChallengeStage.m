@@ -32,9 +32,6 @@
 @synthesize _tableView;
 @synthesize _loadingIcon;
 @synthesize _connectFBView;
-@synthesize _btnChallenges;
-@synthesize _sectionViewInvite;
-@synthesize _sectionViewPlayer;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -89,7 +86,6 @@
     }
     else 
     {
-        self._btnChallenges.enabled = NO;
         [self._connectFBView setHidden:NO];
     }
 }
@@ -103,23 +99,6 @@
 - (IBAction)onBack:(id)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU]];
-}
-
-
-/**
- * @desc    show all challenges
- * @para    sender
- * @return  none
- */
-- (IBAction)onShowChallenges:(id)sender
-{
-    if( [FacebookManager sharedInstance]._userInfo == nil || 
-        [FacebookManager sharedInstance]._friendList == nil )
-    {
-        return;
-    }
-    
-    [self.navigationController PushChallengeInfoView];
 }
 
 
@@ -141,10 +120,6 @@
  */
 - (IBAction)onPlay:(id)sender
 {
-    NSLog( @"Challenge Friends" );
-    
-    NSArray* selectedFriends = [self._tableView indexPathsForSelectedRows];
-    
     if( [GlobalWork sharedInstance]._challengedUsers == nil )
     {
         [GlobalWork sharedInstance]._challengedUsers = [[NSMutableArray alloc] init];
@@ -154,23 +129,7 @@
         [[GlobalWork sharedInstance]._challengedUsers removeAllObjects];
     }
     
-    for( int i = 0; i < [selectedFriends count]; i++ )
-    {
-        NSIndexPath* path = [selectedFriends objectAtIndex:i];
-        
-        if( [path section] == CHALLENGE_INDEX )
-        {
-            FBUserInfo* userInfo = [m_playerList objectAtIndex:[path row]];
-            
-            [[GlobalWork sharedInstance]._challengedUsers addObject:userInfo];
-        }
-    }
-    
-    // at least choose one
-    if( [[GlobalWork sharedInstance]._challengedUsers count] <= 0 )
-    {
-        return;
-    }
+    //[GlobalWork sharedInstance]._challengedUsers = ;
     
     [GlobalWork sharedInstance]._gameMode = CHALLENGE_MODE;
     
@@ -184,7 +143,6 @@
 // load challenge info
 - (void)loadChallengeInfo
 {
-    self._btnChallenges.enabled = YES;
     [self._connectFBView setHidden:YES];
     
     [self._loadingIcon startAnimating];
@@ -200,55 +158,45 @@
 // return the 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int playerCnt = [m_playerList count];
-    int friendCnt = [m_friendList count];
+    int cnt = [m_playerList count];
     
-    if( section == 0 )
-    {
-        return ( playerCnt == 0 ? 1 : playerCnt );
-    }
-    
-    return ( friendCnt == 0 ? 1 : friendCnt );
+    return ( cnt == 0 ? 1 : cnt );
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int section = [indexPath section];
     int index = [indexPath row];
     
-    NSArray* nibs = [[NSBundle mainBundle] loadNibNamed:@"ChallengeCellView" owner:self options:nil];
-    ChallengeCellView* cellView = [nibs objectAtIndex:0];
+    UITableViewCell* cellView = nil;
+    ChallengeCellView* challengeCellView = nil;
+    NSArray* nibs = nil;
     
     FBUserInfo* user = nil;
     
-    if( section == CHALLENGE_INDEX )
+    if( [m_playerList count] == 0 )
     {
-        if( [m_playerList count] == 0 )
-        {
-            cellView._txtInfo.text = @"No friend played iFingerErase";
-        }
-        else 
-        {
-            user = [m_playerList objectAtIndex:index];
-        }
+        cellView = [[UITableViewCell alloc] init];
+        
+        cellView.textLabel.text = @"No friend played iFingerErase";
     }
-    else if( section == INVITE_INDEX )
+    else 
     {
-        if( [m_friendList count] == 0 )
-        {
-            cellView._txtInfo.text = @"No more friends";
-        }
-        else 
-        {
-            user = [m_friendList objectAtIndex:index];
-        }
+        nibs = [[NSBundle mainBundle] loadNibNamed:@"ChallengeCellView" owner:self options:nil];
+        challengeCellView = [nibs objectAtIndex:0];
+        cellView = challengeCellView;
+        
+        //[TEMP]
+        [cellView addSubview:[nibs objectAtIndex:1]];
+        //[TEMP]
+        
+        user = [m_playerList objectAtIndex:index];
     }
     
     if( user != nil )
     {
-        cellView._txtInfo.text = user._name;
+        challengeCellView._txtInfo.text = user._name;
         
         if( user._pic == nil )
         {
@@ -261,7 +209,7 @@
         }
         else 
         {
-            [cellView._imgChallenger setImage:user._pic];
+            [challengeCellView._imgChallenger setImage:user._pic];
         }
     }
     
@@ -271,36 +219,13 @@
 // two sections, players & noplayers
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
-}
-
-// return the section header
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView* headerView = nil;
-    
-    if( section == CHALLENGE_INDEX )
-    {
-        headerView = self._sectionViewPlayer;
-    }
-    else if( section == INVITE_INDEX )
-    {
-        headerView = self._sectionViewInvite;
-    }
-    
-    return headerView;
+    return 1;
 }
 
 // Called after the user changes the selection.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int section = [indexPath section];
-    
-    if( section == INVITE_INDEX )
-    {
-        int index = [indexPath row];
-        
-        FBUserInfo* user = [m_friendList objectAtIndex:index];
+    /*
         
          // post to the wall
         [[FacebookManager sharedInstance] PublishToFriendWall:@"You've got a challenge!"
@@ -313,7 +238,7 @@
                                                  withCallback:nil];
         
         [self._tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
+    */
 }
 
 

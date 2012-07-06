@@ -33,4 +33,49 @@
     // Configure the view for the selected state
 }
 
+
+/**
+ * @desc    display the detail of this person
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onHistory:(id)sender
+{
+    //TODO 
+}
+
+
+/**
+ * @desc    challenge the friend
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onPlay:(id)sender
+{
+    //TODO 
+}
+
+
+/**
+ * @desc    accept the challenge
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onAccept:(id)sender
+{
+    //TODO 
+}
+
+
+/**
+ * @desc    reject the challenge
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onReject:(id)sender
+{
+    //TODO 
+}
+
+
 @end
