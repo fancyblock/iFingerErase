@@ -58,9 +58,9 @@
 {
     challengeInfo* info = [GlobalWork sharedInstance]._challengeInfo;
     
-    self._txtScore.text = TimeToString( info._score_e );
+    self._txtScore.text = TimeToString( info._selfScore );
     
-    [[ChallengeCenter sharedInstance] ResponseChallenge:[GlobalWork sharedInstance]._challengeInfo._challengeId with:[GlobalWork sharedInstance]._challengeInfo._score_e];
+    [[ChallengeCenter sharedInstance] ResponseChallenge:[GlobalWork sharedInstance]._challengeInfo._challengeId with:[GlobalWork sharedInstance]._challengeInfo._selfScore];
 }
 
 
@@ -82,8 +82,8 @@
  */
 - (IBAction)onFacebook:(id)sender
 {
-    NSString* enemyName = [[FacebookManager sharedInstance] GetFBUserInfo:[GlobalWork sharedInstance]._challengeInfo._challenger]._name;
-    float score = [GlobalWork sharedInstance]._challengeInfo._score_e;
+    NSString* enemyName = [[FacebookManager sharedInstance] GetFBUserInfo:[GlobalWork sharedInstance]._challengeInfo._opponent]._name;
+    float score = [GlobalWork sharedInstance]._challengeInfo._selfScore;
     
     [[FacebookManager sharedInstance] PublishToWall:@"I Win"
                                            withDesc:[NSString stringWithFormat:@"I beat %@ with %.2f !", enemyName, score]

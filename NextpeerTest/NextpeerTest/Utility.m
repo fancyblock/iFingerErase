@@ -60,3 +60,25 @@ NSString* TimeToString( float time )
     return txtTime;
 }
 
+
+/**
+ * @desc    set image view
+ * @para    imgView
+ * @para    userInfo
+ * @return  none
+ */
+void SetImageView( UIImageView* imgView, FBUserInfo* userInfo )
+{
+    if( userInfo._pic == nil )
+    {
+        [[FacebookManager sharedInstance] LoadPicture:userInfo withBlock:^(BOOL succeeded)
+        {
+            [imgView setImage:userInfo._pic];
+        }];
+    }
+    else 
+    {
+        [imgView setImage:userInfo._pic];
+    }
+}
+

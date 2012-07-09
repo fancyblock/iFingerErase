@@ -34,7 +34,7 @@
 
 
 @property (nonatomic, readwrite) int _gameMode;
-@property (nonatomic, retain) NSMutableArray* _challengedUsers;
+@property (nonatomic, retain) NSString* _challengedUser;
 @property (nonatomic, retain) challengeInfo* _challengeInfo;
 @property (nonatomic, readwrite) float _elapseTime;
 

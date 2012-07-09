@@ -16,6 +16,9 @@
     //TODO 
 }
 
+@property (nonatomic, retain) NSString* _opponentUid;
+@property (nonatomic, retain) challengeInfo* _challengeInfo;
+
 @property (nonatomic, retain) IBOutlet UIImageView* _imgChallenger;
 @property (nonatomic, retain) IBOutlet UILabel* _txtInfo;
 
@@ -24,6 +27,7 @@
 - (IBAction)onPlay:(id)sender;
 - (IBAction)onAccept:(id)sender;
 - (IBAction)onReject:(id)sender;
+- (IBAction)onRevert:(id)sender;
 
 
 @end

@@ -12,7 +12,8 @@
 
 @implementation ChallengeCellView
 
-
+@synthesize _opponentUid;
+@synthesize _challengeInfo;
 @synthesize _imgChallenger;
 @synthesize _txtInfo;
 
@@ -41,7 +42,7 @@
  */
 - (IBAction)onHistory:(id)sender
 {
-    //TODO 
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowHistory" object:self._opponentUid];
 }
 
 
@@ -52,7 +53,10 @@
  */
 - (IBAction)onPlay:(id)sender
 {
-    //TODO 
+    [GlobalWork sharedInstance]._gameMode = CHALLENGE_MODE;
+    [GlobalWork sharedInstance]._challengedUser = self._opponentUid;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME] userInfo:nil];
 }
 
 
@@ -63,7 +67,10 @@
  */
 - (IBAction)onAccept:(id)sender
 {
-    //TODO 
+    [GlobalWork sharedInstance]._gameMode = ACCEPT_CHALLENGE_MODE;
+    [GlobalWork sharedInstance]._challengeInfo = self._challengeInfo;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME] userInfo:nil];
 }
 
 
@@ -73,6 +80,17 @@
  * @return  none
  */
 - (IBAction)onReject:(id)sender
+{
+    [[ChallengeCenter sharedInstance] RejectChallenge:self._challengeInfo._challengeId];
+}
+
+
+/**
+ * @desc    revert the challenge
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onRevert:(id)sender
 {
     //TODO 
 }

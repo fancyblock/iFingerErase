@@ -205,9 +205,9 @@
         {
             [self End];
             
-            [GlobalWork sharedInstance]._challengeInfo._score_e = m_elapsedTime;
+            [GlobalWork sharedInstance]._challengeInfo._selfScore = m_elapsedTime;
             
-            if( [GlobalWork sharedInstance]._challengeInfo._score_c > m_elapsedTime )
+            if( [GlobalWork sharedInstance]._challengeInfo._opponentScore > m_elapsedTime )
             {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE_WIN] userInfo:nil];
             }

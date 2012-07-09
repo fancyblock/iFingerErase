@@ -57,9 +57,9 @@
 {
     challengeInfo* info = [GlobalWork sharedInstance]._challengeInfo;
     
-    self._txtScore.text = TimeToString( info._score_e );
+    self._txtScore.text = TimeToString( info._selfScore );
     
-    [[ChallengeCenter sharedInstance] ResponseChallenge:[GlobalWork sharedInstance]._challengeInfo._challengeId with:[GlobalWork sharedInstance]._challengeInfo._score_e];
+    [[ChallengeCenter sharedInstance] ResponseChallenge:[GlobalWork sharedInstance]._challengeInfo._challengeId with:[GlobalWork sharedInstance]._challengeInfo._selfScore];
 }
 
 

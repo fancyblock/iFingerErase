@@ -22,15 +22,9 @@
 		CF55A1951575D72D0055F5CA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1941575D72D0055F5CA /* MessageUI.framework */; };
 		CF55A1971575D7360055F5CA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF55A1961575D7360055F5CA /* QuartzCore.framework */; };
 		CF73533415A15CA200884234 /* ChallengeNavStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF73533315A15CA200884234 /* ChallengeNavStage.m */; };
-		CF743C6A15A2BFA900306D99 /* ChallengeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C6815A2BFA900306D99 /* ChallengeInfo.m */; };
-		CF743C6B15A2BFA900306D99 /* ChallengeInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF743C6915A2BFA900306D99 /* ChallengeInfo.xib */; };
-		CF743C6E15A2CD2700306D99 /* ChallengingInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF743C6D15A2CD2700306D99 /* ChallengingInfoView.xib */; };
-		CF743C7115A2CD8600306D99 /* ChallengingInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C7015A2CD8600306D99 /* ChallengingInfoView.m */; };
 		CF743C7315A2E57900306D99 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF743C7215A2E57900306D99 /* close@2x.png */; };
 		CF743C7515A2E8CD00306D99 /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = CF743C7415A2E8CD00306D99 /* eye.png */; };
 		CF743C7815A2F2BF00306D99 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C7715A2F2BF00306D99 /* Utility.m */; };
-		CF743C8115A2F76200306D99 /* ChallengeDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C7F15A2F76200306D99 /* ChallengeDetailInfo.m */; };
-		CF743C8215A2F76200306D99 /* ChallengeDetailInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF743C8015A2F76200306D99 /* ChallengeDetailInfo.xib */; };
 		CF743C8615A30E3F00306D99 /* ChallengeHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C8415A30E3E00306D99 /* ChallengeHistory.m */; };
 		CF743C8715A30E3F00306D99 /* ChallengeHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF743C8515A30E3E00306D99 /* ChallengeHistory.xib */; };
 		CF773B7415A5441600656807 /* ChallengeWin.m in Sources */ = {isa = PBXBuildFile; fileRef = CF773B7215A5441600656807 /* ChallengeWin.m */; };
@@ -45,10 +39,6 @@
 		CF773B8B15A5457000656807 /* wgt_stef_succeed.png in Resources */ = {isa = PBXBuildFile; fileRef = CF773B8915A5457000656807 /* wgt_stef_succeed.png */; };
 		CF773B8E15A5476000656807 /* btn_ok_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = CF773B8C15A5476000656807 /* btn_ok_normal.png */; };
 		CF773B8F15A5476000656807 /* btn_ok_pushed.png in Resources */ = {isa = PBXBuildFile; fileRef = CF773B8D15A5476000656807 /* btn_ok_pushed.png */; };
-		CF788C9515A3F49F006F4CBC /* HistoryDetailInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF788C9415A3F49F006F4CBC /* HistoryDetailInfo.xib */; };
-		CF788C9915A3F4FD006F4CBC /* HistoryDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF788C9815A3F4FD006F4CBC /* HistoryDetailInfo.m */; };
-		CF788C9D15A42D7B006F4CBC /* HistoryDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF788C9B15A42D7A006F4CBC /* HistoryDetailView.m */; };
-		CF788C9E15A42D7B006F4CBC /* HistoryDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF788C9C15A42D7B006F4CBC /* HistoryDetailView.xib */; };
 		CF788CA115A44C16006F4CBC /* ok_1.png in Resources */ = {isa = PBXBuildFile; fileRef = CF788C9F15A44C16006F4CBC /* ok_1.png */; };
 		CF788CA215A44C16006F4CBC /* ok_2.png in Resources */ = {isa = PBXBuildFile; fileRef = CF788CA015A44C16006F4CBC /* ok_2.png */; };
 		CF788CA415A454C5006F4CBC /* paper.png in Resources */ = {isa = PBXBuildFile; fileRef = CF788CA315A454C5006F4CBC /* paper.png */; };
@@ -56,8 +46,6 @@
 		CF78A1E81582008400F7AD77 /* ChallengeEndStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF78A1E61582008400F7AD77 /* ChallengeEndStage.m */; };
 		CF78A1E91582008400F7AD77 /* ChallengeEndStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF78A1E71582008400F7AD77 /* ChallengeEndStage.xib */; };
 		CF7BB025158082C4004276AF /* icon_free_57.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB024158082C4004276AF /* icon_free_57.png */; };
-		CF7BB04F1580A94D004276AF /* FBPopupFriendList.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7BB04D1580A94D004276AF /* FBPopupFriendList.m */; };
-		CF7BB0501580A94D004276AF /* FBPopupFriendList.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB04E1580A94D004276AF /* FBPopupFriendList.xib */; };
 		CF7BB0731580B620004276AF /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB0721580B620004276AF /* close.png */; };
 		CF7BB349157C705900E4EBEE /* GameStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7BB347157C705900E4EBEE /* GameStage.m */; };
 		CF7BB34A157C705900E4EBEE /* GameStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7BB348157C705900E4EBEE /* GameStage.xib */; };
@@ -77,6 +65,14 @@
 		CF7C52831575C608008F929A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7C52821575C608008F929A /* AppDelegate.m */; };
 		CF7C52861575C608008F929A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7C52851575C608008F929A /* ViewController.m */; };
 		CF7C52891575C608008F929A /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7C52871575C608008F929A /* ViewController.xib */; };
+		CF7D389415AA8B3100A67260 /* btnPlayPush.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7D389115AA8B3100A67260 /* btnPlayPush.png */; };
+		CF7D389515AA8B3100A67260 /* btnRejectPush.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7D389215AA8B3100A67260 /* btnRejectPush.png */; };
+		CF7D389615AA8B3100A67260 /* btnAcceptPush.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7D389315AA8B3100A67260 /* btnAcceptPush.png */; };
+		CF7D389A15AA8DF600A67260 /* waitPush.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7D389815AA8DF600A67260 /* waitPush.png */; };
+		CF7D389B15AA8DF600A67260 /* wait.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7D389915AA8DF600A67260 /* wait.png */; };
+		CF7D389F15AAE0E000A67260 /* InviteFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7D389D15AAE0E000A67260 /* InviteFriends.m */; };
+		CF7D38A015AAE0E000A67260 /* InviteFriends.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7D389E15AAE0E000A67260 /* InviteFriends.xib */; };
+		CF7D38A215AAEFCB00A67260 /* bgHistory.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7D38A115AAEFCB00A67260 /* bgHistory.png */; };
 		CF7E51C215870FD9005FC5B3 /* ChallengeStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7E51C015870FD9005FC5B3 /* ChallengeStage.m */; };
 		CF7E51C315870FD9005FC5B3 /* ChallengeStage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7E51C115870FD9005FC5B3 /* ChallengeStage.xib */; };
 		CF80C89C157F4B5800E502D7 /* EndStage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF80C89A157F4B5700E502D7 /* EndStage.m */; };
@@ -113,19 +109,10 @@
 		CF55A1961575D7360055F5CA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CF73533215A15CA200884234 /* ChallengeNavStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeNavStage.h; sourceTree = "<group>"; };
 		CF73533315A15CA200884234 /* ChallengeNavStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeNavStage.m; sourceTree = "<group>"; };
-		CF743C6715A2BFA900306D99 /* ChallengeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeInfo.h; sourceTree = "<group>"; };
-		CF743C6815A2BFA900306D99 /* ChallengeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeInfo.m; sourceTree = "<group>"; };
-		CF743C6915A2BFA900306D99 /* ChallengeInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeInfo.xib; sourceTree = "<group>"; };
-		CF743C6D15A2CD2700306D99 /* ChallengingInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengingInfoView.xib; sourceTree = "<group>"; };
-		CF743C6F15A2CD8600306D99 /* ChallengingInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengingInfoView.h; sourceTree = "<group>"; };
-		CF743C7015A2CD8600306D99 /* ChallengingInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengingInfoView.m; sourceTree = "<group>"; };
 		CF743C7215A2E57900306D99 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close@2x.png"; path = "facebook-ios-sdk/FBDialog.bundle/images/close@2x.png"; sourceTree = "<group>"; };
 		CF743C7415A2E8CD00306D99 /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
 		CF743C7615A2F2BF00306D99 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		CF743C7715A2F2BF00306D99 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
-		CF743C7E15A2F76200306D99 /* ChallengeDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeDetailInfo.h; sourceTree = "<group>"; };
-		CF743C7F15A2F76200306D99 /* ChallengeDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeDetailInfo.m; sourceTree = "<group>"; };
-		CF743C8015A2F76200306D99 /* ChallengeDetailInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailInfo.xib; sourceTree = "<group>"; };
 		CF743C8315A30E3E00306D99 /* ChallengeHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeHistory.h; sourceTree = "<group>"; };
 		CF743C8415A30E3E00306D99 /* ChallengeHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeHistory.m; sourceTree = "<group>"; };
 		CF743C8515A30E3E00306D99 /* ChallengeHistory.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeHistory.xib; sourceTree = "<group>"; };
@@ -143,12 +130,6 @@
 		CF773B8915A5457000656807 /* wgt_stef_succeed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wgt_stef_succeed.png; sourceTree = "<group>"; };
 		CF773B8C15A5476000656807 /* btn_ok_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_ok_normal.png; sourceTree = "<group>"; };
 		CF773B8D15A5476000656807 /* btn_ok_pushed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_ok_pushed.png; sourceTree = "<group>"; };
-		CF788C9415A3F49F006F4CBC /* HistoryDetailInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryDetailInfo.xib; sourceTree = "<group>"; };
-		CF788C9715A3F4FD006F4CBC /* HistoryDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailInfo.h; sourceTree = "<group>"; };
-		CF788C9815A3F4FD006F4CBC /* HistoryDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailInfo.m; sourceTree = "<group>"; };
-		CF788C9A15A42D7A006F4CBC /* HistoryDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailView.h; sourceTree = "<group>"; };
-		CF788C9B15A42D7A006F4CBC /* HistoryDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		CF788C9C15A42D7B006F4CBC /* HistoryDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryDetailView.xib; sourceTree = "<group>"; };
 		CF788C9F15A44C16006F4CBC /* ok_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok_1.png; sourceTree = "<group>"; };
 		CF788CA015A44C16006F4CBC /* ok_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok_2.png; sourceTree = "<group>"; };
 		CF788CA315A454C5006F4CBC /* paper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paper.png; sourceTree = "<group>"; };
@@ -158,9 +139,6 @@
 		CF78A1E61582008400F7AD77 /* ChallengeEndStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeEndStage.m; sourceTree = "<group>"; };
 		CF78A1E71582008400F7AD77 /* ChallengeEndStage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeEndStage.xib; sourceTree = "<group>"; };
 		CF7BB024158082C4004276AF /* icon_free_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_free_57.png; sourceTree = "<group>"; };
-		CF7BB04C1580A94D004276AF /* FBPopupFriendList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBPopupFriendList.h; sourceTree = "<group>"; };
-		CF7BB04D1580A94D004276AF /* FBPopupFriendList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBPopupFriendList.m; sourceTree = "<group>"; };
-		CF7BB04E1580A94D004276AF /* FBPopupFriendList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FBPopupFriendList.xib; sourceTree = "<group>"; };
 		CF7BB0721580B620004276AF /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = "facebook-ios-sdk/FBDialog.bundle/images/close.png"; sourceTree = "<group>"; };
 		CF7BB346157C705900E4EBEE /* GameStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStage.h; sourceTree = "<group>"; };
 		CF7BB347157C705900E4EBEE /* GameStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStage.m; sourceTree = "<group>"; };
@@ -186,6 +164,15 @@
 		CF7C52841575C608008F929A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		CF7C52851575C608008F929A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CF7C52881575C608008F929A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		CF7D389115AA8B3100A67260 /* btnPlayPush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnPlayPush.png; sourceTree = "<group>"; };
+		CF7D389215AA8B3100A67260 /* btnRejectPush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnRejectPush.png; sourceTree = "<group>"; };
+		CF7D389315AA8B3100A67260 /* btnAcceptPush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnAcceptPush.png; sourceTree = "<group>"; };
+		CF7D389815AA8DF600A67260 /* waitPush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waitPush.png; sourceTree = "<group>"; };
+		CF7D389915AA8DF600A67260 /* wait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait.png; sourceTree = "<group>"; };
+		CF7D389C15AAE0E000A67260 /* InviteFriends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteFriends.h; sourceTree = "<group>"; };
+		CF7D389D15AAE0E000A67260 /* InviteFriends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteFriends.m; sourceTree = "<group>"; };
+		CF7D389E15AAE0E000A67260 /* InviteFriends.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InviteFriends.xib; sourceTree = "<group>"; };
+		CF7D38A115AAEFCB00A67260 /* bgHistory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgHistory.png; sourceTree = "<group>"; };
 		CF7E51BF15870FD9005FC5B3 /* ChallengeStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeStage.h; sourceTree = "<group>"; };
 		CF7E51C015870FD9005FC5B3 /* ChallengeStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeStage.m; sourceTree = "<group>"; };
 		CF7E51C115870FD9005FC5B3 /* ChallengeStage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeStage.xib; sourceTree = "<group>"; };
@@ -255,24 +242,12 @@
 		CF7615BA159D7C6000B1CF4D /* ChallengeUIViews */ = {
 			isa = PBXGroup;
 			children = (
-				CF743C6715A2BFA900306D99 /* ChallengeInfo.h */,
-				CF743C6815A2BFA900306D99 /* ChallengeInfo.m */,
-				CF743C6915A2BFA900306D99 /* ChallengeInfo.xib */,
-				CF743C6D15A2CD2700306D99 /* ChallengingInfoView.xib */,
-				CF743C6F15A2CD8600306D99 /* ChallengingInfoView.h */,
-				CF743C7015A2CD8600306D99 /* ChallengingInfoView.m */,
-				CF743C7E15A2F76200306D99 /* ChallengeDetailInfo.h */,
-				CF743C7F15A2F76200306D99 /* ChallengeDetailInfo.m */,
-				CF743C8015A2F76200306D99 /* ChallengeDetailInfo.xib */,
 				CF743C8315A30E3E00306D99 /* ChallengeHistory.h */,
 				CF743C8415A30E3E00306D99 /* ChallengeHistory.m */,
 				CF743C8515A30E3E00306D99 /* ChallengeHistory.xib */,
-				CF788C9415A3F49F006F4CBC /* HistoryDetailInfo.xib */,
-				CF788C9715A3F4FD006F4CBC /* HistoryDetailInfo.h */,
-				CF788C9815A3F4FD006F4CBC /* HistoryDetailInfo.m */,
-				CF788C9A15A42D7A006F4CBC /* HistoryDetailView.h */,
-				CF788C9B15A42D7A006F4CBC /* HistoryDetailView.m */,
-				CF788C9C15A42D7B006F4CBC /* HistoryDetailView.xib */,
+				CF7D389C15AAE0E000A67260 /* InviteFriends.h */,
+				CF7D389D15AAE0E000A67260 /* InviteFriends.m */,
+				CF7D389E15AAE0E000A67260 /* InviteFriends.xib */,
 			);
 			name = ChallengeUIViews;
 			sourceTree = "<group>";
@@ -280,6 +255,12 @@
 		CF7BCF64159189FE0090BE5E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				CF7D38A115AAEFCB00A67260 /* bgHistory.png */,
+				CF7D389815AA8DF600A67260 /* waitPush.png */,
+				CF7D389915AA8DF600A67260 /* wait.png */,
+				CF7D389115AA8B3100A67260 /* btnPlayPush.png */,
+				CF7D389215AA8B3100A67260 /* btnRejectPush.png */,
+				CF7D389315AA8B3100A67260 /* btnAcceptPush.png */,
 				CF0E7F9E15A6FBD60070F5D9 /* btnAccept.png */,
 				CF0E7F9A15A6FBB20070F5D9 /* btnPlay.png */,
 				CF0E7F9B15A6FBB20070F5D9 /* btnReject.png */,
@@ -443,9 +424,6 @@
 		CF80DF40157E0B8800E5F2C0 /* Facebook */ = {
 			isa = PBXGroup;
 			children = (
-				CF7BB04C1580A94D004276AF /* FBPopupFriendList.h */,
-				CF7BB04D1580A94D004276AF /* FBPopupFriendList.m */,
-				CF7BB04E1580A94D004276AF /* FBPopupFriendList.xib */,
 				CF80DF43157E0B9900E5F2C0 /* FacebookData.h */,
 				CF80DF41157E0B9900E5F2C0 /* FacebookData.m */,
 				CF80DF42157E0B9900E5F2C0 /* FacebookManager.h */,
@@ -514,7 +492,6 @@
 				CF80DF4B157E181300E5F2C0 /* Default.png in Resources */,
 				CF80C89D157F4B5800E502D7 /* EndStage.xib in Resources */,
 				CF7BB025158082C4004276AF /* icon_free_57.png in Resources */,
-				CF7BB0501580A94D004276AF /* FBPopupFriendList.xib in Resources */,
 				CF7BB0731580B620004276AF /* close.png in Resources */,
 				CF78A1E91582008400F7AD77 /* ChallengeEndStage.xib in Resources */,
 				CF7E51C315870FD9005FC5B3 /* ChallengeStage.xib in Resources */,
@@ -526,14 +503,9 @@
 				CF81886515932BC3005F840A /* ChallengeCellView.xib in Resources */,
 				CF1DE46315A17A4900D82808 /* btn_fbconnect_normal.png in Resources */,
 				CF1DE46415A17A4900D82808 /* btn_fbconnect_pushed.png in Resources */,
-				CF743C6B15A2BFA900306D99 /* ChallengeInfo.xib in Resources */,
-				CF743C6E15A2CD2700306D99 /* ChallengingInfoView.xib in Resources */,
 				CF743C7315A2E57900306D99 /* close@2x.png in Resources */,
 				CF743C7515A2E8CD00306D99 /* eye.png in Resources */,
-				CF743C8215A2F76200306D99 /* ChallengeDetailInfo.xib in Resources */,
 				CF743C8715A30E3F00306D99 /* ChallengeHistory.xib in Resources */,
-				CF788C9515A3F49F006F4CBC /* HistoryDetailInfo.xib in Resources */,
-				CF788C9E15A42D7B006F4CBC /* HistoryDetailView.xib in Resources */,
 				CF788CA115A44C16006F4CBC /* ok_1.png in Resources */,
 				CF788CA215A44C16006F4CBC /* ok_2.png in Resources */,
 				CF788CA415A454C5006F4CBC /* paper.png in Resources */,
@@ -550,6 +522,13 @@
 				CF0E7F9C15A6FBB20070F5D9 /* btnPlay.png in Resources */,
 				CF0E7F9D15A6FBB20070F5D9 /* btnReject.png in Resources */,
 				CF0E7F9F15A6FBD60070F5D9 /* btnAccept.png in Resources */,
+				CF7D389415AA8B3100A67260 /* btnPlayPush.png in Resources */,
+				CF7D389515AA8B3100A67260 /* btnRejectPush.png in Resources */,
+				CF7D389615AA8B3100A67260 /* btnAcceptPush.png in Resources */,
+				CF7D389A15AA8DF600A67260 /* waitPush.png in Resources */,
+				CF7D389B15AA8DF600A67260 /* wait.png in Resources */,
+				CF7D38A015AAE0E000A67260 /* InviteFriends.xib in Resources */,
+				CF7D38A215AAEFCB00A67260 /* bgHistory.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,22 +548,17 @@
 				CF80DF48157E0B9900E5F2C0 /* FacebookManager.m in Sources */,
 				CF80DF49157E0B9900E5F2C0 /* FBLeaderboard.m in Sources */,
 				CF80C89C157F4B5800E502D7 /* EndStage.m in Sources */,
-				CF7BB04F1580A94D004276AF /* FBPopupFriendList.m in Sources */,
 				CF78A1E31581F84C00F7AD77 /* GlobalWork.m in Sources */,
 				CF78A1E81582008400F7AD77 /* ChallengeEndStage.m in Sources */,
 				CF4D29CB1585C2A40035D95E /* ChallengeCenter.m in Sources */,
 				CF7E51C215870FD9005FC5B3 /* ChallengeStage.m in Sources */,
 				CF81886315932BAB005F840A /* ChallengeCellView.m in Sources */,
 				CF73533415A15CA200884234 /* ChallengeNavStage.m in Sources */,
-				CF743C6A15A2BFA900306D99 /* ChallengeInfo.m in Sources */,
-				CF743C7115A2CD8600306D99 /* ChallengingInfoView.m in Sources */,
 				CF743C7815A2F2BF00306D99 /* Utility.m in Sources */,
-				CF743C8115A2F76200306D99 /* ChallengeDetailInfo.m in Sources */,
 				CF743C8615A30E3F00306D99 /* ChallengeHistory.m in Sources */,
-				CF788C9915A3F4FD006F4CBC /* HistoryDetailInfo.m in Sources */,
-				CF788C9D15A42D7B006F4CBC /* HistoryDetailView.m in Sources */,
 				CF773B7415A5441600656807 /* ChallengeWin.m in Sources */,
 				CF773B7A15A5442B00656807 /* ChallengeLose.m in Sources */,
+				CF7D389F15AAE0E000A67260 /* InviteFriends.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

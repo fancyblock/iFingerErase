@@ -53,7 +53,6 @@
     [self initWithRootViewController:m_challengeControllerView];
     self.navigationBarHidden = YES;
     
-    m_viewChallenge = [[ChallengeInfo alloc] initWithNibName:@"ChallengeInfo" bundle:nil];
     m_viewHistory = [[ChallengeHistory alloc] initWithNibName:@"ChallengeHistory" bundle:nil];
     
     return self;
@@ -72,23 +71,13 @@
 
 
 /**
- * @desc    push challenge info view
- * @para    none
- * @return  none
- */
-- (void)PushChallengeInfoView
-{
-    [self pushViewController:m_viewChallenge animated:YES];
-}
-
-
-/**
  * @desc    push history view
- * @para    none
+ * @para    uid     friends' fb uid
  * @return  none
  */
-- (void)PushHistoryView
+- (void)PushHistoryView:(NSString*)uid
 {
+    m_viewHistory._friendUid = uid;
     [self pushViewController:m_viewHistory animated:YES];
 }
 

@@ -8,21 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "ChallengeStage.h"
-#import "ChallengeInfo.h"
 #import "ChallengeHistory.h"
 
 @interface ChallengeNavStage : UINavigationController
 {
     ChallengeStage* m_challengeControllerView;
     
-    ChallengeInfo* m_viewChallenge;
     ChallengeHistory* m_viewHistory;
 }
 
 - (id)initial;
 - (void)Initial;
 
-- (void)PushChallengeInfoView;
-- (void)PushHistoryView;
+- (void)PushHistoryView:(NSString*)uid;
 
 @end

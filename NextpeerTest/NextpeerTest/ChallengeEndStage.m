@@ -13,6 +13,7 @@
 @interface ChallengeEndStage (private)
 
 - (void)challengeFriend;
+- (void)_onSendChallengeDone;
 
 @end
 
@@ -20,8 +21,9 @@
 
 
 @synthesize _txtScore;
-@synthesize _challengeFriendList;
 @synthesize _loadingMask;
+@synthesize _txtName;
+@synthesize _imgProfile;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -61,11 +63,6 @@
     [self challengeFriend];
 }
 
-- (IBAction)onDiscard:(id)sender
-{    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
-}
-
 
 /**
  * @desc    initial the ui according to the info
@@ -78,6 +75,25 @@
     
     self._txtScore.text = [NSString stringWithFormat:@"%@", txtTime];
     
+    FBUserInfo* user = [[FacebookManager sharedInstance] GetFBUserInfo:[GlobalWork sharedInstance]._challengedUser];
+    
+    self._txtName.text = user._name;
+    
+    if( user._pic == nil )
+    {
+        [[FacebookManager sharedInstance] LoadPicture:user withBlock:^(BOOL succeeded)
+        {
+            if( succeeded == YES )
+            {
+                [self._imgProfile setImage:user._pic];
+            }
+        }];
+    }
+    else 
+    {
+        [self._imgProfile setImage:user._pic];
+    }
+    
     [self._loadingMask setHidden:YES];
 }
 
@@ -88,61 +104,25 @@
 // challenge friend
 - (void)challengeFriend
 {
-    NSMutableArray* friendList = [GlobalWork sharedInstance]._challengedUsers;
+    NSString* friendUid = [GlobalWork sharedInstance]._challengedUser;
     
-    if( [friendList count] > 0 )
+    if( friendUid != nil )
     {
-        FBUserInfo* friend = [friendList objectAtIndex:0];
-        
         [[ChallengeCenter sharedInstance] CreateChallenge:[FacebookManager sharedInstance]._userInfo._uid 
-                                                 toFriend:friend._uid
+                                                 toFriend:friendUid
                                                      with:[GlobalWork sharedInstance]._elapseTime
                                        withCallbackSender:self 
-                                             withCallback:@selector(challengeFriend)];
-        
-        [friendList removeObject:friend];
-    }
-    else
-    {
-        [self._loadingMask setHidden:YES];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
+                                             withCallback:@selector(_onSendChallengeDone)];
     }
 }
 
 
-// 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+// on challenge done
+- (void)_onSendChallengeDone
 {
-    return [[GlobalWork sharedInstance]._challengedUsers count];
-}
-
-// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell* cell = [[UITableViewCell alloc] init];
+    [self._loadingMask setHidden:YES];
     
-    int index = [indexPath row];
-    
-    FBUserInfo* user = [[GlobalWork sharedInstance]._challengedUsers objectAtIndex:index];
-    
-    cell.textLabel.text = user._name;
-    [cell.textLabel setTextColor:[UIColor whiteColor]];
-    
-    if( user._pic != nil )
-    {
-        [cell.imageView setImage:user._pic];
-    }
-    else 
-    {
-        [[FacebookManager sharedInstance] LoadPicture:user withBlock:^(BOOL succeeded)
-        {
-            [self._challengeFriendList reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        }];
-    }
-
-    return cell;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
 }
 
 

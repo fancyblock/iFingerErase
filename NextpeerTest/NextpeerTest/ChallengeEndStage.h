@@ -9,19 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "GlobalWork.h"
 
-@interface ChallengeEndStage : UIViewController<UITableViewDataSource>
+@interface ChallengeEndStage : UIViewController
 {
     //TODO 
 }
 
 @property (nonatomic, retain) IBOutlet UILabel* _txtScore;
-@property (nonatomic, retain) IBOutlet UITableView* _challengeFriendList;
 @property (nonatomic, retain) IBOutlet UIView* _loadingMask;
+@property (nonatomic, retain) IBOutlet UIImageView* _imgProfile;
+@property (nonatomic, retain) IBOutlet UILabel* _txtName;
 
 
 - (IBAction)onChallenge:(id)sender;
-
-- (IBAction)onDiscard:(id)sender;
 
 - (void)Initial;
 

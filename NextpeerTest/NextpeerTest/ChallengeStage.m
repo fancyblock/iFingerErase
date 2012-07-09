@@ -21,6 +21,8 @@
 - (void)_onFriendsComplete;
 - (void)_onReloadData;
 - (void)_onAuthDone;
+- (void)_onChallengeInfoComplete;
+- (void)_onShowHistory:(NSNotification*)notification;
 
 - (void)loadChallengeInfo;
 
@@ -30,6 +32,7 @@
 
 @synthesize _navBar;
 @synthesize _tableView;
+@synthesize _loadingMask;
 @synthesize _loadingIcon;
 @synthesize _connectFBView;
 
@@ -50,8 +53,11 @@
     
     m_friendList = [[NSMutableArray alloc] init];
     m_playerList = [[NSMutableArray alloc] init];
+    m_challengeDic = [[NSMutableDictionary alloc] init];
+    m_inviteFriendsView = [[InviteFriends alloc] init];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onReloadData) name:CHALLENGE_CLOSED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onReloadData) name:CHALLENGE_UPDATED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onShowHistory:) name:@"ShowHistory" object:nil];
     
 }
 
@@ -63,8 +69,10 @@
     
     [m_friendList release];
     [m_playerList release];
+    [m_challengeDic release];
+    [m_inviteFriendsView release];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:CHALLENGE_CLOSED object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:CHALLENGE_UPDATED object:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -114,26 +122,15 @@
 
 
 /**
- * @desc    challenge friends
+ * @desc    invite friends
  * @para    sender
  * @return  none
  */
-- (IBAction)onPlay:(id)sender
+- (IBAction)onInviteFriends:(id)sender
 {
-    if( [GlobalWork sharedInstance]._challengedUsers == nil )
-    {
-        [GlobalWork sharedInstance]._challengedUsers = [[NSMutableArray alloc] init];
-    }
-    else 
-    {
-        [[GlobalWork sharedInstance]._challengedUsers removeAllObjects];
-    }
+    m_inviteFriendsView._friendList = m_friendList;
     
-    //[GlobalWork sharedInstance]._challengedUsers = ;
-    
-    [GlobalWork sharedInstance]._gameMode = CHALLENGE_MODE;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_GAME] userInfo:nil];    
+    [self presentModalViewController:m_inviteFriendsView animated:YES];
 }
 
 
@@ -145,6 +142,7 @@
 {
     [self._connectFBView setHidden:YES];
     
+    [self._loadingMask setHidden:NO];
     [self._loadingIcon startAnimating];
     // get all the challenge info
     [m_playerList removeAllObjects];
@@ -187,11 +185,33 @@
         challengeCellView = [nibs objectAtIndex:0];
         cellView = challengeCellView;
         
-        //[TEMP]
-        [cellView addSubview:[nibs objectAtIndex:1]];
-        //[TEMP]
-        
         user = [m_playerList objectAtIndex:index];
+        
+        UITableViewCell* viewPlay = [nibs objectAtIndex:1];
+        UITableViewCell* viewReaction = [nibs objectAtIndex:2];
+        UITableViewCell* viewWait = [nibs objectAtIndex:3];
+        
+        challengeInfo* cInfo = [m_challengeDic objectForKey:user._uid];
+        
+        if( cInfo == nil )
+        {
+            [cellView addSubview:viewPlay];
+        }
+        
+        if( cInfo != nil )
+        {
+            if( cInfo._isSelfChallenge )
+            {
+                [cellView addSubview:viewWait];
+            }
+            else 
+            {
+                [cellView addSubview:viewReaction];
+            }
+        }
+        
+        challengeCellView._challengeInfo = cInfo;
+        challengeCellView._opponentUid = user._uid;
     }
     
     if( user != nil )
@@ -222,25 +242,6 @@
     return 1;
 }
 
-// Called after the user changes the selection.
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    /*
-        
-         // post to the wall
-        [[FacebookManager sharedInstance] PublishToFriendWall:@"You've got a challenge!"
-                                                     withDesc:[NSString stringWithFormat:@"%@ challenge you at iFingerErase.", [FacebookManager sharedInstance]._userInfo._name]
-                                                     withName:[FacebookManager sharedInstance]._userInfo._name
-                                                  withPicture:@"http://www.coconutislandstudio.com/asset/iDragPaper/iDragPaper_FREE_Normal.png" 
-                                                     withLink:@"http://fancyblock.sinaapp.com" 
-                                                     toFriend:user._uid
-                                           withCallbackSender:nil 
-                                                 withCallback:nil];
-        
-        [self._tableView deselectRowAtIndexPath:indexPath animated:YES];
-    */
-}
-
 
 //------------------------------------ callback function -----------------------------------------
 
@@ -253,8 +254,7 @@
 // callback when the icon load complete
 - (void)_onReloadData
 {
-    [self._loadingIcon stopAnimating];
-    [self._tableView reloadData];
+    [self _onChallengeInfoComplete];
 }
 
 
@@ -294,8 +294,39 @@
         }
     }
     
+    [[ChallengeCenter sharedInstance] FetchAllChallenges:[FacebookManager sharedInstance]._userInfo._uid withCallbackSender:self withCallback:@selector(_onChallengeInfoComplete)];
+}
+
+// callback when challenge info complete
+- (void)_onChallengeInfoComplete
+{
+    [m_challengeDic removeAllObjects];
+    
+    NSArray* challengeList = [ChallengeCenter sharedInstance]._challengeList;
+    int count = [challengeList count];
+    
+    for( int i = 0; i < count; i++ )
+    {
+        challengeInfo* info = [challengeList objectAtIndex:i];
+        
+        if( info._canceled == NO && info._opponentScore < 0 && info._isRejected == NO )
+        {
+            [m_challengeDic setObject:[info retain] forKey:info._opponent];
+        }
+    }
+    
+    [self._loadingMask setHidden:YES];
     [self._loadingIcon stopAnimating];
     [self._tableView reloadData];
+}
+
+
+// show history
+- (void)_onShowHistory:(NSNotification*)notification
+{
+    NSString* friendsUid = [notification object];
+    
+    [self.navigationController PushHistoryView:friendsUid];
 }
 
 

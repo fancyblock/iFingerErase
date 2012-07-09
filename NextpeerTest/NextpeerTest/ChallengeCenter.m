@@ -12,12 +12,14 @@
 
 @implementation challengeInfo
 
-@synthesize _score_e;
-@synthesize _score_c;
-@synthesize _isDone;
-@synthesize _enemy;
-@synthesize _challenger;
 @synthesize _challengeId;
+@synthesize _opponent;
+@synthesize _isSelfChallenge;
+@synthesize _selfScore;
+@synthesize _opponentScore;
+@synthesize _isDone;
+@synthesize _canceled;
+@synthesize _isRejected;
 
 @end
 
@@ -174,16 +176,31 @@ static ChallengeCenter* m_inscance;
  */
 - (void)CreateChallenge:(NSString*)challenger toFriend:(NSString*)enemy with:(float)score withCallbackSender:(id)sender withCallback:(SEL)callback
 {
-    PFObject* challengeInfo = [PFObject objectWithClassName:CHALLENGE_INFO];
+    PFObject* PFchallengeInfo = [PFObject objectWithClassName:CHALLENGE_INFO];
     
-    [challengeInfo setObject:challenger forKey:ID_CHALLENGER];
-    [challengeInfo setObject:enemy forKey:ID_ENEMY];
-    [challengeInfo setObject:[NSNumber numberWithFloat:score] forKey:ID_SCORE_C];
-    [challengeInfo setObject:[NSNumber numberWithFloat:-1.0f] forKey:ID_SCORE_E];
-    [challengeInfo setObject:[NSNumber numberWithBool:NO] forKey:ID_FINISH];
-    [challengeInfo saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
+    [PFchallengeInfo setObject:challenger forKey:ID_CHALLENGER];
+    [PFchallengeInfo setObject:enemy forKey:ID_ENEMY];
+    [PFchallengeInfo setObject:[NSNumber numberWithFloat:score] forKey:ID_SCORE_C];
+    [PFchallengeInfo setObject:[NSNumber numberWithFloat:-1.0f] forKey:ID_SCORE_E];
+    [PFchallengeInfo setObject:[NSNumber numberWithBool:NO] forKey:ID_FINISH];
+    [PFchallengeInfo setObject:[NSNumber numberWithBool:NO] forKey:ID_CANCEL];
+    [PFchallengeInfo setObject:[NSNumber numberWithBool:NO] forKey:ID_REJECT];
+    [PFchallengeInfo saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
      {
-         [self sendChallengeNotification:challengeInfo to:enemy withCallbackSender:sender withCallback:callback];
+         challengeInfo* info = [[challengeInfo alloc] init];
+         
+         info._challengeId = [PFchallengeInfo.objectId retain];
+         info._isSelfChallenge = YES;
+         info._opponent = enemy;
+         info._selfScore = score;
+         info._opponentScore = -1.0f;
+         info._isDone = NO;
+         info._canceled = NO;
+         
+         [m_challengeList addObject:info];
+         [info release];
+         
+         [self sendChallengeNotification:PFchallengeInfo to:enemy withCallbackSender:sender withCallback:callback];
      }];
 }
 
@@ -205,14 +222,14 @@ static ChallengeCenter* m_inscance;
         
         if( [info._challengeId isEqualToString:challengeId] )
         {
-            info._score_e = score;
-            info._isDone = YES;
+            info._selfScore = score;
+            info._isDone = NO;
             
             break;
         }
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:CHALLENGE_CLOSED object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:CHALLENGE_UPDATED object:nil];
     
     PFQuery* query = [PFQuery queryWithClassName:@"challengeInfo"];
     [query whereKey:@"objectId" equalTo:challengeId];
@@ -222,7 +239,6 @@ static ChallengeCenter* m_inscance;
          if( error == nil && object != nil )
          {
              [object setObject:[NSNumber numberWithFloat:score] forKey:ID_SCORE_E];
-             [object setObject:[NSNumber numberWithBool:YES] forKey:ID_FINISH];
              
              [object saveInBackground];
          }
@@ -260,12 +276,28 @@ static ChallengeCenter* m_inscance;
                  
                  challengeInfo* info = [[challengeInfo alloc] init];
                  
-                 info._challenger = [[challenge objectForKey:ID_CHALLENGER] retain];
-                 info._enemy = [[challenge objectForKey:ID_ENEMY] retain];
-                 info._isDone = [[challenge objectForKey:ID_FINISH] boolValue];
-                 info._score_c = [[challenge objectForKey:ID_SCORE_C] floatValue];
-                 info._score_e = [[challenge objectForKey:ID_SCORE_E] floatValue];
+                 NSString* challengeId = [challenge objectForKey:ID_CHALLENGER];
                  
+                 if( [challengeId isEqualToString:fbId] )
+                 {
+                     info._isSelfChallenge = YES;
+                     
+                     info._opponent = [[challenge objectForKey:ID_ENEMY] retain];
+                     info._selfScore = [[challenge objectForKey:ID_SCORE_C] floatValue];
+                     info._opponentScore = [[challenge objectForKey:ID_SCORE_E] floatValue];
+                 }
+                 else 
+                 {
+                     info._isSelfChallenge = NO;
+                     
+                     info._opponent = [[challenge objectForKey:ID_CHALLENGER] retain];
+                     info._selfScore = [[challenge objectForKey:ID_SCORE_E] floatValue];
+                     info._opponentScore = [[challenge objectForKey:ID_SCORE_C] floatValue];
+                 }
+                 
+                 info._isDone = [[challenge objectForKey:ID_FINISH] boolValue];
+                 info._canceled = [[challenge objectForKey:ID_CANCEL] boolValue];
+                 info._isRejected = [[challenge objectForKey:ID_REJECT] boolValue];
                  info._challengeId = [challenge.objectId retain];
                  
                  [m_challengeList addObject:info];
@@ -284,11 +316,11 @@ static ChallengeCenter* m_inscance;
 
 
 /**
- * @desc    close challenge
+ * @desc    cancel challenge
  * @para    challengeId
  * @return  none
  */
-- (void)CloseChallenge:(NSString*)challengeId
+- (void)CancelChallenge:(NSString*)challengeId
 {
     //delete from the local
     challengeInfo* info = nil;
@@ -299,12 +331,12 @@ static ChallengeCenter* m_inscance;
         
         if( [info._challengeId isEqualToString:challengeId] )
         {
-            [m_challengeList removeObject:info];
+            info._canceled = YES;
             break;
         }
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:CHALLENGE_CLOSED object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:CHALLENGE_UPDATED object:nil];
     
     PFQuery* query = [PFQuery queryWithClassName:@"challengeInfo"];
     [query whereKey:@"objectId" equalTo:challengeId];
@@ -313,7 +345,46 @@ static ChallengeCenter* m_inscance;
     {
         if( error == nil && object != nil )
         {
-            [object deleteInBackground];
+            [object setObject:[NSNumber numberWithBool:YES] forKey:ID_CANCEL];
+            [object saveEventually];
+        }
+    }];
+    
+}
+
+
+/**
+ * @desc    reject a challenge
+ * @para    challengeId
+ * @return  none
+ */
+- (void)RejectChallenge:(NSString*)challengeId
+{
+    //reject from the local
+    challengeInfo* info = nil;
+    int count = [m_challengeList count];
+    for( int i = 0; i < count; i++ )
+    {
+        info = [m_challengeList objectAtIndex:i];
+        
+        if( [info._challengeId isEqualToString:challengeId] )
+        {
+            info._isRejected = YES;
+            break;
+        }
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:CHALLENGE_UPDATED object:nil];
+    
+    PFQuery* query = [PFQuery queryWithClassName:@"challengeInfo"];
+    [query whereKey:@"objectId" equalTo:challengeId];
+    
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject* object, NSError* error)
+    {
+        if( error == nil && object != nil )
+        {
+            [object setObject:[NSNumber numberWithBool:YES] forKey:ID_REJECT];
+            [object saveEventually];
         }
     }];
     
