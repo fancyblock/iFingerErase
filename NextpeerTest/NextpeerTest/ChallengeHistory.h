@@ -11,7 +11,7 @@
 
 @interface ChallengeHistory : UIViewController<UITableViewDataSource>
 {
-    NSMutableArray* m_historyList;
+    //TODO 
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView* _imgSelf;

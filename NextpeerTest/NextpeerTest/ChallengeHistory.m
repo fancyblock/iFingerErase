@@ -46,9 +46,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    m_historyList = [[NSMutableArray alloc] init];  
+    // Do any additional setup after loading the view from its nib. 
 }
 
 - (void)viewDidUnload
@@ -56,10 +54,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    
-    [m_historyList removeAllObjects];
-    [m_historyList release];
-
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -75,8 +69,6 @@
  */
 - (void)viewDidAppear:(BOOL)animated
 {
-    [m_historyList removeAllObjects];
-    
     FBUserInfo* selfInfo = [FacebookManager sharedInstance]._userInfo;
     FBUserInfo* opponentInfo = [[FacebookManager sharedInstance] GetFBUserInfo:self._friendUid];
     
@@ -86,7 +78,14 @@
     SetImageView( self._imgSelf, selfInfo );
     SetImageView( self._imgOpponent, opponentInfo );
     
-    //TODO 
+    historyInfo* hInfo = [[ChallengeCenter sharedInstance] GetHistoryInfo:opponentInfo._uid];
+    
+    self._winTimes.text = [NSString stringWithFormat:@"%d", hInfo._winTimes];
+    self._loseTimes.text = [NSString stringWithFormat:@"%d", hInfo._loseTimes];
+    self._cancelTimes.text = [NSString stringWithFormat:@"%d", hInfo._cancelTimes];
+    self._rejectTimes.text = [NSString stringWithFormat:@"%d", hInfo._rejectTimes];
+    self._allTimes.text = [NSString stringWithFormat:@"%d", ( hInfo._winTimes + hInfo._loseTimes + hInfo._cancelTimes + hInfo._rejectTimes ) ];
+    
 }
 
 

@@ -12,6 +12,7 @@
 #import "FacebookManager.h"
 #import "ChallengeCellView.h"
 #import "FacebookManager.h"
+#import "CustomBadge.h"
 
 
 @interface ChallengeStage (private)
@@ -212,6 +213,17 @@
         
         challengeCellView._challengeInfo = cInfo;
         challengeCellView._opponentUid = user._uid;
+        
+        // add badge for indicate the unread info
+        int unreadCount = [[[ChallengeCenter sharedInstance] GetUnreadList:user._uid] count];
+        
+        if( unreadCount > 0 )
+        {
+            CustomBadge* badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", unreadCount]];
+            
+            [badge setCenter:CGPointMake(280, 10)];
+            [cellView addSubview:badge];
+        }
     }
     
     if( user != nil )
@@ -309,9 +321,22 @@
     {
         challengeInfo* info = [challengeList objectAtIndex:i];
         
-        if( info._canceled == NO && info._opponentScore < 0 && info._isRejected == NO )
+        if( info._canceled == NO && info._isRejected == NO )
         {
-            [m_challengeDic setObject:[info retain] forKey:info._opponent];
+            if( info._isSelfChallenge )
+            {
+                if( info._opponentScore < 0.0f )
+                {
+                    [m_challengeDic setObject:[info retain] forKey:info._opponent];
+                }
+            }
+            else 
+            {
+                if( info._selfScore < 0.0f )
+                {
+                    [m_challengeDic setObject:[info retain] forKey:info._opponent];
+                }
+            }
         }
     }
     

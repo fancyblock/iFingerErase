@@ -26,8 +26,6 @@
 
 
 @interface challengeInfo:NSObject
-{
-}
 
 @property (nonatomic, retain) NSString* _opponent;
 @property (nonatomic, readwrite) BOOL _isSelfChallenge;
@@ -42,11 +40,24 @@
 @end
 
 
+@interface historyInfo : NSObject
+
+@property (nonatomic, readwrite) int _winTimes;
+@property (nonatomic, readwrite) int _loseTimes;
+@property (nonatomic, readwrite) int _cancelTimes;
+@property (nonatomic, readwrite) int _rejectTimes;
+
+@end
+
+
 
 @interface ChallengeCenter : NSObject
 {
     NSMutableArray* m_challengeList;
     NSMutableArray* m_playerList;
+    
+    NSMutableDictionary* m_unreadInfo;
+    NSMutableDictionary* m_historyInfo;
 }
 
 
@@ -59,17 +70,22 @@
 
 - (void)SignUp:(NSString*)userName;
 
-- (void)CreateChallenge:(NSString*)challenger toFriend:(NSString*)enemy with:(float)score withCallbackSender:(id)sender withCallback:(SEL)callback;
-
-- (void)ResponseChallenge:(NSString*)challengeId with:(float)score;
-
 - (void)FetchAllPlayers:(id)sender withCallback:(SEL)callback;
 
 - (void)FetchAllChallenges:(NSString*)fbId withCallbackSender:(id)sender withCallback:(SEL)callback;
+
+- (void)CreateChallenge:(NSString*)challenger toFriend:(NSString*)enemy with:(float)score withCallbackSender:(id)sender withCallback:(SEL)callback;
+
+- (void)ResponseChallenge:(NSString*)challengeId with:(float)score;
 
 - (void)CancelChallenge:(NSString*)challengeId;
 
 - (void)RejectChallenge:(NSString*)challengeId;
 
+- (void)DismissUnreadInfo:(NSString*)uid;
+
+- (NSArray*)GetUnreadList:(NSString*)uid;
+
+- (historyInfo*)GetHistoryInfo:(NSString*)uid;
 
 @end
