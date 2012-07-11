@@ -36,6 +36,7 @@
 @property (nonatomic, readwrite) BOOL _isRejected;
 
 @property (nonatomic, retain) NSString* _challengeId;
+@property (nonatomic, retain) NSDate* _createTime;
 
 @end
 

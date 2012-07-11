@@ -13,6 +13,7 @@
 @implementation challengeInfo
 
 @synthesize _challengeId;
+@synthesize _createTime;
 @synthesize _opponent;
 @synthesize _isSelfChallenge;
 @synthesize _selfScore;
@@ -234,6 +235,8 @@ static ChallengeCenter* m_inscance;
                  info._canceled = [[challenge objectForKey:ID_CANCEL] boolValue];
                  info._isRejected = [[challenge objectForKey:ID_REJECT] boolValue];
                  info._challengeId = [challenge.objectId retain];
+                 
+                 info._createTime = [challenge createdAt];
                  
                  [m_challengeList addObject:info];
                  

@@ -92,7 +92,7 @@
  */
 - (IBAction)onRevert:(id)sender
 {
-    //TODO 
+    [[ChallengeCenter sharedInstance] CancelChallenge:self._challengeInfo._challengeId];
 }
 
 

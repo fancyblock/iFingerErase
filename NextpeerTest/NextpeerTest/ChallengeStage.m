@@ -191,6 +191,7 @@
         UITableViewCell* viewPlay = [nibs objectAtIndex:1];
         UITableViewCell* viewReaction = [nibs objectAtIndex:2];
         UITableViewCell* viewWait = [nibs objectAtIndex:3];
+        UITableViewCell* viewDismiss = [nibs objectAtIndex:4];
         
         challengeInfo* cInfo = [m_challengeDic objectForKey:user._uid];
         
@@ -203,7 +204,22 @@
         {
             if( cInfo._isSelfChallenge )
             {
-                [cellView addSubview:viewWait];
+                NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                NSCalendarUnit flags = kCFCalendarUnitMinute|NSHourCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit|NSWeekdayOrdinalCalendarUnit|NSMinuteCalendarUnit;
+                NSDateComponents* dateInfo = [calendar components:flags fromDate:cInfo._createTime];
+                NSDateComponents* curDateInfo = [calendar components:flags fromDate:[NSDate date]];
+                [calendar release];
+                
+                int intervalTime = curDateInfo.minute - dateInfo.minute + ( curDateInfo.hour - dateInfo.hour ) * 60;
+                
+                if( dateInfo.day == curDateInfo.day && intervalTime > 10 )
+                {
+                   [cellView addSubview:viewDismiss];
+                }
+                else 
+                {
+                    [cellView addSubview:viewWait];
+                }
             }
             else 
             {
