@@ -445,7 +445,33 @@ static ChallengeCenter* m_inscance;
  */
 - (void)DismissUnreadInfo:(NSString*)uid
 {
-    //TODO 
+    NSMutableArray* unreadList = [m_unreadInfo objectForKey:uid];
+    
+    if( unreadList == nil || [unreadList count] == 0 )
+    {
+        return;
+    }
+    
+    challengeInfo* cInfo = [unreadList lastObject];
+        
+    cInfo._isDone = YES;
+        
+    PFQuery* query = [PFQuery queryWithClassName:@"challengeInfo"];
+    [query whereKey:@"objectId" equalTo:cInfo._challengeId];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject* object, NSError* error)
+     {
+         if( error == nil )
+         {
+             [object setObject:[NSNumber numberWithBool:YES] forKey:ID_FINISH];
+             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
+              {
+                  [unreadList removeAllObjects];
+                  
+                  [self DismissUnreadInfo:uid];
+              }];
+         }
+     }];
+    
 }
 
 

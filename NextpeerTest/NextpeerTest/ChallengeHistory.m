@@ -14,6 +14,7 @@
 
 @interface ChallengeHistory (private)
 
+- (void)dismissUnreadInfo;
 
 @end
 
@@ -32,6 +33,7 @@
 @synthesize _friendUid;
 
 @synthesize _tableView;
+@synthesize _unreadView;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -62,6 +64,32 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    m_isUnreadShow = NO;
+    [self._unreadView setFrame:CGRectMake( 0, 450, 220, 230 )];
+    
+    m_unreadList = [[NSMutableArray alloc] initWithArray:[[ChallengeCenter sharedInstance] GetUnreadList:self._friendUid]];
+    [self._tableView reloadData];
+    
+    // set the badge
+    int unreadCnt = [m_unreadList count];
+    if( unreadCnt > 0 )
+    {
+        NSString* badgeNum = [[NSString alloc] initWithFormat:@"%d", unreadCnt];
+        m_unreadBadge = [CustomBadge customBadgeWithString:badgeNum];
+        [self.view addSubview:m_unreadBadge];
+        [m_unreadBadge setCenter:CGPointMake( 80, 450 )];
+    }
+    else 
+    {
+        m_unreadBadge = nil;
+    }
+}
+
+
 /**
  * @desc    
  * @para    animated
@@ -69,6 +97,8 @@
  */
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
     FBUserInfo* selfInfo = [FacebookManager sharedInstance]._userInfo;
     FBUserInfo* opponentInfo = [[FacebookManager sharedInstance] GetFBUserInfo:self._friendUid];
     
@@ -87,6 +117,26 @@
     self._allTimes.text = [NSString stringWithFormat:@"%d", ( hInfo._winTimes + hInfo._loseTimes + hInfo._cancelTimes + hInfo._rejectTimes ) ];
     
 }
+ 
+
+/**
+ * @desc    disappear
+ * @para    animated
+ * @return  none
+ */
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    if( m_unreadBadge != nil )
+    {
+        [m_unreadBadge removeFromSuperview];
+        m_unreadBadge = nil;
+    }
+    
+    [m_unreadList removeAllObjects];
+    [m_unreadList release];
+}
 
 
 /**
@@ -97,6 +147,37 @@
 - (IBAction)onBack:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:CHALLENGE_UPDATED object:nil];
+}
+
+
+/**
+ * @desc    show or hide the unread view
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onUnreadShow:(id)sender
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.28f];
+    
+    if( m_isUnreadShow == YES )
+    {
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        [self._unreadView setFrame:CGRectMake( 0, 450, 220, 230 )];
+        m_isUnreadShow = NO;
+    }
+    else if( m_isUnreadShow == NO )
+    {
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        [self._unreadView setFrame:CGRectMake( 0, 250, 220, 230 )];
+        m_isUnreadShow = YES;
+        
+        [self dismissUnreadInfo];
+    }
+    
+    [UIView commitAnimations];
 }
 
 
@@ -105,7 +186,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [m_unreadList count];
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -114,14 +195,54 @@
 {
     int index = [indexPath row];
     
-    //TODO 
+    challengeInfo* cInfo = [m_unreadList objectAtIndex:index];
+    UITableViewCell* cell = [[UITableViewCell alloc] init];
+    //[cell setFrame:CGRectMake( 0, 0, 207, 20 )];
+    [cell.textLabel setFont:[UIFont fontWithName:@"System" size:3]];
     
-    return nil;
+    NSString* opponentName = [[FacebookManager sharedInstance] GetFBUserInfo:self._friendUid]._name;
+    
+    if( cInfo._canceled )
+    {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ cancel the challenge", opponentName];
+    }
+    
+    if( cInfo._isRejected )
+    {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ reject your challenge", opponentName];
+    }
+    
+    if( cInfo._selfScore > 0 && cInfo._opponentScore > 0 )
+    {
+        if( cInfo._selfScore < cInfo._opponentScore )
+        {
+            cell.textLabel.text = @"You win";
+        }
+        
+        if( cInfo._selfScore > cInfo._opponentScore )
+        {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ win", opponentName];
+        }
+    }
+    
+    return cell;
 }
 
 
 //----------------------------------- private function -------------------------------------------
 
+
+// dismiss all the unread info
+- (void)dismissUnreadInfo
+{
+    if( m_unreadBadge != nil )
+    {
+        [m_unreadBadge removeFromSuperview];
+        m_unreadBadge = nil;
+    }
+    
+    [[ChallengeCenter sharedInstance] DismissUnreadInfo:self._friendUid];
+}
 
 
 @end

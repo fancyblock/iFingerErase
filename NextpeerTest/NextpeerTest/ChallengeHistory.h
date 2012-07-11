@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomBadge.h"
 
 
 @interface ChallengeHistory : UIViewController<UITableViewDataSource>
 {
-    //TODO 
+    BOOL m_isUnreadShow;
+    CustomBadge* m_unreadBadge;
+    
+    NSMutableArray* m_unreadList;
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView* _imgSelf;
@@ -26,11 +30,13 @@
 @property (nonatomic, retain) IBOutlet UILabel* _allTimes;
 
 @property (nonatomic, retain) IBOutlet UITableView* _tableView;
+@property (nonatomic, retain) IBOutlet UIView* _unreadView;
 
 @property (nonatomic, retain) NSString* _friendUid;
 
 
 - (IBAction)onBack:(id)sender;
+- (IBAction)onUnreadShow:(id)sender;
 
 
 @end
