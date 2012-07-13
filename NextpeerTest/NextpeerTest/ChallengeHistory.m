@@ -22,14 +22,11 @@
 
 @synthesize _winTimes;
 @synthesize _loseTimes;
-@synthesize _cancelTimes;
-@synthesize _rejectTimes;
-@synthesize _allTimes;
+@synthesize _drawTimes;
+@synthesize _opponentName;
 
 @synthesize _imgSelf;
 @synthesize _imgOpponent;
-@synthesize _txtSelfName;
-@synthesize _txtOpponentName;
 @synthesize _friendUid;
 
 @synthesize _tableView;
@@ -69,7 +66,7 @@
     [super viewWillAppear:animated];
     
     m_isUnreadShow = NO;
-    [self._unreadView setFrame:CGRectMake( 0, 450, 220, 230 )];
+    [self._unreadView setFrame:CGRectMake( 71, -372, 249, 403 )];
     
     m_unreadList = [[NSMutableArray alloc] initWithArray:[[ChallengeCenter sharedInstance] GetUnreadList:self._friendUid]];
     [self._tableView reloadData];
@@ -81,7 +78,7 @@
         NSString* badgeNum = [[NSString alloc] initWithFormat:@"%d", unreadCnt];
         m_unreadBadge = [CustomBadge customBadgeWithString:badgeNum];
         [self.view addSubview:m_unreadBadge];
-        [m_unreadBadge setCenter:CGPointMake( 80, 450 )];
+        [m_unreadBadge setCenter:CGPointMake( 215, 26 )];
     }
     else 
     {
@@ -102,19 +99,16 @@
     FBUserInfo* selfInfo = [FacebookManager sharedInstance]._userInfo;
     FBUserInfo* opponentInfo = [[FacebookManager sharedInstance] GetFBUserInfo:self._friendUid];
     
-    self._txtSelfName.text = selfInfo._name;
-    self._txtOpponentName.text = opponentInfo._name;
-    
     SetImageView( self._imgSelf, selfInfo );
     SetImageView( self._imgOpponent, opponentInfo );
     
     historyInfo* hInfo = [[ChallengeCenter sharedInstance] GetHistoryInfo:opponentInfo._uid];
     
+    self._opponentName.text = opponentInfo._name;
+    
     self._winTimes.text = [NSString stringWithFormat:@"%d", hInfo._winTimes];
     self._loseTimes.text = [NSString stringWithFormat:@"%d", hInfo._loseTimes];
-    self._cancelTimes.text = [NSString stringWithFormat:@"%d", hInfo._cancelTimes];
-    self._rejectTimes.text = [NSString stringWithFormat:@"%d", hInfo._rejectTimes];
-    self._allTimes.text = [NSString stringWithFormat:@"%d", ( hInfo._winTimes + hInfo._loseTimes + hInfo._cancelTimes + hInfo._rejectTimes ) ];
+    //self._drawTimes.text = ;
     
 }
  
@@ -160,18 +154,18 @@
 - (IBAction)onUnreadShow:(id)sender
 {
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.28f];
+    [UIView setAnimationDuration:0.45f];
     
     if( m_isUnreadShow == YES )
     {
         [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-        [self._unreadView setFrame:CGRectMake( 0, 450, 220, 230 )];
+        [self._unreadView setFrame:CGRectMake( 71, -372, 249, 403 )];
         m_isUnreadShow = NO;
     }
     else if( m_isUnreadShow == NO )
     {
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        [self._unreadView setFrame:CGRectMake( 0, 250, 220, 230 )];
+        [self._unreadView setFrame:CGRectMake( 71, 0, 249, 403 )];
         m_isUnreadShow = YES;
         
         [self dismissUnreadInfo];

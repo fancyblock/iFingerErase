@@ -31,7 +31,6 @@
 
 @implementation ChallengeStage
 
-@synthesize _navBar;
 @synthesize _tableView;
 @synthesize _loadingMask;
 @synthesize _loadingIcon;
@@ -178,7 +177,7 @@
     {
         cellView = [[UITableViewCell alloc] init];
         
-        cellView.textLabel.text = @"No friend played iFingerErase";
+        cellView.textLabel.text = @"No friend play the game";
     }
     else 
     {
@@ -237,7 +236,7 @@
         {
             CustomBadge* badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", unreadCount]];
             
-            [badge setCenter:CGPointMake(280, 10)];
+            [badge setCenter:CGPointMake(223, 11)];
             [cellView addSubview:badge];
         }
     }
@@ -252,7 +251,7 @@
              {
                  NSArray* path = [NSArray arrayWithObject:indexPath];
                  
-                 [self._tableView reloadRowsAtIndexPaths:path withRowAnimation:UITableViewRowAnimationFade];
+                 [self._tableView reloadRowsAtIndexPaths:path withRowAnimation:UITableViewRowAnimationLeft];
              }];
         }
         else 

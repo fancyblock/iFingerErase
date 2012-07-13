@@ -16,11 +16,11 @@
 
 @property (nonatomic, retain) IBOutlet UILabel* _txtScore;
 @property (nonatomic, retain) IBOutlet UIView* _loadingMask;
-@property (nonatomic, retain) IBOutlet UIImageView* _imgProfile;
-@property (nonatomic, retain) IBOutlet UILabel* _txtName;
 
 
 - (IBAction)onChallenge:(id)sender;
+- (IBAction)onFacebook:(id)sender;
+- (IBAction)onTwitter:(id)sender;
 
 - (void)Initial;
 

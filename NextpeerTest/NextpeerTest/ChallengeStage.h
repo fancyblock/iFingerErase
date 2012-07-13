@@ -19,7 +19,6 @@
     InviteFriends* m_inviteFriendsView;
 }
 
-@property (nonatomic, retain) IBOutlet UINavigationBar* _navBar;
 @property (nonatomic, retain) IBOutlet UITableView* _tableView;
 @property (nonatomic, retain) IBOutlet UIView* _loadingMask;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView* _loadingIcon;

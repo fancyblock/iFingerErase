@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChallengeWin : UIViewController
+@interface ChallengeDone : UIViewController
 {
     //TODO 
 }
 
 @property (nonatomic, retain) IBOutlet UILabel* _txtScore;
+@property (nonatomic, retain) IBOutlet UIImageView* _imgWin;
+@property (nonatomic, retain) IBOutlet UIImageView* _imgLose;
+@property (nonatomic, retain) IBOutlet UIImageView* _imgDraw;
+@property (nonatomic, retain) IBOutlet UIImageView* _stefWin;
+@property (nonatomic, retain) IBOutlet UIImageView* _stefLose;
 
 
 - (IBAction)onOk:(id)sender;

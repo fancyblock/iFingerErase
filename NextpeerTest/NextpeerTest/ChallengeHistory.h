@@ -20,14 +20,11 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView* _imgSelf;
 @property (nonatomic, retain) IBOutlet UIImageView* _imgOpponent;
-@property (nonatomic, retain) IBOutlet UILabel* _txtSelfName;
-@property (nonatomic, retain) IBOutlet UILabel* _txtOpponentName;
 
 @property (nonatomic, retain) IBOutlet UILabel* _winTimes;
 @property (nonatomic, retain) IBOutlet UILabel* _loseTimes;
-@property (nonatomic, retain) IBOutlet UILabel* _cancelTimes;
-@property (nonatomic, retain) IBOutlet UILabel* _rejectTimes;
-@property (nonatomic, retain) IBOutlet UILabel* _allTimes;
+@property (nonatomic, retain) IBOutlet UILabel* _drawTimes;
+@property (nonatomic, retain) IBOutlet UILabel* _opponentName;
 
 @property (nonatomic, retain) IBOutlet UITableView* _tableView;
 @property (nonatomic, retain) IBOutlet UIView* _unreadView;

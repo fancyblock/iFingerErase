@@ -6,20 +6,26 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ChallengeWin.h"
+#import "ChallengeDone.h"
 #import "GlobalWork.h"
 #import "Utility.h"
 #import "ChallengeCenter.h"
 #import "FacebookManager.h"
 
 
-@interface ChallengeWin ()
+@interface ChallengeDone ()
 
 @end
 
-@implementation ChallengeWin
+@implementation ChallengeDone
 
 @synthesize _txtScore;
+@synthesize _imgWin;
+@synthesize _imgLose;
+@synthesize _imgDraw;
+@synthesize _stefWin;
+@synthesize _stefLose;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,6 +65,35 @@
     challengeInfo* info = [GlobalWork sharedInstance]._challengeInfo;
     
     self._txtScore.text = TimeToString( info._selfScore );
+    
+    // set the picture
+    if( info._selfScore < info._opponentScore )
+    {
+        [self._imgWin setHidden:NO];
+        [self._imgLose setHidden:YES];
+        [self._imgDraw setHidden:YES];
+        
+        [self._stefWin setHidden:NO];
+        [self._stefLose setHidden:YES];
+    }
+    else if( info._selfScore > info._opponentScore )
+    {
+        [self._imgWin setHidden:YES];
+        [self._imgLose setHidden:NO];
+        [self._imgDraw setHidden:YES];
+        
+        [self._stefWin setHidden:YES];
+        [self._stefLose setHidden:NO];
+    }
+    else 
+    {
+        [self._imgWin setHidden:YES];
+        [self._imgLose setHidden:YES];
+        [self._imgDraw setHidden:NO];
+        
+        [self._stefWin setHidden:YES];
+        [self._stefLose setHidden:NO];
+    }
     
     [[ChallengeCenter sharedInstance] ResponseChallenge:[GlobalWork sharedInstance]._challengeInfo._challengeId with:[GlobalWork sharedInstance]._challengeInfo._selfScore];
 }

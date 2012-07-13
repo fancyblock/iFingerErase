@@ -468,7 +468,7 @@ static ChallengeCenter* m_inscance;
              [object setObject:[NSNumber numberWithBool:YES] forKey:ID_FINISH];
              [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
               {
-                  [unreadList removeAllObjects];
+                  [unreadList removeLastObject];
                   
                   [self DismissUnreadInfo:uid];
               }];
@@ -580,7 +580,6 @@ static ChallengeCenter* m_inscance;
         NSString* user = [m_playerList objectAtIndex:i];
         
         hInfo = [[historyInfo alloc] init];
-        hInfo._cancelTimes = 0;
         hInfo._loseTimes = 0;
         hInfo._rejectTimes = 0;
         hInfo._winTimes = 0;
@@ -606,17 +605,7 @@ static ChallengeCenter* m_inscance;
             hInfo._loseTimes++;
         }
         
-        // reject
-        if( cInfo._isRejected )
-        {
-            hInfo._rejectTimes++;
-        }
-        
-        // cancel
-        if( cInfo._canceled )
-        {
-            hInfo._cancelTimes++;
-        }
+        //TODO 
         
     }
     

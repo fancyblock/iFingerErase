@@ -22,8 +22,6 @@
 
 @synthesize _txtScore;
 @synthesize _loadingMask;
-@synthesize _txtName;
-@synthesize _imgProfile;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -77,22 +75,7 @@
     
     FBUserInfo* user = [[FacebookManager sharedInstance] GetFBUserInfo:[GlobalWork sharedInstance]._challengedUser];
     
-    self._txtName.text = user._name;
-    
-    if( user._pic == nil )
-    {
-        [[FacebookManager sharedInstance] LoadPicture:user withBlock:^(BOOL succeeded)
-        {
-            if( succeeded == YES )
-            {
-                [self._imgProfile setImage:user._pic];
-            }
-        }];
-    }
-    else 
-    {
-        [self._imgProfile setImage:user._pic];
-    }
+    //TODO 
     
     [self._loadingMask setHidden:YES];
 }
@@ -123,6 +106,35 @@
     [self._loadingMask setHidden:YES];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
+}
+
+
+/**
+ * @desc    post info to the wall
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onFacebook:(id)sender
+{
+    NSString* enemyName = [[FacebookManager sharedInstance] GetFBUserInfo:[GlobalWork sharedInstance]._challengeInfo._opponent]._name;
+    float score = [GlobalWork sharedInstance]._challengeInfo._selfScore;
+    
+    [[FacebookManager sharedInstance] PublishToWall:@"I Win"
+                                           withDesc:[NSString stringWithFormat:@"I beat %@ with %.2f !", enemyName, score]
+                                           withName:@"iFingerErase"
+                                        withPicture:@"http://www.coconutislandstudio.com/asset/iDragPaper/iDragPaper_Normal.png"
+                                           withLink:@"http://fancyblock.sinaapp.com"];
+}
+
+
+/**
+ * @desc    post info to the wall
+ * @para    sender
+ * @return  none
+ */
+- (IBAction)onTwitter:(id)sender
+{
+    //TODO 
 }
 
 
