@@ -8,15 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "InviteFriends.h"
+#import "EGORefreshTableHeaderView.h"
 
 
-@interface ChallengeStage : UIViewController<UITableViewDelegate, UITableViewDataSource, UINavigationBarDelegate>
+@interface ChallengeStage : UIViewController<UITableViewDelegate, UITableViewDataSource, UINavigationBarDelegate, EGORefreshTableHeaderDelegate>
 {
     NSMutableArray* m_playerList;
     NSMutableArray* m_friendList;
     NSMutableDictionary* m_challengeDic;
     
     InviteFriends* m_inviteFriendsView;
+    
+    EGORefreshTableHeaderView* m_refreshView;
+    BOOL m_isRefreshing;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView* _tableView;

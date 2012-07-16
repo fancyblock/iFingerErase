@@ -56,6 +56,16 @@
     m_challengeDic = [[NSMutableDictionary alloc] init];
     m_inviteFriendsView = [[InviteFriends alloc] init];
     
+    // add the refresh view
+    m_refreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake( 0,
+                                                                               -self._tableView.bounds.size.height, 
+                                                                               self.view.frame.size.width, 
+                                                                                self._tableView.bounds.size.height )];
+    m_refreshView.delegate = self;
+    [self._tableView addSubview:m_refreshView];
+    m_isRefreshing = NO;
+    
+    // regisit notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onReloadData) name:CHALLENGE_UPDATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_onShowHistory:) name:@"ShowHistory" object:nil];
     
@@ -270,6 +280,33 @@
 }
 
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{	
+	[m_refreshView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+	[m_refreshView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+
+
+// begin to refresh
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
+{
+    m_isRefreshing = YES;
+    
+    [[ChallengeCenter sharedInstance] FetchAllChallenges:[FacebookManager sharedInstance]._userInfo._uid withCallbackSender:self withCallback:@selector(_onChallengeInfoComplete)];
+}
+
+
+// if refresh done
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
+{
+    return m_isRefreshing;
+}
+
+
 //------------------------------------ callback function -----------------------------------------
 
 // auth done
@@ -355,6 +392,9 @@
         }
     }
     
+    m_isRefreshing = NO;
+    [m_refreshView egoRefreshScrollViewDataSourceDidFinishedLoading:self._tableView];
+    
     [self._loadingMask setHidden:YES];
     [self._loadingIcon stopAnimating];
     [self._tableView reloadData];
@@ -368,6 +408,9 @@
     
     [self.navigationController PushHistoryView:friendsUid];
 }
+
+
+
 
 
 @end
