@@ -17,6 +17,10 @@
 @property (nonatomic, retain) IBOutlet UILabel* _txtScore;
 @property (nonatomic, retain) IBOutlet UIView* _loadingMask;
 
+@property (nonatomic, retain) IBOutlet UIImageView* _opponentPic;
+@property (nonatomic, retain) IBOutlet UILabel* _opponentName;
+
+
 
 - (IBAction)onChallenge:(id)sender;
 - (IBAction)onFacebook:(id)sender;

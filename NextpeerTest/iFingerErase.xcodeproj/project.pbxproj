@@ -28,6 +28,9 @@
 		CF73886215B3C0370017E130 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF73885C15B3C0370017E130 /* grayArrow@2x.png */; };
 		CF73886515B3C5FF0017E130 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CF73886315B3C5FF0017E130 /* whiteArrow.png */; };
 		CF73886615B3C5FF0017E130 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF73886415B3C5FF0017E130 /* whiteArrow@2x.png */; };
+		CF73889715B3E5000017E130 /* huangguan.png in Resources */ = {isa = PBXBuildFile; fileRef = CF73889415B3E5000017E130 /* huangguan.png */; };
+		CF73889815B3E5000017E130 /* touxiang.png in Resources */ = {isa = PBXBuildFile; fileRef = CF73889515B3E5000017E130 /* touxiang.png */; };
+		CF73889915B3E5000017E130 /* xiangkuang_2.png in Resources */ = {isa = PBXBuildFile; fileRef = CF73889615B3E5000017E130 /* xiangkuang_2.png */; };
 		CF743C7315A2E57900306D99 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF743C7215A2E57900306D99 /* close@2x.png */; };
 		CF743C7815A2F2BF00306D99 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C7715A2F2BF00306D99 /* Utility.m */; };
 		CF743C8615A30E3F00306D99 /* ChallengeHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = CF743C8415A30E3E00306D99 /* ChallengeHistory.m */; };
@@ -143,6 +146,9 @@
 		CF73885C15B3C0370017E130 /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
 		CF73886315B3C5FF0017E130 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		CF73886415B3C5FF0017E130 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
+		CF73889415B3E5000017E130 /* huangguan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = huangguan.png; sourceTree = "<group>"; };
+		CF73889515B3E5000017E130 /* touxiang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touxiang.png; sourceTree = "<group>"; };
+		CF73889615B3E5000017E130 /* xiangkuang_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xiangkuang_2.png; sourceTree = "<group>"; };
 		CF743C7215A2E57900306D99 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close@2x.png"; path = "facebook-ios-sdk/FBDialog.bundle/images/close@2x.png"; sourceTree = "<group>"; };
 		CF743C7615A2F2BF00306D99 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		CF743C7715A2F2BF00306D99 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
@@ -298,6 +304,8 @@
 		CF7615BA159D7C6000B1CF4D /* ChallengeUIViews */ = {
 			isa = PBXGroup;
 			children = (
+				CF743C7615A2F2BF00306D99 /* Utility.h */,
+				CF743C7715A2F2BF00306D99 /* Utility.m */,
 				CF743C8315A30E3E00306D99 /* ChallengeHistory.h */,
 				CF743C8415A30E3E00306D99 /* ChallengeHistory.m */,
 				CF743C8515A30E3E00306D99 /* ChallengeHistory.xib */,
@@ -324,6 +332,9 @@
 		CF7BCF64159189FE0090BE5E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				CF73889415B3E5000017E130 /* huangguan.png */,
+				CF73889515B3E5000017E130 /* touxiang.png */,
+				CF73889615B3E5000017E130 /* xiangkuang_2.png */,
 				CF73886315B3C5FF0017E130 /* whiteArrow.png */,
 				CF73886415B3C5FF0017E130 /* whiteArrow@2x.png */,
 				CF73885715B3C0370017E130 /* blackArrow.png */,
@@ -441,8 +452,6 @@
 				CF80DF1E157DBB8800E5F2C0 /* CanvasView.m */,
 				CF78A1E11581F84C00F7AD77 /* GlobalWork.h */,
 				CF78A1E21581F84C00F7AD77 /* GlobalWork.m */,
-				CF743C7615A2F2BF00306D99 /* Utility.h */,
-				CF743C7715A2F2BF00306D99 /* Utility.m */,
 				CF7C52811575C608008F929A /* AppDelegate.h */,
 				CF7C52821575C608008F929A /* AppDelegate.m */,
 				CF7C52841575C608008F929A /* ViewController.h */,
@@ -647,6 +656,9 @@
 				CF73886215B3C0370017E130 /* grayArrow@2x.png in Resources */,
 				CF73886515B3C5FF0017E130 /* whiteArrow.png in Resources */,
 				CF73886615B3C5FF0017E130 /* whiteArrow@2x.png in Resources */,
+				CF73889715B3E5000017E130 /* huangguan.png in Resources */,
+				CF73889815B3E5000017E130 /* touxiang.png in Resources */,
+				CF73889915B3E5000017E130 /* xiangkuang_2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

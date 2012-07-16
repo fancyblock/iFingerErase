@@ -22,6 +22,8 @@
 
 @synthesize _txtScore;
 @synthesize _loadingMask;
+@synthesize _opponentPic;
+@synthesize _opponentName;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -75,7 +77,8 @@
     
     FBUserInfo* user = [[FacebookManager sharedInstance] GetFBUserInfo:[GlobalWork sharedInstance]._challengedUser];
     
-    //TODO 
+    self._opponentName.text = user._name;
+    SetImageView( self._opponentPic, user );
     
     [self._loadingMask setHidden:YES];
 }

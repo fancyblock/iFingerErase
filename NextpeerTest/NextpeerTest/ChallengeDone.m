@@ -26,6 +26,11 @@
 @synthesize _stefWin;
 @synthesize _stefLose;
 
+@synthesize _opponentPic;
+@synthesize _opponentName;
+@synthesize _opponentScore;
+@synthesize _crown;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,6 +72,8 @@
     self._txtScore.text = TimeToString( info._selfScore );
     
     // set the picture
+    
+    // Win
     if( info._selfScore < info._opponentScore )
     {
         [self._imgWin setHidden:NO];
@@ -75,7 +82,10 @@
         
         [self._stefWin setHidden:NO];
         [self._stefLose setHidden:YES];
+        
+        [self._crown setHidden:YES];
     }
+    // Lose
     else if( info._selfScore > info._opponentScore )
     {
         [self._imgWin setHidden:YES];
@@ -84,7 +94,10 @@
         
         [self._stefWin setHidden:YES];
         [self._stefLose setHidden:NO];
+        
+        [self._crown setHidden:NO];
     }
+    // Draw game
     else 
     {
         [self._imgWin setHidden:YES];
@@ -93,7 +106,14 @@
         
         [self._stefWin setHidden:YES];
         [self._stefLose setHidden:NO];
+        
+        [self._crown setHidden:YES];
     }
+    
+    FBUserInfo* opponent = [[FacebookManager sharedInstance] GetFBUserInfo:info._opponent];
+    self._opponentName.text = opponent._name;
+    self._opponentScore.text = TimeToString( info._opponentScore );
+    SetImageView( self._opponentPic, opponent );
     
     [[ChallengeCenter sharedInstance] ResponseChallenge:[GlobalWork sharedInstance]._challengeInfo._challengeId with:[GlobalWork sharedInstance]._challengeInfo._selfScore];
 }

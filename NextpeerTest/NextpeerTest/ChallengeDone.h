@@ -20,6 +20,11 @@
 @property (nonatomic, retain) IBOutlet UIImageView* _stefWin;
 @property (nonatomic, retain) IBOutlet UIImageView* _stefLose;
 
+@property (nonatomic, retain) IBOutlet UIImageView* _opponentPic;
+@property (nonatomic, retain) IBOutlet UILabel* _opponentName;
+@property (nonatomic, retain) IBOutlet UILabel* _opponentScore;
+@property (nonatomic, retain) IBOutlet UIImageView* _crown;
+
 
 - (IBAction)onOk:(id)sender;
 - (IBAction)onFacebook:(id)sender;
