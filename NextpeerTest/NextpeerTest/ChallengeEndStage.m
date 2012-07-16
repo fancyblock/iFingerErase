@@ -57,9 +57,7 @@
 
 - (IBAction)onChallenge:(id)sender
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    [self challengeFriend];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
 }
 
 
@@ -78,6 +76,9 @@
     
     self._opponentName.text = user._name;
     SetImageView( self._opponentPic, user );
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self challengeFriend];
 }
 
 
@@ -104,8 +105,6 @@
 - (void)_onSendChallengeDone
 {
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
 }
 
 

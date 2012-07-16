@@ -63,15 +63,15 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="210108861">
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="1010429998">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">ok_2.png</string>
+							<string key="NSResourceName">btn_back_pushed.png</string>
 						</object>
-						<reference key="IBUIDisabledImage" ref="210108861"/>
-						<reference key="IBUISelectedImage" ref="210108861"/>
+						<reference key="IBUIDisabledImage" ref="1010429998"/>
+						<reference key="IBUISelectedImage" ref="1010429998"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">ok_1.png</string>
+							<string key="NSResourceName">btn_back_normal.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="587845559">
 							<int key="type">2</int>
@@ -516,16 +516,11 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="_loadingMask">UIView</string>
 						<string key="_opponentName">UILabel</string>
 						<string key="_opponentPic">UIImageView</string>
 						<string key="_txtScore">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="_loadingMask">
-							<string key="name">_loadingMask</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="_opponentName">
 							<string key="name">_opponentName</string>
 							<string key="candidateClassName">UILabel</string>
@@ -555,14 +550,14 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="btn_back_normal.png">{208, 74}</string>
+			<string key="btn_back_pushed.png">{208, 74}</string>
 			<string key="btn_facebook_normal.png">{260, 94}</string>
 			<string key="btn_facebook_pushed.png">{260, 94}</string>
 			<string key="btn_twitter_normal.png">{260, 95}</string>
 			<string key="btn_twitter_pushed.png">{260, 95}</string>
 			<string key="challenge.png">{376, 66}</string>
 			<string key="kuang.png">{402, 110}</string>
-			<string key="ok_1.png">{208, 74}</string>
-			<string key="ok_2.png">{208, 74}</string>
 			<string key="stef_1.png">{522, 378}</string>
 			<string key="touxiang.png">{50, 50}</string>
 			<string key="xiangkuang_2.png">{89, 88}</string>
