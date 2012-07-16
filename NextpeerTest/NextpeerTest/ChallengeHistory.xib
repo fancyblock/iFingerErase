@@ -473,6 +473,14 @@
 					<int key="connectionID">61</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_btnUnread</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="650602457"/>
+					</object>
+					<int key="connectionID">62</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">onUnreadShow:</string>
 						<reference key="source" ref="650602457"/>
@@ -664,7 +672,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">61</int>
+			<int key="maxID">62</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -686,6 +694,7 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_btnUnread">UIButton</string>
 						<string key="_drawTimes">UILabel</string>
 						<string key="_imgOpponent">UIImageView</string>
 						<string key="_imgSelf">UIImageView</string>
@@ -696,6 +705,10 @@
 						<string key="_winTimes">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_btnUnread">
+							<string key="name">_btnUnread</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="_drawTimes">
 							<string key="name">_drawTimes</string>
 							<string key="candidateClassName">UILabel</string>

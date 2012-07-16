@@ -31,6 +31,7 @@
 
 @synthesize _tableView;
 @synthesize _unreadView;
+@synthesize _btnUnread;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -79,10 +80,13 @@
         m_unreadBadge = [CustomBadge customBadgeWithString:badgeNum];
         [self.view addSubview:m_unreadBadge];
         [m_unreadBadge setCenter:CGPointMake( 215, 26 )];
+        
+        [self._btnUnread setEnabled:YES];
     }
     else 
     {
         m_unreadBadge = nil;
+        [self._btnUnread setEnabled:NO];
     }
 }
 

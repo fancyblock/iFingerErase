@@ -110,6 +110,7 @@
         [self._crown setHidden:YES];
     }
     
+    // set the opponent info 
     FBUserInfo* opponent = [[FacebookManager sharedInstance] GetFBUserInfo:info._opponent];
     self._opponentName.text = opponent._name;
     self._opponentScore.text = TimeToString( info._opponentScore );

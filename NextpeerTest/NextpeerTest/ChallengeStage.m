@@ -32,8 +32,6 @@
 @implementation ChallengeStage
 
 @synthesize _tableView;
-@synthesize _loadingMask;
-@synthesize _loadingIcon;
 @synthesize _connectFBView;
 
 
@@ -152,8 +150,7 @@
 {
     [self._connectFBView setHidden:YES];
     
-    [self._loadingMask setHidden:NO];
-    [self._loadingIcon startAnimating];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     // get all the challenge info
     [m_playerList removeAllObjects];
     [m_friendList removeAllObjects];
@@ -395,8 +392,7 @@
     m_isRefreshing = NO;
     [m_refreshView egoRefreshScrollViewDataSourceDidFinishedLoading:self._tableView];
     
-    [self._loadingMask setHidden:YES];
-    [self._loadingIcon stopAnimating];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self._tableView reloadData];
 }
 

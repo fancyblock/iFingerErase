@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GlobalWork.h"
+#import "MBProgressHUD.h"
 
 @interface ChallengeEndStage : UIViewController
 {
@@ -15,7 +16,6 @@
 }
 
 @property (nonatomic, retain) IBOutlet UILabel* _txtScore;
-@property (nonatomic, retain) IBOutlet UIView* _loadingMask;
 
 @property (nonatomic, retain) IBOutlet UIImageView* _opponentPic;
 @property (nonatomic, retain) IBOutlet UILabel* _opponentName;

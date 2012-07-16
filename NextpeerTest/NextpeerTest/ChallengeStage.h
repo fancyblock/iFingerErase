@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "InviteFriends.h"
 #import "EGORefreshTableHeaderView.h"
+#import "MBProgressHUD.h"
 
 
 @interface ChallengeStage : UIViewController<UITableViewDelegate, UITableViewDataSource, UINavigationBarDelegate, EGORefreshTableHeaderDelegate>
@@ -24,8 +25,6 @@
 }
 
 @property (nonatomic, retain) IBOutlet UITableView* _tableView;
-@property (nonatomic, retain) IBOutlet UIView* _loadingMask;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* _loadingIcon;
 @property (nonatomic, retain) IBOutlet UIView* _connectFBView;
 
 

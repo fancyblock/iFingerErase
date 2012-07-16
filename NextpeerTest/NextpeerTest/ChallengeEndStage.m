@@ -21,7 +21,6 @@
 
 
 @synthesize _txtScore;
-@synthesize _loadingMask;
 @synthesize _opponentPic;
 @synthesize _opponentName;
 
@@ -58,7 +57,7 @@
 
 - (IBAction)onChallenge:(id)sender
 {
-    [self._loadingMask setHidden:NO];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [self challengeFriend];
 }
@@ -79,8 +78,6 @@
     
     self._opponentName.text = user._name;
     SetImageView( self._opponentPic, user );
-    
-    [self._loadingMask setHidden:YES];
 }
 
 
@@ -106,7 +103,7 @@
 // on challenge done
 - (void)_onSendChallengeDone
 {
-    [self._loadingMask setHidden:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_MAINMENU] userInfo:nil];
 }
