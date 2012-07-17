@@ -23,6 +23,13 @@
 @synthesize _txtScore;
 @synthesize _opponentPic;
 @synthesize _opponentName;
+@synthesize _crown;
+@synthesize _imgWin;
+@synthesize _imgDraw;
+@synthesize _imgLose;
+@synthesize _imgChallenge;
+@synthesize _opponentScore;
+@synthesize _txtBannerInfo;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -38,8 +45,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    [self Initial];
 }
 
 - (void)viewDidUnload
@@ -68,17 +73,72 @@
  */
 - (void)Initial
 {
+    // set elapse time
     NSString* txtTime = TimeToString( [GlobalWork sharedInstance]._elapseTime );
-    
     self._txtScore.text = [NSString stringWithFormat:@"%@", txtTime];
     
+    // set challenger info
     FBUserInfo* user = [[FacebookManager sharedInstance] GetFBUserInfo:[GlobalWork sharedInstance]._challengedUser];
-    
     self._opponentName.text = user._name;
     SetImageView( self._opponentPic, user );
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [self challengeFriend];
+    if( [GlobalWork sharedInstance]._gameMode == ACCEPT_CHALLENGE_MODE )
+    {
+        self._txtBannerInfo.text = @"";
+        [self._imgChallenge setHidden:YES];
+        
+        challengeInfo* info = [GlobalWork sharedInstance]._challengeInfo;
+        
+        // Win
+        if( info._selfScore < info._opponentScore )
+        {
+            [self._imgWin setHidden:NO];
+            [self._imgLose setHidden:YES];
+            [self._imgDraw setHidden:YES];
+            
+            [self._crown setHidden:YES];
+        }
+        // Lose
+        else if( info._selfScore > info._opponentScore )
+        {
+            [self._imgWin setHidden:YES];
+            [self._imgLose setHidden:NO];
+            [self._imgDraw setHidden:YES];
+            
+            [self._crown setHidden:NO];
+        }
+        // Draw game
+        else 
+        {
+            [self._imgWin setHidden:YES];
+            [self._imgLose setHidden:YES];
+            [self._imgDraw setHidden:NO];
+            
+            [self._crown setHidden:YES];
+        }
+        
+        // set the opponent info 
+        FBUserInfo* opponent = [[FacebookManager sharedInstance] GetFBUserInfo:info._opponent];
+        self._opponentName.text = opponent._name;
+        self._opponentScore.text = TimeToString( info._opponentScore );
+        SetImageView( self._opponentPic, opponent );
+        
+        [[ChallengeCenter sharedInstance] ResponseChallenge:[GlobalWork sharedInstance]._challengeInfo._challengeId with:[GlobalWork sharedInstance]._challengeInfo._selfScore];
+    }
+    
+    if( [GlobalWork sharedInstance]._gameMode == CHALLENGE_MODE )
+    {
+        self._txtBannerInfo.text = @"Score has been sent to";
+        [self._imgChallenge setHidden:NO];
+        self._opponentScore.text = @"??:??:??";
+        [self._imgDraw setHidden:YES];
+        [self._imgLose setHidden:YES];
+        [self._imgWin setHidden:YES];
+        [self._crown setHidden:YES];
+        
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [self challengeFriend];
+    }
 }
 
 

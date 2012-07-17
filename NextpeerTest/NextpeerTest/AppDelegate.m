@@ -58,7 +58,6 @@
     m_endViewController = [[EndStage alloc] initWithNibName:@"EndStage" bundle:nil];
     m_challengeEndController = [[ChallengeEndStage alloc] initWithNibName:@"ChallengeEndStage" bundle:nil];
     m_challengeController = [[ChallengeNavStage alloc] initial];
-    m_challengeDoneController = [[ChallengeDone alloc] initWithNibName:@"ChallengeDone" bundle:nil];
     
     // initial the Parse
     [Parse setApplicationId:@"zKzUtc34Q5C5oiir18xXaVmr0bZURwkpCtPvMVhX"
@@ -210,11 +209,6 @@
     if( type == STAGE_CHALLENGE )
     {
         [self switchToView:m_challengeController withCallback:nil];
-    }
-    
-    if( type == STAGE_CHALLENGE_DONE )
-    {
-        [self switchToView:m_challengeDoneController withCallback:nil];
     }
     
 }

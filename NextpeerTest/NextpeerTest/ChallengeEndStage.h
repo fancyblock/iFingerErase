@@ -19,7 +19,13 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView* _opponentPic;
 @property (nonatomic, retain) IBOutlet UILabel* _opponentName;
-
+@property (nonatomic, retain) IBOutlet UIImageView* _imgChallenge;
+@property (nonatomic, retain) IBOutlet UIImageView* _imgWin;
+@property (nonatomic, retain) IBOutlet UIImageView* _imgLose;
+@property (nonatomic, retain) IBOutlet UIImageView* _imgDraw;
+@property (nonatomic, retain) IBOutlet UILabel* _opponentScore;
+@property (nonatomic, retain) IBOutlet UIImageView* _crown;
+@property (nonatomic, retain) IBOutlet UILabel* _txtBannerInfo;
 
 
 - (IBAction)onChallenge:(id)sender;

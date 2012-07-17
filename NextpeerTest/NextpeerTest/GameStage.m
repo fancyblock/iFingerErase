@@ -188,27 +188,18 @@
     }
     
     // challenge mode
-    if( self._mode == CHALLENGE_MODE )
+    if( self._mode == CHALLENGE_MODE || self._mode == ACCEPT_CHALLENGE_MODE )
     {
         if( m_maxDotCnt == m_curDotCnt )
         {
             [self End];
+            
+            if( self._mode == ACCEPT_CHALLENGE_MODE )
+            {
+                [GlobalWork sharedInstance]._challengeInfo._selfScore = m_elapsedTime;
+            }
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE_END] userInfo:nil];
-        }
-    }
-    
-    // accept challenge mode
-    if( self._mode == ACCEPT_CHALLENGE_MODE )
-    {
-        if( m_maxDotCnt == m_curDotCnt )
-        {
-            [self End];
-            
-            [GlobalWork sharedInstance]._challengeInfo._selfScore = m_elapsedTime;
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchStage" object:[NSNumber numberWithInt:STAGE_CHALLENGE_DONE] userInfo:nil];
-            
         }
     }
     
