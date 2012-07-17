@@ -243,7 +243,7 @@
         {
             CustomBadge* badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", unreadCount]];
             
-            [badge setCenter:CGPointMake(223, 11)];
+            [badge setCenter:CGPointMake(256, 11)];
             [cellView addSubview:badge];
         }
     }

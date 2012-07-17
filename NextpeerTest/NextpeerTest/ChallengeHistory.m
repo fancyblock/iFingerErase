@@ -24,6 +24,7 @@
 @synthesize _loseTimes;
 @synthesize _drawTimes;
 @synthesize _opponentName;
+@synthesize _selfName;
 
 @synthesize _imgSelf;
 @synthesize _imgOpponent;
@@ -109,10 +110,12 @@
     historyInfo* hInfo = [[ChallengeCenter sharedInstance] GetHistoryInfo:opponentInfo._uid];
     
     self._opponentName.text = opponentInfo._name;
+    self._selfName.text = selfInfo._name;
     
     self._winTimes.text = [NSString stringWithFormat:@"%d", hInfo._winTimes];
     self._loseTimes.text = [NSString stringWithFormat:@"%d", hInfo._loseTimes];
     //self._drawTimes.text = ;
+    //TODO 
     
 }
  

@@ -25,6 +25,7 @@
 @property (nonatomic, retain) IBOutlet UILabel* _loseTimes;
 @property (nonatomic, retain) IBOutlet UILabel* _drawTimes;
 @property (nonatomic, retain) IBOutlet UILabel* _opponentName;
+@property (nonatomic, retain) IBOutlet UILabel* _selfName;
 
 @property (nonatomic, retain) IBOutlet UITableView* _tableView;
 @property (nonatomic, retain) IBOutlet UIView* _unreadView;
