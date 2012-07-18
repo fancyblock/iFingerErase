@@ -16,6 +16,7 @@
 @synthesize _challengeInfo;
 @synthesize _imgChallenger;
 @synthesize _txtInfo;
+@synthesize _background;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

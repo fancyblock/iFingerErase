@@ -265,6 +265,15 @@
         {
             [challengeCellView._imgChallenger setImage:user._pic];
         }
+        
+        if( index % 2 == 0 )
+        {
+            [challengeCellView._background setBackgroundColor:[UIColor colorWithRed:238.0f/255.0f green:239.0f/255.0f blue:244.0f/255.0f alpha:1]];
+        }
+        else
+        {
+            [challengeCellView._background setBackgroundColor:[UIColor colorWithRed:216.0f/255.0f green:219.0f/255.0f blue:239.0f/255.0f alpha:1]];
+        }
     }
     
     return cellView;

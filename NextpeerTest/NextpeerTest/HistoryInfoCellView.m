@@ -13,6 +13,7 @@
 @synthesize _time;
 @synthesize _title;
 @synthesize _result;
+@synthesize _background;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

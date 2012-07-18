@@ -16,5 +16,6 @@
 @property (nonatomic, retain) IBOutlet UILabel* _title;
 @property (nonatomic, retain) IBOutlet UILabel* _time;
 @property (nonatomic, retain) IBOutlet UILabel* _result;
+@property (nonatomic, retain) IBOutlet UIView* _background;
 
 @end

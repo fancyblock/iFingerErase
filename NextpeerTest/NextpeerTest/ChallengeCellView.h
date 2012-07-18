@@ -21,6 +21,7 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView* _imgChallenger;
 @property (nonatomic, retain) IBOutlet UILabel* _txtInfo;
+@property (nonatomic, retain) IBOutlet UIView* _background;
 
 
 - (IBAction)onHistory:(id)sender;

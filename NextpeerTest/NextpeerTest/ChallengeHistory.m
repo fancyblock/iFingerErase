@@ -253,7 +253,7 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
     FBUserInfo* opponentInfo = [[FacebookManager sharedInstance] GetFBUserInfo:cInfo._opponent];
     
     cell._title.text = [NSString stringWithFormat:@"%@ vs %@", selfInfo._name, opponentInfo._name];
-    cell._time.text = [cInfo._createTime description];
+    cell._time.text = [cInfo._createTime descriptionWithLocale:[NSLocale currentLocale]];
     
     // cancel the challenge
     if( cInfo._canceled )
@@ -281,6 +281,15 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
         {
             cell._result.text = @"You lose";
         }
+    }
+    
+    if( index % 2 == 0 )
+    {
+        [cell._background setBackgroundColor:[UIColor colorWithRed:238.0f/255.0f green:239.0f/255.0f blue:244.0f/255.0f alpha:1]];
+    }
+    else
+    {
+        [cell._background setBackgroundColor:[UIColor colorWithRed:216.0f/255.0f green:219.0f/255.0f blue:239.0f/255.0f alpha:1]];
     }
     
     return cell;
