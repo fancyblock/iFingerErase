@@ -10,6 +10,21 @@
 #import "ChallengeCenter.h"
 #import "Utility.h"
 #import "FacebookManager.h"
+#import "HistoryInfoCellView.h"
+
+
+const int BADGE_POS_X     = 215;
+const int BADGE_POS_Y     = 26; 
+
+const int CELL_HEIGHT     = 64;
+
+const int MESSAGE_VIEW_WIDTH      = 249;
+const int MESSAGE_VIEW_HEIGHT     = 403;
+
+const int MESSAGE_VIEW_X          = 71;
+const int MESSAGE_VIEW_BTN_HEIGHT = 38;
+
+const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
 
 
 @interface ChallengeHistory (private)
@@ -33,6 +48,7 @@
 @synthesize _tableView;
 @synthesize _unreadView;
 @synthesize _btnUnread;
+@synthesize _btnRollUp;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -68,7 +84,6 @@
     [super viewWillAppear:animated];
     
     m_isUnreadShow = NO;
-    [self._unreadView setFrame:CGRectMake( 71, -372, 249, 403 )];
     
     m_unreadList = [[NSMutableArray alloc] initWithArray:[[ChallengeCenter sharedInstance] GetUnreadList:self._friendUid]];
     [self._tableView reloadData];
@@ -80,15 +95,28 @@
         NSString* badgeNum = [[NSString alloc] initWithFormat:@"%d", unreadCnt];
         m_unreadBadge = [CustomBadge customBadgeWithString:badgeNum];
         [self.view addSubview:m_unreadBadge];
-        [m_unreadBadge setCenter:CGPointMake( 215, 26 )];
+        [m_unreadBadge setCenter:CGPointMake( BADGE_POS_X, BADGE_POS_Y )];
         
-        [self._btnUnread setEnabled:YES];
+        [self._btnUnread setHidden:NO];
+        [self._btnRollUp setHidden:YES];
+        [self._unreadView setHidden:NO];
+        
     }
     else 
     {
         m_unreadBadge = nil;
-        [self._btnUnread setEnabled:NO];
+        [self._unreadView setHidden:YES];
     }
+    
+    // set the table view height
+    int tableViewHeight = unreadCnt * CELL_HEIGHT;
+    if( tableViewHeight <= 0 || tableViewHeight > MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT )
+    {
+        tableViewHeight = MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT;
+    }
+    
+    [self._tableView setFrame:CGRectMake( 0, MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT - tableViewHeight, MESSAGE_VIEW_WIDTH, tableViewHeight )];
+    [self._unreadView setFrame:CGRectMake( MESSAGE_VIEW_X, -MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT, MESSAGE_VIEW_WIDTH, MESSAGE_VIEW_HEIGHT )];
 }
 
 
@@ -160,19 +188,39 @@
  */
 - (IBAction)onUnreadShow:(id)sender
 {
+    if( m_isUnreadShow == YES )
+    {
+        [self._btnUnread setHidden:NO];
+        [self._btnRollUp setHidden:YES];
+    }
+    
+    if( m_isUnreadShow == NO )
+    {
+        [self._btnUnread setHidden:YES];
+        [self._btnRollUp setHidden:NO];
+    }
+    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.45f];
+    
+    // set the table view height
+    int unreadCnt = [m_unreadList count];
+    int tableViewHeight = unreadCnt * CELL_HEIGHT;
+    if( tableViewHeight <= 0 || tableViewHeight > MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT )
+    {
+        tableViewHeight = MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT;
+    }
     
     if( m_isUnreadShow == YES )
     {
         [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-        [self._unreadView setFrame:CGRectMake( 71, -372, 249, 403 )];
+        [self._unreadView setFrame:CGRectMake( MESSAGE_VIEW_X, -MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT, MESSAGE_VIEW_WIDTH, MESSAGE_VIEW_HEIGHT )];
         m_isUnreadShow = NO;
     }
     else if( m_isUnreadShow == NO )
     {
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        [self._unreadView setFrame:CGRectMake( 71, 0, 249, 403 )];
+        [self._unreadView setFrame:CGRectMake( MESSAGE_VIEW_X, -( MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT - tableViewHeight ), MESSAGE_VIEW_WIDTH, MESSAGE_VIEW_HEIGHT )];
         m_isUnreadShow = YES;
         
         [self dismissUnreadInfo];
@@ -197,32 +245,41 @@
     int index = [indexPath row];
     
     challengeInfo* cInfo = [m_unreadList objectAtIndex:index];
-    UITableViewCell* cell = [[UITableViewCell alloc] init];
-    //[cell setFrame:CGRectMake( 0, 0, 207, 20 )];
-    [cell.textLabel setFont:[UIFont fontWithName:@"System" size:3]];
     
-    NSString* opponentName = [[FacebookManager sharedInstance] GetFBUserInfo:self._friendUid]._name;
+    NSArray* nibs = [[NSBundle mainBundle] loadNibNamed:@"HistoryInfoCellView" owner:self options:nil];
+    HistoryInfoCellView* cell = [nibs objectAtIndex:0];
     
+    FBUserInfo* selfInfo = [FacebookManager sharedInstance]._userInfo;
+    FBUserInfo* opponentInfo = [[FacebookManager sharedInstance] GetFBUserInfo:cInfo._opponent];
+    
+    cell._title.text = [NSString stringWithFormat:@"%@ vs %@", selfInfo._name, opponentInfo._name];
+    cell._time.text = [cInfo._createTime description];
+    
+    // cancel the challenge
     if( cInfo._canceled )
     {
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ cancel the challenge", opponentName];
+        cell._result.text = [NSString stringWithFormat:@"%@ canceled the challenge", opponentInfo._name];
     }
     
+    // reject the challenge
     if( cInfo._isRejected )
     {
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ reject your challenge", opponentName];
+        cell._result.text = [NSString stringWithFormat:@"%@ rejected your challenge", opponentInfo._name];
     }
     
+    // accept the challenge
     if( cInfo._selfScore > 0 && cInfo._opponentScore > 0 )
     {
+        // win the challenge
         if( cInfo._selfScore < cInfo._opponentScore )
         {
-            cell.textLabel.text = @"You win";
+            cell._result.text = @"You win";
         }
         
+        // lose the challenge
         if( cInfo._selfScore > cInfo._opponentScore )
         {
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ win", opponentName];
+            cell._result.text = @"You lose";
         }
     }
     

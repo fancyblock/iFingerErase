@@ -30,6 +30,7 @@
 @property (nonatomic, retain) IBOutlet UITableView* _tableView;
 @property (nonatomic, retain) IBOutlet UIView* _unreadView;
 @property (nonatomic, retain) IBOutlet UIButton* _btnUnread;
+@property (nonatomic, retain) IBOutlet UIButton* _btnRollUp;
 
 @property (nonatomic, retain) NSString* _friendUid;
 
