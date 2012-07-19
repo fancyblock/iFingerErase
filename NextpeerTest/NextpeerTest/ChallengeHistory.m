@@ -18,10 +18,10 @@ const int BADGE_POS_Y     = 26;
 
 const int CELL_HEIGHT     = 64;
 
-const int MESSAGE_VIEW_WIDTH      = 249;
-const int MESSAGE_VIEW_HEIGHT     = 403;
+const int MESSAGE_VIEW_WIDTH      = 254;
+const int MESSAGE_VIEW_HEIGHT     = 408;
 
-const int MESSAGE_VIEW_X          = 71;
+const int MESSAGE_VIEW_X          = 66;
 const int MESSAGE_VIEW_BTN_HEIGHT = 38;
 
 const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
@@ -30,6 +30,7 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
 @interface ChallengeHistory (private)
 
 - (void)dismissUnreadInfo;
+- (void)showWinLogo;
 
 @end
 
@@ -49,6 +50,8 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
 @synthesize _unreadView;
 @synthesize _btnUnread;
 @synthesize _btnRollUp;
+
+@synthesize _winLogo;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -115,8 +118,10 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
         tableViewHeight = MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT;
     }
     
-    [self._tableView setFrame:CGRectMake( 0, MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT - tableViewHeight, MESSAGE_VIEW_WIDTH, tableViewHeight )];
-    [self._unreadView setFrame:CGRectMake( MESSAGE_VIEW_X, -MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT, MESSAGE_VIEW_WIDTH, MESSAGE_VIEW_HEIGHT )];
+    [self._tableView setFrame:CGRectMake( 5, MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT - tableViewHeight, MESSAGE_VIEW_WIDTH, tableViewHeight )];
+    [self._unreadView setFrame:CGRectMake( MESSAGE_VIEW_X, -MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT-5, MESSAGE_VIEW_WIDTH, MESSAGE_VIEW_HEIGHT )];
+    
+    [self._winLogo setHidden:YES];
 }
 
 
@@ -144,6 +149,10 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
     self._loseTimes.text = [NSString stringWithFormat:@"%d", hInfo._loseTimes];
     //self._drawTimes.text = ;
     //TODO 
+    
+    //[TEMP]
+    [self showWinLogo];
+    //[TEMP]
     
 }
  
@@ -214,7 +223,7 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
     if( m_isUnreadShow == YES )
     {
         [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-        [self._unreadView setFrame:CGRectMake( MESSAGE_VIEW_X, -MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT, MESSAGE_VIEW_WIDTH, MESSAGE_VIEW_HEIGHT )];
+        [self._unreadView setFrame:CGRectMake( MESSAGE_VIEW_X, -MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT-5, MESSAGE_VIEW_WIDTH, MESSAGE_VIEW_HEIGHT )];
         m_isUnreadShow = NO;
     }
     else if( m_isUnreadShow == NO )
@@ -309,6 +318,28 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
     }
     
     [[ChallengeCenter sharedInstance] DismissUnreadInfo:self._friendUid];
+}
+
+
+// show the win animation
+- (void)showWinLogo
+{
+    [self._winLogo setHidden:NO];
+    
+    [UIView beginAnimations:nil context:nil];
+    
+    [self._winLogo setFrame:CGRectMake( 400, 260, 39, 31 )];
+    self._winLogo.alpha = 0.3f;
+    [UIView setAnimationDuration:0.5f];
+    
+    [self._winLogo setFrame:CGRectMake( 203, 260, 39, 31 )];
+    self._winLogo.alpha = 1.0f;
+    
+    //TODO 
+    
+    [UIView commitAnimations];
+    
+    //TODO 
 }
 
 

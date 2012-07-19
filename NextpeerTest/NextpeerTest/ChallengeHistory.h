@@ -33,6 +33,7 @@
 @property (nonatomic, retain) IBOutlet UIButton* _btnRollUp;
 
 @property (nonatomic, retain) NSString* _friendUid;
+@property (nonatomic, retain) IBOutlet UIImageView* _winLogo;
 
 
 - (IBAction)onBack:(id)sender;
