@@ -179,7 +179,7 @@
 							<object class="IBUILabel" id="590944988">
 								<reference key="NSNextResponder" ref="327580865"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{165, 23}, {78, 21}}</string>
+								<string key="NSFrame">{{146, 23}, {65, 21}}</string>
 								<reference key="NSSuperview" ref="327580865"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="778013012"/>
@@ -197,6 +197,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
+								<int key="IBUITextAlignment">1</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="171405502">
 									<string key="name">ArialRoundedMTBold</string>
 									<string key="family">Arial Rounded MT Bold</string>
@@ -212,7 +213,7 @@
 							<object class="IBUILabel" id="89123030">
 								<reference key="NSNextResponder" ref="327580865"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{165, 66}, {78, 21}}</string>
+								<string key="NSFrame">{{146, 66}, {65, 21}}</string>
 								<reference key="NSSuperview" ref="327580865"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="604311870"/>
@@ -230,13 +231,14 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
+								<int key="IBUITextAlignment">1</int>
 								<reference key="IBUIFontDescription" ref="171405502"/>
 								<reference key="IBUIFont" ref="608672597"/>
 							</object>
 							<object class="IBUILabel" id="236689711">
 								<reference key="NSNextResponder" ref="327580865"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{165, 110}, {78, 21}}</string>
+								<string key="NSFrame">{{146, 110}, {65, 21}}</string>
 								<reference key="NSSuperview" ref="327580865"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="502867380"/>
@@ -254,6 +256,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
+								<int key="IBUITextAlignment">1</int>
 								<reference key="IBUIFontDescription" ref="171405502"/>
 								<reference key="IBUIFont" ref="608672597"/>
 							</object>
@@ -403,7 +406,22 @@
 					<object class="IBUIImageView" id="502867380">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{202, 260}, {39, 31}}</string>
+						<string key="NSFrame">{{228, 260}, {39, 31}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="1004630504"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">plus.png</string>
+						</object>
+					</object>
+					<object class="IBUIImageView" id="1004630504">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{228, 303}, {39, 31}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -412,7 +430,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">plus.png</string>
+							<string key="NSResourceName">plus_gray.png</string>
 						</object>
 					</object>
 					<object class="IBUIView" id="948885503">
@@ -673,6 +691,14 @@
 					<int key="connectionID">76</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_loseDrawLogo</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1004630504"/>
+					</object>
+					<int key="connectionID">79</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">onUnreadShow:</string>
 						<reference key="source" ref="650602457"/>
@@ -735,6 +761,7 @@
 							<reference ref="245952443"/>
 							<reference ref="716573121"/>
 							<reference ref="502867380"/>
+							<reference ref="1004630504"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -901,6 +928,11 @@
 						<reference key="object" ref="502867380"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">78</int>
+						<reference key="object" ref="1004630504"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -939,12 +971,13 @@
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="75.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="78.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">76</int>
+			<int key="maxID">79</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -971,6 +1004,7 @@
 						<string key="_drawTimes">UILabel</string>
 						<string key="_imgOpponent">UIImageView</string>
 						<string key="_imgSelf">UIImageView</string>
+						<string key="_loseDrawLogo">UIImageView</string>
 						<string key="_loseTimes">UILabel</string>
 						<string key="_opponentName">UILabel</string>
 						<string key="_selfName">UILabel</string>
@@ -998,6 +1032,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="_imgSelf">
 							<string key="name">_imgSelf</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_loseDrawLogo">
+							<string key="name">_loseDrawLogo</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="_loseTimes">
@@ -1054,6 +1092,7 @@
 			<string key="history.png">{204, 66}</string>
 			<string key="lost.png">{202, 36}</string>
 			<string key="plus.png">{78, 62}</string>
+			<string key="plus_gray.png">{78, 62}</string>
 			<string key="title2.png">{570, 46}</string>
 			<string key="touxiang.png">{50, 50}</string>
 			<string key="unread_1.png">{280, 76}</string>

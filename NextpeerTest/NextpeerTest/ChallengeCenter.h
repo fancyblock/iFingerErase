@@ -24,6 +24,11 @@
 
 #define CHALLENGE_UPDATED   @"challenge_updated"
 
+#define WIN_GAME        1
+#define LOSE_GAME       2
+#define DRAW_GAME       3
+#define PENDING_GAME    4
+
 
 @interface challengeInfo:NSObject
 
@@ -45,6 +50,7 @@
 
 @property (nonatomic, readwrite) int _winTimes;
 @property (nonatomic, readwrite) int _loseTimes;
+@property (nonatomic, readwrite) int _drawTimes;
 @property (nonatomic, readwrite) int _cancelTimes;
 @property (nonatomic, readwrite) int _rejectTimes;
 
@@ -88,5 +94,7 @@
 - (NSArray*)GetUnreadList:(NSString*)uid;
 
 - (historyInfo*)GetHistoryInfo:(NSString*)uid;
+
+- (int)GetGameResult:(challengeInfo*)info;
 
 @end

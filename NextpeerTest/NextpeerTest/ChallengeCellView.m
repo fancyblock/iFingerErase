@@ -17,6 +17,9 @@
 @synthesize _imgChallenger;
 @synthesize _txtInfo;
 @synthesize _background;
+@synthesize _btnWin;
+@synthesize _btnDraw;
+@synthesize _btnLose;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

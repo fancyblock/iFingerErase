@@ -16,6 +16,9 @@
     CustomBadge* m_unreadBadge;
     
     NSMutableArray* m_unreadList;
+    
+    int m_result;
+    int m_curResultTimes;
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView* _imgSelf;
@@ -34,6 +37,7 @@
 
 @property (nonatomic, retain) NSString* _friendUid;
 @property (nonatomic, retain) IBOutlet UIImageView* _winLogo;
+@property (nonatomic, retain) IBOutlet UIImageView* _loseDrawLogo;
 
 
 - (IBAction)onBack:(id)sender;

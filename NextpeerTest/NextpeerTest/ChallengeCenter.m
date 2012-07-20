@@ -29,6 +29,7 @@
 
 @synthesize _winTimes;
 @synthesize _loseTimes;
+@synthesize _drawTimes;
 @synthesize _cancelTimes;
 @synthesize _rejectTimes;
 
@@ -478,6 +479,37 @@ static ChallengeCenter* m_inscance;
 }
 
 
+/**
+ * @desc    judge the challenge result
+ * @para    challengeInfo
+ * @return  result
+ */
+- (int)GetGameResult:(challengeInfo*)info
+{
+    int result = PENDING_GAME;
+    
+    // win 
+    if( info._selfScore > 0 && info._opponentScore > 0 && info._selfScore < info._opponentScore )
+    {
+        result = WIN_GAME;
+    }
+    
+    // lose
+    if( info._selfScore > 0 && info._opponentScore > 0 && info._selfScore > info._opponentScore )
+    {
+        result = LOSE_GAME;
+    }
+    
+    // draw
+    if( info._selfScore > 0 && info._opponentScore > 0 && info._selfScore == info._opponentScore )
+    {
+        result = DRAW_GAME;
+    }
+    
+    return result;
+}
+
+
 //------------------------------------ private function ------------------------------------------ 
 
 
@@ -593,19 +625,22 @@ static ChallengeCenter* m_inscance;
         challengeInfo* cInfo = [m_challengeList objectAtIndex:i];
         hInfo = [m_historyInfo objectForKey:cInfo._opponent];
         
-        // win 
-        if( cInfo._selfScore > 0 && cInfo._opponentScore > 0 && cInfo._selfScore < cInfo._opponentScore )
+        int result = [self GetGameResult:cInfo];
+        
+        if( result == WIN_GAME )
         {
             hInfo._winTimes++;
         }
         
-        // lose
-        if( cInfo._selfScore > 0 && cInfo._opponentScore > 0 && cInfo._selfScore > cInfo._opponentScore )
+        if( result == LOSE_GAME )
         {
             hInfo._loseTimes++;
         }
         
-        //TODO 
+        if( result == DRAW_GAME )
+        {
+            hInfo._drawTimes++;
+        }
         
     }
     

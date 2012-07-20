@@ -14,6 +14,10 @@
 #import "FacebookManager.h"
 #import "CustomBadge.h"
 
+#define COOLDOWN_MIN        10
+#define UNREAD_BADGE_X      265
+#define UNREAD_BADGE_Y      11
+
 
 @interface ChallengeStage (private)
 
@@ -198,52 +202,93 @@
         UITableViewCell* viewReaction = [nibs objectAtIndex:2];
         UITableViewCell* viewWait = [nibs objectAtIndex:3];
         UITableViewCell* viewDismiss = [nibs objectAtIndex:4];
+        UITableViewCell* viewResult = [nibs objectAtIndex:5];
         
-        challengeInfo* cInfo = [m_challengeDic objectForKey:user._uid];
+        challengeInfo* cInfo = nil;
         
-        if( cInfo == nil )
+        // check if you've got a game result
+        int result = PENDING_GAME;
+        NSArray* unreadList = [[ChallengeCenter sharedInstance] GetUnreadList:user._uid];
+        for( int i = 0; i < [unreadList count]; i++ )
         {
-            [cellView addSubview:viewPlay];
+            cInfo = [unreadList objectAtIndex:i];
+            
+            result = [[ChallengeCenter sharedInstance] GetGameResult:cInfo];
+            if( result != PENDING_GAME )
+            {
+                break;
+            }
         }
         
-        if( cInfo != nil )
+        if( result != PENDING_GAME )
         {
-            if( cInfo._isSelfChallenge )
+            [cellView addSubview:viewResult];
+            
+            [challengeCellView._btnWin setHidden:YES];
+            [challengeCellView._btnLose setHidden:YES];
+            [challengeCellView._btnDraw setHidden:YES];
+            
+            if( result == WIN_GAME )
             {
-                NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-                NSCalendarUnit flags = kCFCalendarUnitMinute|NSHourCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit|NSWeekdayOrdinalCalendarUnit|NSMinuteCalendarUnit;
-                NSDateComponents* dateInfo = [calendar components:flags fromDate:cInfo._createTime];
-                NSDateComponents* curDateInfo = [calendar components:flags fromDate:[NSDate date]];
-                [calendar release];
-                
-                int intervalTime = curDateInfo.minute - dateInfo.minute + ( curDateInfo.hour - dateInfo.hour ) * 60;
-                
-                if( dateInfo.day == curDateInfo.day && intervalTime > 10 )
+                [challengeCellView._btnWin setHidden:NO]; 
+            }
+            
+            if( result == LOSE_GAME )
+            {
+                [challengeCellView._btnLose setHidden:NO];
+            }
+            
+            if( result == DRAW_GAME )
+            {
+                [challengeCellView._btnDraw setHidden:NO];
+            }
+        }
+        else
+        {
+            cInfo = [m_challengeDic objectForKey:user._uid];
+            
+            if( cInfo == nil )
+            {
+                [cellView addSubview:viewPlay];
+            }
+            
+            if( cInfo != nil )
+            {
+                if( cInfo._isSelfChallenge )
                 {
-                   [cellView addSubview:viewDismiss];
+                    NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                    NSCalendarUnit flags = kCFCalendarUnitMinute|NSHourCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit|NSWeekdayOrdinalCalendarUnit|NSMinuteCalendarUnit;
+                    NSDateComponents* dateInfo = [calendar components:flags fromDate:cInfo._createTime];
+                    NSDateComponents* curDateInfo = [calendar components:flags fromDate:[NSDate date]];
+                    [calendar release];
+                    
+                    int intervalTime = curDateInfo.minute - dateInfo.minute + ( curDateInfo.hour - dateInfo.hour ) * 60;
+                    
+                    if( dateInfo.day == curDateInfo.day && intervalTime > COOLDOWN_MIN )
+                    {
+                        [cellView addSubview:viewDismiss];
+                    }
+                    else 
+                    {
+                        [cellView addSubview:viewWait];
+                    }
                 }
                 else 
                 {
-                    [cellView addSubview:viewWait];
+                    [cellView addSubview:viewReaction];
                 }
-            }
-            else 
-            {
-                [cellView addSubview:viewReaction];
             }
         }
         
         challengeCellView._challengeInfo = cInfo;
         challengeCellView._opponentUid = user._uid;
         
-        // add badge for indicate the unread info
-        int unreadCount = [[[ChallengeCenter sharedInstance] GetUnreadList:user._uid] count];
-        
-        if( unreadCount > 0 )
+        // add badge for indicate the unread info        
+        if( [unreadList count] > 0 )
         {
-            CustomBadge* badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", unreadCount]];
+            CustomBadge* badge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", [unreadList count]]];
             
-            [badge setCenter:CGPointMake(256, 11)];
+            [badge setCenter:CGPointMake( UNREAD_BADGE_X, UNREAD_BADGE_Y )];
             [cellView addSubview:badge];
         }
     }

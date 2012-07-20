@@ -23,6 +23,10 @@
 @property (nonatomic, retain) IBOutlet UILabel* _txtInfo;
 @property (nonatomic, retain) IBOutlet UIView* _background;
 
+@property (nonatomic, retain) IBOutlet UIButton* _btnWin;
+@property (nonatomic, retain) IBOutlet UIButton* _btnLose;
+@property (nonatomic, retain) IBOutlet UIButton* _btnDraw;
+
 
 - (IBAction)onHistory:(id)sender;
 - (IBAction)onPlay:(id)sender;

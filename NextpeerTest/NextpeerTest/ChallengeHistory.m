@@ -30,7 +30,8 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
 @interface ChallengeHistory (private)
 
 - (void)dismissUnreadInfo;
-- (void)showWinLogo;
+- (void)plusOneAnimation;
+- (void)numberPlusAnimation;
 
 @end
 
@@ -52,6 +53,7 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
 @synthesize _btnRollUp;
 
 @synthesize _winLogo;
+@synthesize _loseDrawLogo;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -122,6 +124,19 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
     [self._unreadView setFrame:CGRectMake( MESSAGE_VIEW_X, -MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT-5, MESSAGE_VIEW_WIDTH, MESSAGE_VIEW_HEIGHT )];
     
     [self._winLogo setHidden:YES];
+    
+    // ready for the winnter's animation
+    m_result = PENDING_GAME;
+    for( int i = 0; i < unreadCnt; i++ )
+    {
+        challengeInfo* cInfo = [m_unreadList objectAtIndex:i];
+        
+        m_result = [[ChallengeCenter sharedInstance] GetGameResult:cInfo];
+        if( m_result != PENDING_GAME )
+        {
+            break;
+        }
+    }
 }
 
 
@@ -145,15 +160,44 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
     self._opponentName.text = opponentInfo._name;
     self._selfName.text = selfInfo._name;
     
-    self._winTimes.text = [NSString stringWithFormat:@"%d", hInfo._winTimes];
-    self._loseTimes.text = [NSString stringWithFormat:@"%d", hInfo._loseTimes];
-    //self._drawTimes.text = ;
-    //TODO 
+    if( m_result == WIN_GAME )
+    {
+        m_curResultTimes = hInfo._winTimes - 1;
+        self._winTimes.text = [NSString stringWithFormat:@"%d", m_curResultTimes];
+    }
+    else 
+    {
+        self._winTimes.text = [NSString stringWithFormat:@"%d", hInfo._winTimes];
+    }
     
-    //[TEMP]
-    [self showWinLogo];
-    //[TEMP]
+    if( m_result == LOSE_GAME )
+    {
+        m_curResultTimes = hInfo._loseTimes - 1;
+        self._loseTimes.text = [NSString stringWithFormat:@"%d", m_curResultTimes];
+    }
+    else 
+    {
+        self._loseTimes.text = [NSString stringWithFormat:@"%d", hInfo._loseTimes];
+    }
     
+    if( m_result == DRAW_GAME )
+    {
+        m_curResultTimes = hInfo._drawTimes - 1;
+        self._drawTimes.text = [NSString stringWithFormat:@"%d", m_curResultTimes];
+    }
+    else 
+    {
+        self._drawTimes.text = [NSString stringWithFormat:@"%d", hInfo._drawTimes];
+    }
+    
+    //[TEMP] 
+    //m_result = WIN_GAME;
+
+    // show the winner's animation
+    if( m_result != PENDING_GAME ) 
+    {
+        [self plusOneAnimation];
+    }
 }
  
 
@@ -322,24 +366,118 @@ const int MESSAGE_VIEW_MAX_TABLEVIEW_HEIGHT = 372;
 
 
 // show the win animation
-- (void)showWinLogo
+- (void)plusOneAnimation
 {
-    [self._winLogo setHidden:NO];
+    [self._winLogo setHidden:YES];
+    [self._loseDrawLogo setHidden:YES];
+    
+    UIImageView* imgView = nil;
+    
+    CGRect initPos = CGRectMake( 400, 260, 39, 31 );
+    CGRect destPos = CGRectMake( 228, 260, 39, 32 );
+    
+    if( m_result == WIN_GAME )
+    {
+        initPos.origin.y = 260;
+        destPos.origin.y = 260;
+        
+        imgView = self._winLogo;
+    }
+    
+    if( m_result == LOSE_GAME )
+    {
+        initPos.origin.y = 303;
+        destPos.origin.y = 303;
+        
+        imgView = self._loseDrawLogo;
+    }
+    
+    if( m_result == DRAW_GAME )
+    {
+        initPos.origin.y = 346;
+        destPos.origin.y = 346;
+        
+        imgView = self._loseDrawLogo;
+    }
+    
+    [imgView setHidden:NO];
+    [imgView setFrame:initPos];
+    imgView.alpha = 0.3f;
     
     [UIView beginAnimations:nil context:nil];
     
-    [self._winLogo setFrame:CGRectMake( 400, 260, 39, 31 )];
-    self._winLogo.alpha = 0.3f;
-    [UIView setAnimationDuration:0.5f];
-    
-    [self._winLogo setFrame:CGRectMake( 203, 260, 39, 31 )];
-    self._winLogo.alpha = 1.0f;
-    
-    //TODO 
+    [UIView animateWithDuration:0.45f animations:^
+    {
+        [imgView setFrame:destPos];        //the x
+        imgView.alpha = 1.0f;
+        
+    } completion:^(BOOL finished)
+    {
+        [UIView beginAnimations:nil context:nil];
+        
+        [UIView animateWithDuration:0.4f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^
+         {
+             imgView.alpha = 0.0f;
+             [self numberPlusAnimation];
+             
+         } completion:^(BOOL finished)
+         {
+             //TODO 
+         }];
+        
+        [UIView commitAnimations];
+    }];
     
     [UIView commitAnimations];
+}
+
+
+// win number plus animation
+- (void)numberPlusAnimation
+{
+    m_curResultTimes++;
     
-    //TODO 
+    UILabel* scoreLabel = nil;
+    if( m_result == WIN_GAME )
+    {
+        scoreLabel = self._winTimes;
+    }
+    
+    if( m_result == LOSE_GAME )
+    {
+        scoreLabel = self._loseTimes;
+    }
+    
+    if( m_result == DRAW_GAME )
+    {
+        scoreLabel = self._drawTimes;
+    }
+       
+    scoreLabel.text = [NSString stringWithFormat:@"%d", m_curResultTimes];
+    
+    [UIView beginAnimations:nil context:nil];
+    
+    [UIView animateWithDuration:0.4f animations:^
+     {
+         [scoreLabel setTransform:CGAffineTransformMake(1.8f, 0, 0, 1.8f, 0, 0)];
+         
+     } completion:^(BOOL finished)
+     {
+         [UIView beginAnimations:nil context:nil];
+         
+         [UIView animateWithDuration:0.2f animations:^
+          {
+              [scoreLabel setTransform:CGAffineTransformMake(1.0f, 0, 0, 1.0f, 0, 0)];
+          }completion:^(BOOL finished)
+          {
+              // open the message list
+              [self onUnreadShow:nil];
+          }];
+         
+         [UIView commitAnimations];
+     }];
+    
+    [UIView commitAnimations];
 }
 
 
